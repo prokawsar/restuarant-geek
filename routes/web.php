@@ -13,11 +13,27 @@
 
 Route::get('/', function () {
     if(Auth::check()){
-        return view('home');
+        return view('owner.home');
     }
     return view('welcome');
 });
 
+Route::get('makeorder', function(){
+    return view('makeorder');
+})->name('makeorder');
+
+Route::get('takereview', function(){
+    return view('review');
+})->name('review');
+
 Auth::routes();
+
+Route::get('/kitchen', function(){
+    return view('kitchen');
+})->name('kitchen');
+
+Route::get('/profile', function(){
+    return view('owner.profile');
+})->name('profile');
 
 Route::get('/home', 'HomeController@index')->name('home');

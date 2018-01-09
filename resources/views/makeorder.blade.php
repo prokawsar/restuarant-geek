@@ -1,27 +1,28 @@
-@section('title', 'Login')
+@section('title', 'Make Order')
 
-@extends('layouts.app')
+@extends('layouts.waiter')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Restaurant Login</div>
+        
+                <div class="panel-heading">Waiter Login</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" method="POST" action="#">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="form-group{{ $errors->has('uCode') ? ' has-error' : '' }}">
+                            <label for="uCode" class="col-md-4 control-label">Unique Code</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="uCode" type="text" class="form-control" name="uCode" value="{{ old('uCode') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('uCode'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('uCode') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -42,30 +43,17 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-md-8 col-md-offset-4 pull-right">
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-
+                                
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
 
                             </div>
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

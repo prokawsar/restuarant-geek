@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar @php if(Auth::check()){ echo 'navbar-inverse'; } else echo 'navbar-default'; @endphp navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -38,21 +38,8 @@
                     <ul class="nav navbar-nav">
                     @guest
                     @else
-                        <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    My Restaurant <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    
-                                    <li><a href="#">My Items</a></li>
-                                    <li><a href="#">My Customers</a></li>
-                                    <li><a href="#">My Reviews</a></li>
-                                </ul>
-                            </li>
-
-                        <li><a href="{{ route('kitchen') }}">Kitchen View</a></li>
-                        <li><a href="#">SMS Campaign</a></li>
+                        <li><a href="#">All Orders</a></li>
+                        <li><a href="{{ route('review') }}">Take Review</a></li>
                     @endguest
                     </ul>
 
@@ -60,8 +47,6 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -70,9 +55,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('profile') }}" >
+                                        <!-- <a href="#" >
                                             Profile
-                                        </a>
+                                        </a> -->
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
