@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/waiter/makeorder') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -36,21 +36,19 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                    @guest
-                    @else
+                    @php if(Auth::guard('waiter')->check()) { @endphp
                         <li><a href="#">All Orders</a></li>
                         <li><a href="{{ route('review') }}">Take Review</a></li>
-                    @endguest
+                    @php } @endphp
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @guest
-                        @else
+                        @php if(Auth::guard('waiter')->user()) { @endphp
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->rest_name }} <span class="caret"></span>
+                                    <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -58,19 +56,19 @@
                                         <!-- <a href="#" >
                                             Profile
                                         </a> -->
-                                        <a href="{{ route('logout') }}"
+                                        <a href="{{ route('wlogout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('wlogout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
                                 </ul>
                             </li>
-                        @endguest
+                        @php } @endphp
                     </ul>
                 </div>
             </div>

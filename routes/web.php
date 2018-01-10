@@ -18,13 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('makeorder', function(){
-    return view('makeorder');
-})->name('makeorder');
 
-Route::get('takereview', function(){
-    return view('review');
-})->name('review');
+Route::get('/makeorder', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
 
 Auth::routes();
 
@@ -37,3 +32,15 @@ Route::get('/profile', function(){
 })->name('profile');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'waiter'], function () {
+  Route::get('/login', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
+  Route::post('/login', 'WaiterAuth\LoginController@login');
+  Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
+
+
+    Route::get('/takereview', function(){
+        return view('review');
+    })->name('review');
+
+});

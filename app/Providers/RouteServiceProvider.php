@@ -39,7 +39,28 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapWaiterRoutes();
+
         //
+    }
+
+    /**
+     * Define the "waiter" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWaiterRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'waiter', 'auth:waiter'],
+            'prefix' => 'waiter',
+            'as' => 'waiter.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/waiter.php');
+        });
     }
 
     /**

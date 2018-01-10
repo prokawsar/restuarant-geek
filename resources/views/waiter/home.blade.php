@@ -1,4 +1,4 @@
-@section('title', 'Make Order')
+@section('title', 'Waiter Order')
 
 @extends('layouts.waiter')
 
@@ -7,13 +7,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-        
-                <div class="panel-heading">All Items</div>
+                <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    Hello Items {{ $data }}
+                    You are logged in as Waiter! {{ $data }}
                 </div>
-
             </div>
         </div>
     </div>
