@@ -11,6 +11,7 @@
     <title>@yield('title') | Restaurant Geek</title>
 
     <!-- Styles -->
+    <link href="{{ asset('css/adminLTE.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -45,9 +46,9 @@
 
                                 <ul class="dropdown-menu">
                                     
-                                    <li><a href="#">My Items</a></li>
+                                    <li><a href="{{ route('allitem') }}">My Items</a></li>
                                     <li><a href="#">My Customers</a></li>
-                                    <li><a href="#">My Reviews</a></li>
+                                    <li><a href="{{ route('allreview') }}">My Reviews</a></li>
                                 </ul>
                             </li>
 

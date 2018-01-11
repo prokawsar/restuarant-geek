@@ -18,10 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/makeorder', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
 
 Auth::routes();
+
+Route::get('/ucode', function(){
+    return view('owner.ucode');
+})->name('ucode');
+
+Route::get('/allitem', function(){
+    return view('item.allitem');
+})->name('allitem');
+
+Route::get('/allreview', function(){
+    return view('owner.allreview');
+})->name('allreview');
 
 Route::get('/kitchen', function(){
     return view('kitchen');
@@ -38,9 +49,8 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::post('/login', 'WaiterAuth\LoginController@login');
   Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
 
-
-    Route::get('/takereview', function(){
-        return view('review');
-    })->name('review');
+  Route::get('/takereview', function(){
+    return view('review');
+  })->name('review');
 
 });

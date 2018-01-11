@@ -18,6 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
+            if($guard == 'waiter'){
+                return redirect('waiter/makeorder');
+            }
             return redirect('/home');
         }
 

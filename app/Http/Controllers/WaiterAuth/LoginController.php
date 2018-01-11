@@ -81,11 +81,27 @@ class LoginController extends Controller
             return redirect()->intended($this->redirectPath());
         }
 
-        return redirect($this->loginPath())
+        return redirect(route('wlogin'))
                     ->withInput($request->only('uCode'))
                     ->withErrors([
-                        'uCode' => $this->getFailedLoginMessage(),
+                        // 'uCode' => $this->getFailedLoginMessage(),
+                        'uCode' => "Problem with uCode or password !!",
                     ]);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        // $this->guard()->logout();
+        //auth('waiter')->logout();
+        Auth::guard('waiter')->logout();
+
+        return redirect('/waiter/login');
     }
 
 }

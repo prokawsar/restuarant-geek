@@ -18,7 +18,7 @@ class RedirectIfNotWaiter
 	public function handle($request, Closure $next, $guard = 'waiter')
 	{
 	    if (!Auth::guard($guard)->check()) {
-	        return redirect('/makeorder');
+	        return redirect('waiter/login');
 	    }
 
 	    return $next($request);
