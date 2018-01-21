@@ -30,6 +30,18 @@ Route::get('/allitem', function(){
     return view('item.allitem');
 })->name('allitem');
 
+Route::get('/additem', function(){
+    return view('item.add');
+})->name('additem');
+
+Route::get('/alltable', function(){
+    return view('table.allTable');
+})->name('allTable');
+
+Route::get('/addtable', function(){
+    return view('table.addTable');
+})->name('addTable');
+
 Route::get('/allreview', function(){
     return view('owner.allreview');
 })->name('allreview');
@@ -52,5 +64,12 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::get('/takereview', function(){
     return view('review');
   })->name('review');
+
+});
+
+Route::group(['prefix' => 'admin'], function () {
+  Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('alogin');
+  Route::post('/login', 'AdminAuth\LoginController@login');
+  Route::post('/logout', 'AdminAuth\LoginController@logout')->name('alogout');
 
 });

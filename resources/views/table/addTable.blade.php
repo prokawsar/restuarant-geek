@@ -1,4 +1,4 @@
-@section('title', 'Add Item')
+@section('title', 'Add Table')
 
 @extends('layouts.app')
 
@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Item Add</div>--}}
+                {{--<div class="panel-heading">Table Add</div>--}}
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -21,31 +21,19 @@
 
                                 <div class="modal-header">
 
-                                    <h4 class="modal-title">Add Item</h4>
+                                    <h4 class="modal-title">Add Table</h4>
 
                                 </div>
 
                                 <div class="modal-body">
 
-
-
                                     <form data-toggle="validator" action="#" method="POST">
 
                                         <div class="form-group">
 
-                                            <label class="control-label" for="title">Title:</label>
+                                            <label class="control-label" for="title">Name/Title:</label>
 
                                             <input type="text" name="title" class="form-control" data-error="Please enter title." required />
-
-                                            <div class="help-block with-errors"></div>
-
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <label class="control-label" for="title">Price:</label>
-
-                                            <input type="text" name="price" class="form-control" data-error="Please enter price." required />
 
                                             <div class="help-block with-errors"></div>
 

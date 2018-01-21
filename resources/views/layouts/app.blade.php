@@ -47,12 +47,14 @@
                                 <ul class="dropdown-menu">
                                     
                                     <li><a href="{{ route('allitem') }}">My Items</a></li>
+                                    <li><a href="{{ route('allTable') }}">My Tables</a></li>
                                     <li><a href="#">My Customers</a></li>
                                     <li><a href="{{ route('allreview') }}">My Reviews</a></li>
                                 </ul>
                             </li>
 
                         <li><a href="{{ route('kitchen') }}">Kitchen View</a></li>
+                        <li><a href="#">All Orders</a></li>
                         <li><a href="#">SMS Campaign</a></li>
                     @endguest
                     </ul>

@@ -64,6 +64,7 @@ class Handler extends ExceptionHandler
          $guard = array_get($exception->guards(), 0);
          switch ($guard){
              case 'waiter': $login = 'waiter/login'; break;
+             case 'admin': $login = 'admin/login'; break;
              default: $login = 'login';
          }
          return redirect()->guest($login);

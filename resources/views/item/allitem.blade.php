@@ -5,10 +5,17 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-6 col-md-offset-5">
+            <a href="{{ route('additem') }}" class="btn btn-success">Add New Item</a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
         <div class="col-md-12">
+
             <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading">All Item</div>
+                <div class="panel-heading">All Item </div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -16,7 +23,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Div 1
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -51,7 +58,7 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            Div 2
+
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>

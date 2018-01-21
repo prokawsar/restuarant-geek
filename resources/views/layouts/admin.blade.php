@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/waiter/makeorder') }}">
+                    <a class="navbar-brand" href="{{ url('/admin/home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -36,16 +36,16 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                    @php if(Auth::guard('waiter')->check()) { @endphp
+                    @php if(Auth::guard('admin')->check()) { @endphp
 
-                        <li><a href="{{ route('review') }}">Take Review</a></li>
+                        <li><a href="">All Restaurant</a></li>
                     @php } @endphp
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @php if(Auth::guard('waiter')->user()) { @endphp
+                        @php if(Auth::guard('admin')->user()) { @endphp
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                 Notificatoin <span class="caret"></span>
@@ -65,17 +65,17 @@
                                     <!-- <a href="#" >
                                         Profile
                                     </a> -->
-                                    <a href="{{ route('wlogout') }}"
+                                    <a href="{{ route('alogout') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('wlogout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('alogout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
-
+                        
                         @php } @endphp
                     </ul>
                 </div>
