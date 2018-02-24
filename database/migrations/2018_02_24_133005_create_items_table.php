@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWaitersTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +13,14 @@ class CreateWaitersTable extends Migration
      */
     public function up()
     {
-        Schema::create('waiters', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('item_name');
+            $table->float('price');
+            $table->string('image');
             $table->integer('rest_id')->unsigned();
-            $table->string('wCode')->unique();
-            $table->string('password');
-
-            $table->primary('rest_id');
             $table->foreign('rest_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateWaitersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('waiters');
+        Schema::dropIfExists('items');
     }
 }

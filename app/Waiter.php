@@ -16,7 +16,7 @@ class Waiter extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uCode', 'password', 'rest_id'
+        'uCode', 'password'
     ];
 
     /**

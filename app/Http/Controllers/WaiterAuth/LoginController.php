@@ -66,26 +66,30 @@ class LoginController extends Controller
     // Checking login by override
     public function login(Request $request)
     {   
-        // dd($request);
+//         dd($request);
+//        return $request;
 
         $this->validate($request, [
-            'uCode' => 'required', 'password' => 'required',
+            'wCode' => 'required', 'password' => 'required',
         ]);
 
-        $credentials = $request->only('uCode', 'password');
+        $credentials = $request->only('wCode', 'password');
 
         // if ($this->auth->guard('waiters')->attempt($credentials))
-        if(Auth::guard('waiter')->attempt( ['uCode' => $request->uCode, 'password' => $request->password] ))
+        if(Auth::guard('waiter')->attempt( ['wCode' => $request->wCode, 'password' => $request->password] ))
         {   
-            // return view('waiter.home');
-            return redirect()->intended($this->redirectPath());
+//             return view('waiter.home');
+//            return redirect('waiter/makeorder');
+
+//            return redirect()->intended($this->redirectPath());
+            return redirect(route('makeorder'));
         }
 
         return redirect(route('wlogin'))
-                    ->withInput($request->only('uCode'))
+                    ->withInput($request->only('wCode'))
                     ->withErrors([
                         // 'uCode' => $this->getFailedLoginMessage(),
-                        'uCode' => "Problem with uCode or password !!",
+                        'wCode' => "Problem with wCode or password !!",
                     ]);
     }
 

@@ -13,16 +13,12 @@ class WaiterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('waiter');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('makeorder');
+        $data = "All Items";
+        return view('makeorder', compact('data'));
     }
 }

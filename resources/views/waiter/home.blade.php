@@ -1,4 +1,4 @@
-@section('title', 'Waiter Order')
+@section('title', 'Make Order')
 
 @extends('layouts.waiter')
 

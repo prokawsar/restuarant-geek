@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/makeorder', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
+//Route::get('/makeorder', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
 
 Auth::routes();
 
@@ -60,6 +60,7 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::get('/login', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
   Route::post('/login', 'WaiterAuth\LoginController@login');
   Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
+  Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
 
   Route::get('/takereview', function(){
     return view('review');
@@ -73,3 +74,17 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('alogout');
 
 });
+
+//
+//Route::group(['middleware' => 'auth:waiter'], function () {
+//    Route::get('/waiter/makeorder', function () {
+////        $users[] = Auth::user();
+////        $users[] = Auth::guard()->user();
+////        $users[] = Auth::guard('waiter')->user();
+//
+//        //dd($users);
+//        $data = "All Items";
+//        return view('makeorder', compact('data'));
+//    })->name('makeorder');
+//
+//});
