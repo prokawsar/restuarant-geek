@@ -14,11 +14,13 @@ class CreateWaitersTable extends Migration
     {
         Schema::create('waiters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uCode')->unique();
-            $table->integer('rest_id')->unsigned();
+            
+            $table->string('wCode')->unique();
             $table->string('password');
+            
+            $table->integer('rest_id')->unsigned();
             $table->foreign('rest_id')->references('id')->on('users');
-            $table->rememberToken();
+
             $table->timestamps();
         });
     }

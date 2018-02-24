@@ -13,7 +13,7 @@ class WaiterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('waiter');
     }
 
     /**
@@ -23,6 +23,8 @@ class WaiterController extends Controller
      */
     public function index()
     {
-        return view('makeorder');
+        //dd($users);
+        $data = "All Items";
+        return view('makeorder', compact('data', $data));
     }
 }

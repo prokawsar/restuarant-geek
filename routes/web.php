@@ -61,6 +61,8 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::post('/login', 'WaiterAuth\LoginController@login');
   Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
 
+  Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
+
   Route::get('/takereview', function(){
     return view('review');
   })->name('review');

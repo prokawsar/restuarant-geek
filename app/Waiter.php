@@ -16,7 +16,7 @@ class Waiter extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uCode', 'password', 'rest_id'
+        'wCode', 'password', 'rest_id'
     ];
 
     /**
@@ -28,6 +28,22 @@ class Waiter extends Authenticatable
         'password', 
     ];
 
+    public function getRememberTokenName()
+    {
+        return null; // not supported
+    }
+
+    /**
+     * Overrides the method to ignore the remember token.
+    */
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        if (!$isRememberTokenAttribute)
+        {
+            parent::setAttribute($key, $value);
+        }
+    }
     /**
      * Send the password reset notification.
      *
