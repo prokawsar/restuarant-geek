@@ -81,8 +81,8 @@ class LoginController extends Controller
 //             return view('waiter.home');
 //            return redirect('waiter/makeorder');
 
-//            return redirect()->intended($this->redirectPath());
-            return redirect(route('makeorder'));
+            return redirect()->intended($this->redirectPath());
+//            return redirect(route('makeorder'));
         }
 
         return redirect(route('wlogin'))

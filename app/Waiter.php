@@ -16,7 +16,7 @@ class Waiter extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uCode', 'password'
+        'wCode', 'password'
     ];
 
     /**
@@ -37,5 +37,14 @@ class Waiter extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new WaiterResetPassword($token));
+    }
+
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        if (!$isRememberTokenAttribute)
+        {
+            parent::setAttribute($key, $value);
+        }
     }
 }

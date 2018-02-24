@@ -18,7 +18,7 @@
                             <label for="wCode" class="col-md-4 control-label">Unique Code</label>
 
                             <div class="col-md-6">
-                                <input id="wCode" type="text" class="form-control" name="wCode" value="{{ old('uCode') }}" required autofocus>
+                                <input id="wCode" type="text" class="form-control" name="wCode" value="{{ old('wCode') }}" required autofocus>
 
                                 @if ($errors->has('wCode'))
                                     <span class="help-block">
