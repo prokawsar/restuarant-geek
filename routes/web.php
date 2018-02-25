@@ -75,16 +75,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 });
 
-//
-//Route::group(['middleware' => 'auth:waiter'], function () {
-//    Route::get('/waiter/makeorder', function () {
-////        $users[] = Auth::user();
-////        $users[] = Auth::guard()->user();
-////        $users[] = Auth::guard('waiter')->user();
-//
-//        //dd($users);
-//        $data = "All Items";
-//        return view('makeorder', compact('data'));
-//    })->name('makeorder');
-//
-//});
+
+Route::group(['prefix' => 'kitchen'], function () {
+  Route::get('/login', 'KitchenAuth\LoginController@showLoginForm')->name('klogin');
+  Route::post('/login', 'KitchenAuth\LoginController@login');
+  Route::post('/logout', 'KitchenAuth\LoginController@logout')->name('klogout');
+  
+  Route::get('/home', 'KitchenController@index')->name('khome');
+ 
+});

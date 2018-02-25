@@ -14,6 +14,7 @@ class CreateKitchensTable extends Migration
     public function up()
     {
         Schema::create('kitchens', function (Blueprint $table) {
+            // $table->increments('id');
             $table->integer('rest_id')->unsigned();
             $table->string('kCode')->unique();
             $table->string('password');

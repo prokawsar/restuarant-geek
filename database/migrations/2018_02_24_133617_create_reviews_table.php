@@ -14,6 +14,7 @@ class CreateReviewsTable extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
+//            $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->text('review');
             $table->date('review_date');

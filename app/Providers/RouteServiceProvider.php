@@ -39,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapKitchenRoutes();
+
         $this->mapAdminRoutes();
 
         $this->mapWaiterRoutes();
@@ -81,6 +83,25 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/admin.php');
+        });
+    }
+
+    /**
+     * Define the "kitchen" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapKitchenRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'kitchen', 'auth:kitchen'],
+            'prefix' => 'kitchen',
+            'as' => 'kitchen.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/kitchen.php');
         });
     }
 

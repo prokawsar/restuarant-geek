@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'kitchen' => [
+            'driver' => 'session',
+            'provider' => 'kitchens',
+        ],
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -75,6 +80,11 @@ return [
     */
 
     'providers' => [
+        'kitchens' => [
+            'driver' => 'eloquent',
+            'model' => App\Kitchen::class,
+        ],
+
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
@@ -112,6 +122,12 @@ return [
     */
 
     'passwords' => [
+        'kitchens' => [
+            'provider' => 'kitchens',
+            'table' => 'kitchen_password_resets',
+            'expire' => 60,
+        ],
+
         'admins' => [
             'provider' => 'admins',
             'table' => 'admin_password_resets',
