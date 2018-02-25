@@ -12,14 +12,22 @@
                 <div class="panel-body">
                     <div class="col-md-6 col-md-offset-3" >
                         <div class="jumbotron">
-                            <form class="form-horizontal" method="POST" action="#">
+                            @if (session('alert'))
+                                <div class="alert alert-success">
+                                    {{ session('alert') }}
+                                </div>
+                            @endif
+
+                            <form class="form-horizontal" method="POST" action="{{ url('/ucode') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('new_ucode') ? ' has-error' : '' }}">
-                                <label for="new_ucode" class="col-md-4 control-label">New uCode:</label>
+                            <div class="form-group{{ $errors->has('wCode') ? ' has-error' : '' }}">
+                                <label for="wCode" class="col-md-4 control-label">New wCode:</label>
 
                                 <div class="col-md-6">
-                                    <input id="new_ucode" type="text" class="form-control" name="new_ucode"  required autofocus>
+                                    <input id="wCode" type="text" class="form-control" name="wCode" required autofocus>
+
+                                    <input id="" type="hidden" name="rest_id" value="{{ Auth::id() }}" >
 
                                 </div>
                             </div>

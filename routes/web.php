@@ -13,7 +13,10 @@
 
 Route::get('/', function () {
     if(Auth::check()){
-        return view('owner.home');
+        $id = Auth::id();
+        $data = App\Waiter::select('wCode', 'password')->where('rest_id', $id)->get();
+//        dd($data);
+        return view('owner.home')->with('data', $data);
     }
     return view('welcome');
 });
@@ -22,9 +25,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/ucode', function(){
-    return view('owner.ucode');
-})->name('ucode');
+Route::get('/ucode', 'HomeController@getUCode')->name('ucode');
+Route::post('/ucode', 'HomeController@setUCode');
 
 Route::get('/allitem', function(){
     return view('item.allitem');
@@ -62,9 +64,7 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
   Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
 
-  Route::get('/takereview', function(){
-    return view('review');
-  })->name('review');
+  Route::get('/takereview', 'WaiterController@takeReview')->name('review');
 
 });
 

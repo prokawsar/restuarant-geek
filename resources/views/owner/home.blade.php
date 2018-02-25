@@ -13,8 +13,8 @@
                 
                     <div class="col-md-6 col-md-offset-3" >
                         <div class="jumbotron">
-                            <p class="lead">Your current waiter unique code: </p>
-                            <p class="lead">Your current waiter password: </p>
+                            <p class="lead">Your current waiter unique code: {{ $data[0]->wCode }}</p>
+                            <p class="lead">Your current waiter password: {{ $data[0]->password }}</p>
                             <a class="btn btn-primary" href="{{ route('ucode') }}"> Add new one </a>
                         </div>
                     </div>

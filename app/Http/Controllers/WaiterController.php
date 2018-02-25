@@ -21,4 +21,9 @@ class WaiterController extends Controller
         $data = "All Items";
         return view('makeorder', compact('data'));
     }
+
+    public function takeReview()
+    {
+        return view('review');
+    }
 }
