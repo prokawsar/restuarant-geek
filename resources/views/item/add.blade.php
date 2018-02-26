@@ -33,6 +33,19 @@
 
                                         <div class="form-group">
 
+                                            <label class="control-label" for="title">Category:</label>
+
+                                            <select class="form-control">
+                                                <option>Select Category</option>
+                                                <option>BreakFast</option>
+                                            
+                                            </select>
+                                            <div class="help-block with-errors"></div>
+
+                                        </div>
+
+                                        <div class="form-group">
+
                                             <label class="control-label" for="title">Title:</label>
 
                                             <input type="text" name="title" class="form-control" data-error="Please enter title." required />
@@ -45,7 +58,7 @@
 
                                             <label class="control-label" for="title">Price:</label>
 
-                                            <input type="text" name="price" class="form-control" data-error="Please enter price." required />
+                                            <input type="number" step="any" min="0" name="price" class="form-control" data-error="Please enter price." required />
 
                                             <div class="help-block with-errors"></div>
 

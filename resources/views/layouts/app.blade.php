@@ -48,7 +48,7 @@
                                     
                                     <li><a href="{{ route('allitem') }}">My Items</a></li>
                                     <li><a href="{{ route('allTable') }}">My Tables</a></li>
-                                    <li><a href="#">My Customers</a></li>
+                                    <li><a href="{{ route('mycustomer') }}">My Customers</a></li>
                                     <li><a href="{{ route('allreview') }}">My Reviews</a></li>
                                 </ul>
                             </li>
@@ -75,6 +75,9 @@
                                     <li>
                                         <a href="{{ route('profile') }}" >
                                             Profile
+                                        </a>
+                                        <a href="{{ route('setting') }}" >
+                                            Setting
                                         </a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

@@ -34,6 +34,14 @@ Route::get('/additem', function(){
     return view('item.add');
 })->name('additem');
 
+Route::get('/addcategory', function(){
+    return view('item.addcate');
+})->name('addcate');
+
+Route::get('/customer', function(){
+    return view('owner.customer');
+})->name('mycustomer');
+
 Route::get('/alltable', function(){
     return view('table.allTable');
 })->name('allTable');
@@ -54,6 +62,10 @@ Route::get('/profile', function(){
     return view('owner.profile');
 })->name('profile');
 
+Route::get('/setting', function(){
+    return view('owner.setting');
+})->name('setting');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'waiter'], function () {
@@ -70,6 +82,12 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('alogin');
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('alogout');
+
+  Route::get('/home', function () {
+    //dd($users);
+
+    return view('admin.home');
+  })->name('khome');
 
 });
 
