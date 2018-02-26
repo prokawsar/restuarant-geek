@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Waiter;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
 
 
@@ -76,10 +77,15 @@ class LoginController extends Controller
         $credentials = $request->only('wCode', 'password');
 
         // if ($this->auth->guard('waiters')->attempt($credentials))
-        if(Auth::guard('waiter')->attempt( ['wCode' => $request->wCode, 'password' => $request->password] ))
+        // if(Auth::guard('waiter')->attempt( ['wCode' => $request->wCode, 'password' => $request->password] ))
+        
+        // checking without hashing password
+        if(Auth::guard('waiter') && $waiter = Waiter::where('wCode', $request->wCode)->where('password', ($request->password))->first() )
         {   
-//             return view('waiter.home');
-//            return redirect('waiter/makeorder');
+
+            //             return view('waiter.home');
+            Auth::guard('waiter')->login($waiter);
+            //            return redirect('waiter/makeorder');
 
             return redirect()->intended($this->redirectPath());
 //            return redirect(route('makeorder'));

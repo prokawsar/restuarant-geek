@@ -34,10 +34,11 @@ class HomeController extends Controller
 
     public function setUCode(Request $request)
     {
-        $waiter = new Waiter();
+        // $waiter = new Waiter();
+        $waiter = Waiter::firstOrNew(array('rest_id' => $request['rest_id']));
         $waiter->wCode = $request['wCode'];
-        $waiter->password = bcrypt($request['password']);
-        $waiter->rest_id = $request['rest_id'];
+        $waiter->password = ($request['password']);
+        // $waiter->rest_id = $request['rest_id'];
         $waiter->save();
 
         return redirect('/ucode')->with('alert', 'Unique Code Updated !');

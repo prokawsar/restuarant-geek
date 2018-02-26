@@ -21,8 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/makeorder', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
-
 Auth::routes();
 
 Route::get('/ucode', 'HomeController@getUCode')->name('ucode');

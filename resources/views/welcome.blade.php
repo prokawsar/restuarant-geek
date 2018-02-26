@@ -6,6 +6,10 @@
 <div class="container">
     <div class="row">
         <div class="container">
+        <div class="col-md-12">
+            <a href="{{ route('makeorder') }}" class="btn btn-info pull-right">Waiter View</a>
+            <a href="{{ route('khome') }}" class="btn btn-warning pull-right">Kitchen View</a>    
+        </div>
             <div class="col-md-12">
             
                 <img style="width: 100%; height: 100%;" src="{{ asset('images/home-back.jpg') }}" >

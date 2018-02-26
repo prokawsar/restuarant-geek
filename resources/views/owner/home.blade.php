@@ -11,15 +11,36 @@
 
                 <div class="panel-body">
                 
-                    <div class="col-md-6 col-md-offset-3" >
+                    <div class="col-md-6" >
                         <div class="jumbotron">
+                        @php if( isset($data[0]->wCode) ){ @endphp
                             <p class="lead">Your current waiter unique code: {{ $data[0]->wCode }}</p>
                             <p class="lead">Your current waiter password: {{ $data[0]->password }}</p>
+                            <a class="btn btn-primary" href="{{ route('ucode') }}"> Update Code</a>
+                        @php } else{ @endphp
+                            <p class="lead">Your haven't set any waiter unique code.</p>
                             <a class="btn btn-primary" href="{{ route('ucode') }}"> Add new one </a>
+                        @php } @endphp
+                            
                         </div>
                     </div>
-                    <div class="col-md-3 col-xs-6">
-                        <!-- small box -->
+
+                    <div class="col-md-6" >
+                        <div class="jumbotron">
+                        @php if( isset($data[0]->wCode) ){ @endphp
+                            <p class="lead">Your current Kitchen unique code: {{ $data[0]->wCode }}</p>
+                            <p class="lead">Your current Kitchen password: {{ $data[0]->password }}</p>
+                            <a class="btn btn-primary" href="{{ url('kitchen/ucode') }}"> Update Code</a>
+                        @php } else{ @endphp
+                            <p class="lead">Your haven't set any Kitchen unique code.</p>
+                            <a class="btn btn-primary" href="{{ url('kitchen/ucode') }}"> Add new one </a>
+                        @php } @endphp
+                            
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-3 col-xs-6">
+                        
                         <div class="small-box bg-aqua">
                             <div class="inner">
                                 <h3>150</h3>
@@ -28,7 +49,7 @@
                             </div>
                         <div class="icon">
                         <i class="ion ion-bag"></i>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
