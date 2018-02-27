@@ -24,22 +24,26 @@
                             </div>
                         @endif
 
+                        @php $table = App\Table::where('rest_id', Auth::id())->get(); @endphp
+
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
 
                                     <th scope="col">Table Name</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($table as $name)
                                 <tr>
-                                    <th scope="row">Rice</th>
-                                    <td><a href="" class="btn btn-info" >Edit</a></td>
-                                    <td>
-                                        <a href="" class="btn btn-danger" >Delete</a>
-                                    </td>
+                                    <th scope="row">{{ $name->name_or_no}}</th>
+                                    <td><a href="#" class="btn btn-info" >Edit</a></td>
+                                    <td><a href="#" class="btn btn-danger" >Delete</a></td>
+                                    
                                 </tr>
+                                @endforeach
 
                                 </tbody>
                             </table>

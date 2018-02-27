@@ -34,6 +34,8 @@ Route::get('/additem', function(){
     return view('item.add');
 })->name('additem');
 
+Route::post('/additem', 'ItemController@addItem');
+
 Route::get('/addcategory', function(){
     return view('item.addcate');
 })->name('addcate');
@@ -47,6 +49,8 @@ Route::get('/customer', function(){
 Route::get('/alltable', function(){
     return view('table.allTable');
 })->name('allTable');
+
+Route::post('/addtable', 'TableController@addTable');
 
 Route::get('/addtable', function(){
     return view('table.addTable');

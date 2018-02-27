@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Category;
+use App\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -16,14 +16,19 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
-    public function addCategory(Request $request){
-        $category = new Category();
-        $category->cat_name = $request['title'];
-        $category->rest_id = $request['rest_id'];
+    public function addItem(Request $request){
+        $item = new Item();
+        $item->item_name = $request['name'];
+        $item->price = $request['price'];
+        if($request['image']){
+            $item->image = $request['image'];
+        }
+        $item->rest_id = $request['rest_id'];
+        $item->cat_id = $request['cat_id'];
         
-        $category->save();
+        $item->save();
 
-        return redirect('/addcategory')->with('status', 'New Category Added !');
+        return redirect('/additem')->with('status', 'New Item Added !');
     }
 
 }

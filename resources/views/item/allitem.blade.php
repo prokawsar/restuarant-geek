@@ -25,6 +25,8 @@
                         </div>
                     @endif
 
+                    @php $items = App\Item::where('rest_id', Auth::id())->get(); @endphp
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -35,14 +37,16 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach ($items as $item)
                             <tr>
-                                <th scope="row">Rice</th>
-                                <td>10</td>
+                                <th scope="row">{{ $item->item_name}}</th>
+                                <td>{{ $item->price }}</td>
                                 <td><a href="" class="btn btn-info" >Edit</a></td>
                                 <td>
                                     <a href="" class="btn btn-danger" >Delete</a>
                                 </td>
                             </tr>
+                            @endforeach
 
                             </tbody>
                         </table>

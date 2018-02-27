@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('item_name');
             $table->float('price');
-            $table->string('image');
+            $table->string('image')->default('no_image.jpg');
             $table->integer('cat_id')->unsigned();
             $table->integer('rest_id')->unsigned();
             $table->foreign('rest_id')->references('id')->on('users');

@@ -14,4 +14,6 @@ class Table extends Model
     protected $fillable = [
         'name_or_no', 'rest_id'
     ];
+
+    public $timestamps = false;
 }

@@ -21,7 +21,9 @@
 
                                 <div class="modal-header">
 
-                                    <h4 class="modal-title">Add Category</h4>
+                                    <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
+
+                                    <!-- <h4 class="modal-title">Add Category</h4> -->
 
                                 </div>
 
@@ -38,7 +40,7 @@
                                             <li class="active text-center"><a href="#">Current Categories</a></li>
                                             @foreach ($category as $name)
                                             <li><a href="#">{{ $name->cat_name}}</a></li>
-                                            <!-- <li><a href="#">Disabled</a></li> -->
+                                           
                                             @endforeach
                                         
                                         </ul>
@@ -57,7 +59,7 @@
                                         
                                         <div class="form-group">
 
-                                            <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                                            <button type="submit" class="btn crud-submit btn-success">Add Category</button>
 
                                         </div>
 
