@@ -1,4 +1,4 @@
-@section('title', 'Add Item')
+@section('title', 'Add Category')
 
 @extends('layouts.app')
 
@@ -29,26 +29,26 @@
 
 
 
-                                    <form data-toggle="validator" action="#" method="POST">
+                                    <form data-toggle="validator" action="{{ url('/addcategory') }}" method="POST">
+                                    
+                                    {{ csrf_field() }}
+                                        @php $category = App\Category::where('rest_id', Auth::id())->get(); @endphp
 
-                                        <div class="form-group">
-
-                                            <label class="control-label" for="title">Current Category:</label>
-
-                                            <select class="form-control">
-                                                <option>Select Category</option>
-                                                <option>BreakFast</option>
-                                            
-                                            </select>
-                                            <div class="help-block with-errors"></div>
-
-                                        </div>
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li class="active text-center"><a href="#">Current Categories</a></li>
+                                            @foreach ($category as $name)
+                                            <li><a href="#">{{ $name->cat_name}}</a></li>
+                                            <!-- <li><a href="#">Disabled</a></li> -->
+                                            @endforeach
+                                        
+                                        </ul>
 
                                         <div class="form-group">
 
                                             <label class="control-label" for="title">Name:</label>
 
-                                            <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                                            <input type="text" id="title" name="title" class="form-control" data-error="Please enter title." required />
+                                            <input type="hidden"  name="rest_id" class="form-control" value="{{ Auth::id() }}" />
 
                                             <div class="help-block with-errors"></div>
 

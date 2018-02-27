@@ -38,6 +38,8 @@ Route::get('/addcategory', function(){
     return view('item.addcate');
 })->name('addcate');
 
+Route::post('/addcategory', 'ItemController@addCategory');
+
 Route::get('/customer', function(){
     return view('owner.customer');
 })->name('mycustomer');

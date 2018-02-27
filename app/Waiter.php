@@ -55,12 +55,4 @@ class Waiter extends Authenticatable
         $this->notify(new WaiterResetPassword($token));
     }
 
-    public function setAttribute($key, $value)
-    {
-        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
-        if (!$isRememberTokenAttribute)
-        {
-            parent::setAttribute($key, $value);
-        }
-    }
 }
