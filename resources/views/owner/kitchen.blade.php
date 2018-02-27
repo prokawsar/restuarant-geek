@@ -1,6 +1,6 @@
-@section('title', 'Kitchen')
+@section('title', 'Kitchen View')
 
-@extends('layouts.kitchen')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -25,7 +25,7 @@
                             Hello
                             </td>
                         <td>Pending
-                            <button class="btn btn-info" >Done</button>
+                            <button class="btn btn-info" @php if(Auth()) echo "disabled"; @endphp >Done</button>
                             </td>
                         </tr>
                        

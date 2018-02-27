@@ -14,12 +14,11 @@ class CreateKitchensTable extends Migration
     public function up()
     {
         Schema::create('kitchens', function (Blueprint $table) {
-            // $table->increments('id');
-            $table->integer('rest_id')->unsigned();
+            $table->increments('id');
             $table->string('kCode')->unique();
             $table->string('password');
+            $table->integer('rest_id')->unsigned();
 
-            $table->primary('rest_id');
             $table->foreign('rest_id')->references('id')->on('users');
             $table->timestamps();
         });

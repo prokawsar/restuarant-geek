@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/waiter/makeorder') }}">
+                    <a class="navbar-brand" href="#">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>

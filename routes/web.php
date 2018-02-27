@@ -15,8 +15,9 @@ Route::get('/', function () {
     if(Auth::check()){
         $id = Auth::id();
         $data = App\Waiter::select('wCode', 'password')->where('rest_id', $id)->get();
-//        dd($data);
-        return view('owner.home')->with('data', $data);
+        $data2 = App\Kitchen::select('kCode', 'password')->where('rest_id', $id)->get();
+        //        dd($data);
+        return view('owner.home', compact('data', 'data2'));
     }
     return view('welcome');
 });
@@ -25,6 +26,9 @@ Auth::routes();
 
 Route::get('/ucode', 'HomeController@getUCode')->name('ucode');
 Route::post('/ucode', 'HomeController@setUCode');
+
+Route::get('/kitchen/ucode', 'HomeController@setCode')->name('kcode');
+Route::post('/kitchen/ucode', 'HomeController@setKitchenCode');
 
 Route::get('/allitem', function(){
     return view('item.allitem');
@@ -61,7 +65,7 @@ Route::get('/allreview', function(){
 })->name('allreview');
 
 Route::get('/kitchen', function(){
-    return view('kitchen');
+    return view('owner.kitchen');
 })->name('kitchen');
 
 Route::get('/profile', function(){
@@ -102,7 +106,6 @@ Route::group(['prefix' => 'kitchen'], function () {
   Route::get('/login', 'KitchenAuth\LoginController@showLoginForm')->name('klogin');
   Route::post('/login', 'KitchenAuth\LoginController@login');
   Route::post('/logout', 'KitchenAuth\LoginController@logout')->name('klogout');
-  
   Route::get('/home', 'KitchenController@index')->name('khome');
  
 });

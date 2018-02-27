@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\KitchenAuth;
 
 use App\Http\Controllers\Controller;
+use App\Kitchen;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -74,11 +76,10 @@ class LoginController extends Controller
         $credentials = $request->only('kCode', 'password');
 
         // if ($this->auth->guard('waiters')->attempt($credentials))
-        if(Auth::guard('kitchen')->attempt( ['kCode' => $request->kCode, 'password' => $request->password] ))
+        if(Auth::guard('kitchen') && $kitchen = Kitchen::where('kCode', $request->kCode)->where('password', ($request->password))->first() )
         {
-
+            Auth::guard('kitchen')->login($kitchen);
             return redirect()->intended($this->redirectPath());
-//            return redirect(route('makeorder'));
         }
 
         return redirect(route('klogin'))

@@ -27,13 +27,13 @@
 
                     <div class="col-md-6" >
                         <div class="jumbotron">
-                        @php if( isset($data[0]->wCode) ){ @endphp
-                            <p class="lead">Your current Kitchen unique code: {{ $data[0]->wCode }}</p>
-                            <p class="lead">Your current Kitchen password: {{ $data[0]->password }}</p>
-                            <a class="btn btn-primary" href="{{ url('kitchen/ucode') }}"> Update Code</a>
+                        @php if( isset($data2[0]->kCode) ){ @endphp
+                            <p class="lead">Your current Kitchen unique code: {{ $data2[0]->kCode }}</p>
+                            <p class="lead">Your current Kitchen password: {{ $data2[0]->password }}</p>
+                            <a class="btn btn-primary" href="{{ url('/kitchen/ucode') }}"> Update Code</a>
                         @php } else{ @endphp
                             <p class="lead">Your haven't set any Kitchen unique code.</p>
-                            <a class="btn btn-primary" href="{{ url('kitchen/ucode') }}"> Add new one </a>
+                            <a class="btn btn-primary" href="{{ url('/kitchen/ucode') }}"> Add new one </a>
                         @php } @endphp
                             
                         </div>

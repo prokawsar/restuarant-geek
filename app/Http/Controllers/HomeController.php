@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Waiter;
-use App\User;
+use App\Kitchen;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,6 +32,11 @@ class HomeController extends Controller
         return view('owner.ucode');
     }
 
+    public function setCode()
+    {
+        return view('owner.kitchenucode');
+    }
+
     public function setUCode(Request $request)
     {
         // $waiter = new Waiter();
@@ -42,5 +47,17 @@ class HomeController extends Controller
         $waiter->save();
 
         return redirect('/ucode')->with('alert', 'Unique Code Updated !');
+    }
+
+    public function setKitchenCode(Request $request)
+    {
+        // $waiter = new Waiter();
+        $kitchen = Kitchen::firstOrNew(array('rest_id' => $request['rest_id']));
+        $kitchen->kCode = $request['kCode'];
+        $kitchen->password = ($request['password']);
+        // $waiter->rest_id = $request['rest_id'];
+        $kitchen->save();
+
+        return redirect('/kitchen/ucode')->with('alert', 'Unique Code Updated !');
     }
 }

@@ -16,7 +16,7 @@ class Kitchen extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'kCode', 'password',
+        'kCode', 'password', 'rest_id'
     ];
 
     /**
@@ -37,5 +37,17 @@ class Kitchen extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new KitchenResetPassword($token));
+    }
+
+    /**
+     * Overrides the method to ignore the remember token.
+     */
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        if (!$isRememberTokenAttribute)
+        {
+            parent::setAttribute($key, $value);
+        }
     }
 }

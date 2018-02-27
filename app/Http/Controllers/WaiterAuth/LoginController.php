@@ -68,8 +68,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {   
 //         dd($request);
-//        return $request;
-
         $this->validate($request, [
             'wCode' => 'required', 'password' => 'required',
         ]);
