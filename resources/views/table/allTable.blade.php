@@ -23,6 +23,12 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                        
+                        @if (session('danger'))
+                            <div class="alert alert-danger">
+                                {{ session('danger') }}
+                            </div>
+                        @endif
 
                         @php $table = App\Table::where('rest_id', Auth::id())->get(); @endphp
 
@@ -32,15 +38,13 @@
 
                                     <th scope="col">Table Name</th>
                                     <th scope="col">Action</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($table as $name)
                                 <tr>
                                     <th scope="row">{{ $name->name_or_no}}</th>
-                                    <td><a href="#" class="btn btn-info" >Edit</a></td>
-                                    <td><a href="#" class="btn btn-danger" >Delete</a></td>
+                                    <td><a href="{{ route('deleteTable', ['id' => $name->id]) }}" class="btn btn-danger" >Delete</a></td>
                                     
                                 </tr>
                                 @endforeach

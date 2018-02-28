@@ -25,6 +25,12 @@
                         </div>
                     @endif
 
+                    @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                    @endif
+
                     @php $items = App\Item::where('rest_id', Auth::id())->get(); @endphp
 
                         <table class="table table-hover">
@@ -41,9 +47,9 @@
                             <tr>
                                 <th scope="row">{{ $item->item_name}}</th>
                                 <td>{{ $item->price }}</td>
-                                <td><a href="" class="btn btn-info" >Edit</a></td>
+                                <td><a href="{{ route('edititem', ['id' => $item->id] ) }}" class="btn btn-info" >Edit</a></td>
                                 <td>
-                                    <a href="" class="btn btn-danger" >Delete</a>
+                                    <a href="{{ route('deleteitem', ['id' => $item->id] ) }}" class="btn btn-danger" >Delete</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -58,11 +64,6 @@
                         <div class="panel-heading">All Item</div>
 
                         <div class="panel-body">
-                            @if (session('status'))
-                                <div class="alert alert-success">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
 
                                 <table class="table table-hover">
                                     <thead>

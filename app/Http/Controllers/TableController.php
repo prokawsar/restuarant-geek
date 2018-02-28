@@ -16,6 +16,16 @@ class TableController extends Controller
         $this->middleware('auth');
     }
 
+    public function show(){
+
+        return view('table.allTable');
+    }
+    
+    public function addTableForm(){
+
+        return view('table.addTable');
+    }
+
     public function addTable(Request $request){
         $Table = new Table();
         $Table->name_or_no = $request['table_title'];
@@ -24,6 +34,14 @@ class TableController extends Controller
         $Table->save();
 
         return redirect('/addtable')->with('status', 'New Table Added !');
+    }
+
+
+    public function deleteTable($id){
+
+        $table = Table::where('id', $id)->delete();
+        
+        return redirect('/alltable')->with('danger', 'Table Deleted !');
     }
 
 }

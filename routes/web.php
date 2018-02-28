@@ -40,6 +40,10 @@ Route::get('/additem', function(){
 
 Route::post('/additem', 'ItemController@addItem');
 
+Route::post('/updateitem', 'ItemController@updateItem');
+Route::get('/edititem{id}', 'ItemController@edit')->name('edititem');
+Route::get('/deleteitem{id}', 'ItemController@deleteItem')->name('deleteitem');
+
 Route::get('/addcategory', function(){
     return view('item.addcate');
 })->name('addcate');
@@ -50,15 +54,11 @@ Route::get('/customer', function(){
     return view('owner.customer');
 })->name('mycustomer');
 
-Route::get('/alltable', function(){
-    return view('table.allTable');
-})->name('allTable');
-
+Route::get('/alltable', 'TableController@show')->name('allTable');
 Route::post('/addtable', 'TableController@addTable');
+Route::get('/addtable','TableController@addTableForm' )->name('addTable');
 
-Route::get('/addtable', function(){
-    return view('table.addTable');
-})->name('addTable');
+Route::get('/deletetable{id}', 'TableController@deleteTable')->name('deleteTable');
 
 Route::get('/allreview', function(){
     return view('owner.allreview');
