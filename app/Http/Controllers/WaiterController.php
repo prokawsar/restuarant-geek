@@ -18,8 +18,7 @@ class WaiterController extends Controller
 
     public function index()
     {
-        $data = "All Items";
-        return view('makeorder', compact('data'));
+        return view('waiter.home');
     }
 
     public function takeReview()

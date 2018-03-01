@@ -30,9 +30,7 @@ Route::post('/ucode', 'HomeController@setUCode');
 Route::get('/kitchen/ucode', 'HomeController@setCode')->name('kcode');
 Route::post('/kitchen/ucode', 'HomeController@setKitchenCode');
 
-Route::get('/allitem', function(){
-    return view('item.allitem');
-})->name('allitem');
+Route::get('/allitem', 'ItemController@show')->name('allitem');
 
 Route::get('/additem', function(){
     return view('item.add');
@@ -44,15 +42,11 @@ Route::post('/updateitem', 'ItemController@updateItem');
 Route::get('/edititem{id}', 'ItemController@edit')->name('edititem');
 Route::get('/deleteitem{id}', 'ItemController@deleteItem')->name('deleteitem');
 
-Route::get('/addcategory', function(){
-    return view('item.addcate');
-})->name('addcate');
+Route::get('/addcategory', 'ItemController@setCategory')->name('addcate');
 
 Route::post('/addcategory', 'ItemController@addCategory');
 
-Route::get('/customer', function(){
-    return view('owner.customer');
-})->name('mycustomer');
+Route::get('/customer', 'HomeController@viewCustomer')->name('mycustomer');
 
 Route::get('/alltable', 'TableController@show')->name('allTable');
 Route::post('/addtable', 'TableController@addTable');
@@ -60,13 +54,9 @@ Route::get('/addtable','TableController@addTableForm' )->name('addTable');
 
 Route::get('/deletetable{id}', 'TableController@deleteTable')->name('deleteTable');
 
-Route::get('/allreview', function(){
-    return view('owner.allreview');
-})->name('allreview');
+Route::get('/allreview', 'HomeController@viewReview')->name('allreview');
 
-Route::get('/kitchen', function(){
-    return view('owner.kitchen');
-})->name('kitchen');
+Route::get('/kitchen', 'HomeController@viewKitchen')->name('kitchen');
 
 Route::get('/profile', function(){
     return view('owner.profile');

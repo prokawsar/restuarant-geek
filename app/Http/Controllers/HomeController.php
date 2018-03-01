@@ -37,6 +37,22 @@ class HomeController extends Controller
         return view('owner.kitchenucode');
     }
 
+    public function viewKitchen()
+    {
+        return view('owner.kitchen');
+    }
+
+    public function viewReview()
+    {
+        return view('owner.allreview');
+    }
+
+    public function viewCustomer()
+    {
+        return view('owner.customer');
+    }
+
+
     public function setUCode(Request $request)
     {
         // $waiter = new Waiter();

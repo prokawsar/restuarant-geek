@@ -13,9 +13,9 @@
     <div class="row">
         <div class="col-md-12">
 
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">All Table </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center text-bold">All Tables </div>
 
                     <div class="panel-body">
                         @if (session('status'))

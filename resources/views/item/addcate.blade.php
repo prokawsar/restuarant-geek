@@ -39,7 +39,7 @@
                                         <ul class="nav nav-pills nav-stacked">
                                             <li class="active text-center"><a href="#">Current Categories</a></li>
                                             @foreach ($category as $name)
-                                            <li><a href="#">{{ $name->cat_name}}</a></li>
+                                            <li><a class="" href="#">{{ $name->cat_name}}  </a>  <span class="pull-right"> <i class="fa fa-times"></i> </span></li>
                                            
                                             @endforeach
                                         

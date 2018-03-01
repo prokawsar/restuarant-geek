@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Item;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -29,6 +30,11 @@ class ItemController extends Controller
         $item->save();
 
         return redirect('/additem')->with('status', 'New Item Added !');
+    }
+
+    public function show()
+    {
+        return view('item.allitem');
     }
 
     /**
@@ -67,4 +73,19 @@ class ItemController extends Controller
 
         return redirect('/allitem')->with('status', 'Item Updated Successfully !');
     }
+
+    public function setCategory()
+    {
+        return view('item.addcate');
+    }
+
+    public function addCategory(Request $request){
+                $category = new Category();
+                $category->cat_name = $request['title'];
+                $category->rest_id = $request['rest_id'];
+                
+                $category->save();
+        
+                return redirect('/addcategory')->with('status', 'New Category Added !');
+            }
 }
