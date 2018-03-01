@@ -58,6 +58,8 @@ Route::get('/allreview', 'HomeController@viewReview')->name('allreview');
 
 Route::get('/kitchen', 'HomeController@viewKitchen')->name('kitchen');
 
+Route::post('/placeorder', 'HomeController@placeOrder');
+
 Route::get('/profile', function(){
     return view('owner.profile');
 })->name('profile');

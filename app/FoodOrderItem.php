@@ -14,4 +14,6 @@ class FoodOrderItem extends Model
     protected $fillable = [
         'order_id', 'item_id',
     ];
+
+    public $timestamps = false;
 }

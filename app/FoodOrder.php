@@ -14,4 +14,6 @@ class FoodOrder extends Model
     protected $fillable = [
         'total_bill', 'order_date', 'status', 'cust_id', 'rest_id', 'table_id'
     ];
+
+    public $timestamps = false;
 }

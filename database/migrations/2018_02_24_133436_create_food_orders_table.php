@@ -16,7 +16,7 @@ class CreateFoodOrdersTable extends Migration
         Schema::create('food_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->float('total_bill');
-            $table->date('order_date');
+            $table->dateTime('order_date');
             $table->boolean('status')->default(0);
             $table->integer('cust_id')->unsigned();
             $table->integer('table_id')->unsigned();

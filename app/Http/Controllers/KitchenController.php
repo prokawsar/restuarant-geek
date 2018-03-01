@@ -17,7 +17,6 @@ class KitchenController extends Controller
 
     public function index()
     {
-        $data = "All Items";
-        return view('kitchen', compact('data'));
+        return view('kitchen.home');
     }
 }

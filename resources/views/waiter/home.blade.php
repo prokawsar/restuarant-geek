@@ -56,10 +56,14 @@
                                             </thead>
                                             <tbody>
                                             @foreach ($items as $item)
-                                                <tr>
+                                                <tr class="sc-product-item">
+                                                    <input type="hidden" data-name="item_name" value="{{ $item->item_name}}"/>
+                                                    <input type="hidden" data-name="item_price" value="{{ $item->price}}"/>
+                                                    <input type="hidden" data-name="item_id" value="{{ $item->id }}"/>
+
                                                     <th scope="row">{{ $item->item_name}}</th>
                                                     <td>{{ $item->price }}</td>
-                                                    <td><a href="#" class="btn btn-info">Place Order</a></td>
+                                                    <td><a href="#" class="sc-add-to-cart btn btn-info">Place Order</a></td>
 
                                                 </tr>
                                             @endforeach
@@ -81,34 +85,17 @@
 
                         <div class="panel-body">
 
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
+                        <form data-toggle="validator" action="{{ url('/placeorder')  }}" method="POST">
+                                    
+                            {{ csrf_field() }}
+                            <input type="hidden" id="rest_id" name="rest_id" value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
 
-                                    <th scope="col">Item Name</th>
-                                    <th scope="col">Price</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($items as $item)
-                                    <tr>
-                                        <th scope="row">{{ $item->item_name}}</th>
-                                        <td>{{ $item->price }}</td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <th scope="row">Total</th>
-                                    <td>500</td>
-                                </tr>
-                                </tbody>
-                            </table>
                             <div class="form-group">
 
                                 <label class="control-label" for="title">Select Table:</label>
                                 @php $table = App\Table::where('rest_id', Auth::guard('waiter')->user()->rest_id)->get(); @endphp
 
-                                <select class="form-control" name="cat_id" required>
+                                <select class="form-control" name="table_id" required>
                                     <option>Select Table</option>
 
                                     @foreach ($table as $name)
@@ -124,7 +111,7 @@
 
                                 <label class="control-label" for="title">Customer Name:</label>
 
-                                <input type="text" id="title" name="title" class="form-control"
+                                <input type="text" id="cust_name" name="cust_name" class="form-control"
                                        data-error="Please enter name." required/>
 
                                 <div class="help-block with-errors"></div>
@@ -134,14 +121,15 @@
 
                                 <label class="control-label" for="title">Customer Phone:</label>
 
-                                <input type="number" id="title" name="title" class="form-control"
+                                <input type="number" id="cust_phone" name="cust_phone" class="form-control"
                                        data-error="Please enter phone." required/>
 
                                 <div class="help-block with-errors"></div>
 
                             </div>
+                            <div id="smartcart"></div>
 
-                            <button class="btn btn-success pull-right">Send to Kitchen</button>
+                            <!-- <button class="btn btn-success pull-right">Send to Kitchen</button> -->
                         </div>
                     </div>
                 </div>
@@ -164,4 +152,8 @@
         });
     });
 
+    $(document).ready(function(){
+          // Initialize Smart Cart
+          $('#smartcart').smartCart();
+      });
 </script>
