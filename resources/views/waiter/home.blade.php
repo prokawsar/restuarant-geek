@@ -92,7 +92,7 @@
 
                             <div class="form-group">
 
-                                <label class="control-label" for="title">Select Table:</label>
+                                <label class="control-label" for="title">Select Table:<span class="required">*</span></label>
                                 @php $table = App\Table::where('rest_id', Auth::guard('waiter')->user()->rest_id)->get(); @endphp
 
                                 <select class="form-control" name="table_id" required>
@@ -109,7 +109,7 @@
 
                             <div class="form-group">
 
-                                <label class="control-label" for="title">Customer Name:</label>
+                                <label class="control-label" for="title">Customer Name:<span class="required">*</span></label>
 
                                 <input type="text" id="cust_name" name="cust_name" class="form-control"
                                        data-error="Please enter name." required/>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
 
-                                <label class="control-label" for="title">Customer Phone:</label>
+                                <label class="control-label" for="title">Customer Phone:<span class="required">*</span></label>
 
                                 <input type="number" id="cust_phone" name="cust_phone" class="form-control"
                                        data-error="Please enter phone." required/>

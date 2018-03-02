@@ -55,7 +55,7 @@
 
                         <li><a href="{{ route('kitchen') }}">Kitchen View</a></li>
                         <li><a href="#">All Orders</a></li>
-                        <li><a href="#">SMS Campaign</a></li>
+                        <li><a href="{{ route('smscamp') }}">SMS Campaign</a></li>
                     @endguest
                     </ul>
 

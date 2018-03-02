@@ -11403,3 +11403,8 @@ button.close {
   }
 }
 
+.required{
+  color:red;
+  font-size: 25px;
+}
+

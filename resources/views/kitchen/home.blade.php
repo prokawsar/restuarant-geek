@@ -4,13 +4,23 @@
 
 @section('content')
     <div class="container">
+        @php $name = App\User::select('rest_name')->where('id', Auth::guard('kitchen')->user()->rest_id)->get(); @endphp
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="row">
+            <h3 class="text-center"> You are on <span class="text-success">{{ $name[0]->rest_name }}'s </span>
+                Kitchen </h3>
             <h3 class="text-center">Today's Orders</h3>
+
         </div>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('kitchen')->user()->rest_id)->get(); @endphp
+                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('kitchen')->user()->rest_id)->orderBy('status')->get(); @endphp
                 {{--@php dd($foodOrder) @endphp--}}
 
 
@@ -44,7 +54,8 @@
                                 </td>
                                 <td>{{ $order->status  }}</td>
                                 <td>
-                                    <button class="btn btn-info">Done</button>
+                                    <button type="button" onclick="window.location='{{ route("orderdone", ["id" => $order->id ] )  }}'"
+                                       class="btn btn-info" @php if($order->status) echo 'disabled' @endphp >Done</button>
                                 </td>
 
                             </tr>

@@ -16,6 +16,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Customer Name</th>
                             <th scope="col">Table Name/No</th>
                             <th scope="col">Items</th>
                             <th scope="col">Status</th>
@@ -25,12 +26,15 @@
                         <tbody>
 
                         @foreach ($foodOrder as $order)
+                            @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
+
                             @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                             {{--@php dd($table) @endphp--}}
                             @php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
 
                             <tr>
                                 <th scope="row">{{ $i }}</th>
+                                <th scope="row">{{ $cust[0]->name }}</th>
                                 <td>{{ $table[0]->name_or_no }}</td>
                                 <td>
                                     @foreach($items as $item_id)
