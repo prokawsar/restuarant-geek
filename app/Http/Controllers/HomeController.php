@@ -37,6 +37,11 @@ class HomeController extends Controller
         return view('owner.kitchenucode');
     }
 
+    public function showOrder()
+    {
+        return view('owner.orders');
+    }
+
     public function viewKitchen()
     {
         return view('owner.kitchen');

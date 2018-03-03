@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('css/star-rating.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -89,5 +91,8 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <script src="{{ asset('js/jquery.smartCart.js') }}"></script>
+
+    <script src="{{ asset('js/star-rating.js') }}"></script>
+
 </body>
 </html>

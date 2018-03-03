@@ -37,6 +37,11 @@ class ItemController extends Controller
         return view('item.allitem');
     }
 
+    public function addFormShow(){
+
+        return view('item.add');
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

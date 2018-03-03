@@ -30,11 +30,11 @@ Route::post('/ucode', 'HomeController@setUCode');
 Route::get('/kitchen/ucode', 'HomeController@setCode')->name('kcode');
 Route::post('/kitchen/ucode', 'HomeController@setKitchenCode');
 
+Route::get('/allorder', 'HomeController@showOrder')->name('allorder');
+
 Route::get('/allitem', 'ItemController@show')->name('allitem');
 
-Route::get('/additem', function(){
-    return view('item.add');
-})->name('additem');
+Route::get('/additem', 'ItemController@addFormShow')->name('additem');
 
 Route::post('/additem', 'ItemController@addItem');
 
@@ -89,10 +89,8 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('alogout');
 
   Route::get('/home', function () {
-    //dd($users);
-
     return view('admin.home');
-  })->name('khome');
+  })->name('ahome');
 
 });
 
@@ -102,5 +100,5 @@ Route::group(['prefix' => 'kitchen'], function () {
   Route::post('/login', 'KitchenAuth\LoginController@login');
   Route::post('/logout', 'KitchenAuth\LoginController@logout')->name('klogout');
   Route::get('/home', 'KitchenController@index')->name('khome');
- 
+  Route::get('/allorders', 'KitchenController@orderData')->name('allorders');
 });

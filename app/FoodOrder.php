@@ -16,4 +16,6 @@ class FoodOrder extends Model
     ];
 
     public $timestamps = false;
+
+
 }
