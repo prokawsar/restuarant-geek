@@ -130,8 +130,13 @@
 
 
                 <div class="panel panel-info">
-                    <div class="panel-heading  text-bold text-center" data-toggle="collapse" data-target="#month">
-                        This month orders <span class="badge">@php echo count($foodOrder); @endphp </span>
+                    <div class="panel-heading  text-bold text-center"  data-target="#month">
+                        <p>View Orders</p>
+                        Start Date:
+                        <input id="datepicker" type="text" name="start"/>
+                        End Date:
+                        <input id="datepicker2" type="text" name="end" />
+                        <button class="btn btn-success">OK</button>
                     </div>
 
                     <div class="panel-body collapse" id="month">
@@ -183,3 +188,7 @@
         </div>
     </div>
 @endsection
+
+
+
+

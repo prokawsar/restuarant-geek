@@ -1,4 +1,4 @@
-@section('title', 'Kitchen')
+@section('title', 'Customers')
 
 @extends('layouts.app')
 
@@ -6,8 +6,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+
             <div class="panel panel-default">
-            <table class="table table-hover">
+                <div class="panel-heading text-center" >Customers</div>
+
+                @php $i = 1; $customer = App\Customer::where('rest_id', Auth::id())->paginate(15); @endphp
+
+                <table class="table table-hover">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -17,15 +22,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach ($customer as $person)
                         <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto </td>
+                        <th scope="row">{{ $i }}</th>
+                        <td>{{ $person->name }}</td>
+                        <td>{{ $person->phone }} </td>
                         <td>100 </td>
                         </tr>
+                    @php $i++; @endphp
+                    @endforeach
                        
                     </tbody>
+
             </table>
+                {{ $customer->links() }}
             </div>
         </div>
     </div>

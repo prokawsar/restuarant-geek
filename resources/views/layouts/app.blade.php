@@ -13,6 +13,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/adminLTE.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 </head>
 <body>
     <div id="app">
@@ -102,5 +104,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                maxDate: new Date,
+            });
+            $( "#datepicker2" ).datepicker({
+                maxDate: new Date,
+            });
+
+        });
+    </script>
 </body>
 </html>

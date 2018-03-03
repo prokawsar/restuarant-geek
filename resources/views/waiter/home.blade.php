@@ -106,17 +106,6 @@
                                 <div class="help-block with-errors"></div>
 
                             </div>
-
-                            <div class="form-group">
-
-                                <label class="control-label" for="title">Customer Name:<span class="required">*</span></label>
-
-                                <input type="text" id="cust_name" name="cust_name" class="form-control"
-                                       data-error="Please enter name." required/>
-
-                                <div class="help-block with-errors"></div>
-
-                            </div>
                             <div class="form-group">
 
                                 <label class="control-label" for="title">Customer Phone:<span class="required">*</span></label>
@@ -127,6 +116,17 @@
                                 <div class="help-block with-errors"></div>
 
                             </div>
+                            <div class="form-group">
+
+                                <label class="control-label" for="title">Customer Name:<span class="required">*</span></label>
+
+                                <input type="text" id="cust_name" name="cust_name" class="form-control"
+                                       data-error="Please enter name." required/>
+
+                                <div class="help-block with-errors"></div>
+
+                            </div>
+
                             <div id="smartcart"></div>
 
                             <!-- <button class="btn btn-success pull-right">Send to Kitchen</button> -->

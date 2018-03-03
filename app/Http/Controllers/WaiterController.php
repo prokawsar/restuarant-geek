@@ -28,6 +28,11 @@ class WaiterController extends Controller
         return view('waiter.takereview');
     }
 
+    public function placedOrder()
+    {
+        return view('waiter.placedorder');
+    }
+
     public function placeOrder(Request $request){
         $items = json_decode($request['order_list']);
 

@@ -57,13 +57,16 @@
 
                                     <textarea  class="form-control" type="text"></textarea>
 
-                                    <label class="control-label" for="phone">Customer Phone:<span class="required">*</span></label>
+                                    <label class="control-label" for="phone">Customer Email/Phone:<span class="required">*</span></label>
 
                                     <input  class="form-control" name="phone" type="text" />
 
                                     <input id="rating-system" type="number" name="rating" class="rating" min="1" max="5" step="1">
 
                                     <br>
+
+                                    <label class="control-label" for="discount">After giving review your bill will be:</label>
+
                                     <button class="btn btn-success pull-right" >Submit</button>
 
 
@@ -134,8 +137,12 @@
                                     <textarea  class="form-control" type="text"></textarea>
 
                                     <label class="control-label" for="title">Customer Phone:<span class="required">*</span></label>
-
                                     <input  class="form-control" type="text" />
+
+                                    <input id="rating-system" type="number" name="rating" class="rating" min="1" max="5" step="1">
+                                    <br>
+
+                                    <button class="btn btn-success pull-right" >Submit</button>
 
                                 </div>
                             </td>

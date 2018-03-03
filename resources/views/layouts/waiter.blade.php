@@ -41,6 +41,7 @@
                     @php if(Auth::guard('waiter')->check()) { @endphp
 
                         <li><a href="{{ route('review') }}">Take Review</a></li>
+                        <li><a href="{{ route('placedorder') }}">Placed Order</a></li>
                     @php } @endphp
                     </ul>
 

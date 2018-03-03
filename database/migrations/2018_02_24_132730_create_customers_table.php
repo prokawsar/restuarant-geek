@@ -17,6 +17,8 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('phone');
+            $table->integer('rest_id')->unsigned();
+            $table->foreign('rest_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
