@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\FoodOrder;
 use App\Table;
 use Illuminate\Http\Request;
 
@@ -36,11 +37,16 @@ class TableController extends Controller
         return redirect('/addtable')->with('status', 'New Table Added !');
     }
 
-
     public function deleteTable($id){
 
-        $table = Table::where('id', $id)->delete();
-        
+        $table = FoodOrder::where('table_id', $id)->get();
+        // dd($item);
+
+        if(!$table->isEmpty()){
+            return redirect('/alltable')->with('warning', 'You can not delete this table, its already in use !');
+        }
+        Table::where('id', $id)->delete();
+
         return redirect('/alltable')->with('danger', 'Table Deleted !');
     }
 

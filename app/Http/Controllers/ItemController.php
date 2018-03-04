@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\FoodOrderItem;
 use App\Item;
 use App\Category;
 use Illuminate\Http\Request;
@@ -63,9 +64,29 @@ class ItemController extends Controller
         return redirect('/allitem')->with('danger', 'Item Deleted !');
     }
 
+    public function delCategory($id){
+
+        $item = Item::where('cat_id', $id)->get();
+       // dd($item);
+
+        if(!$item->isEmpty()){
+            return redirect('/addcategory')->with('warning', 'You can not delete this category, its already in use !');
+        }
+        Category::where('id', $id)->delete();
+
+        return redirect('/addcategory')->with('danger', 'Category Deleted !');
+    }
+
     public function updateItem(Request $request){
-        $item = new Item();
-        $item = $item->find($request['id']);
+
+//        $item = FoodOrderItem::where('item_id', $request['id']);
+////        dd($item);
+//
+//        if( !$item->isEmpty()){
+//            return redirect('/allitem')->with('warning', 'Item can not be Updated, already in use !');
+//        }
+
+        $item = Item::find($request['id']);
         $item->item_name = $request['name'];
         $item->price = $request['price'];
         if($request['image']){

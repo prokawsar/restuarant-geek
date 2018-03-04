@@ -54,7 +54,7 @@
                                 <td>{{ $order->status  }}</td>
                                 <td>
                                     <button type="button"
-                                       class="btn btn-info" >Add More Item</button>
+                                       class="btn btn-info" @php if( $order->bill_paid ) echo 'disabled'; @endphp >Add More Item</button>
                                 </td>
 
                             </tr>

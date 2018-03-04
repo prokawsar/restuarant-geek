@@ -18,6 +18,7 @@ class CreateFoodOrdersTable extends Migration
             $table->float('total_bill');
             $table->timestamp('order_date');
             $table->boolean('status')->default(0);
+            $table->boolean('paid_bill')->default(0);
             $table->integer('cust_id')->unsigned();
             $table->integer('table_id')->unsigned();
             $table->integer('rest_id')->unsigned();

@@ -6,6 +6,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+                @if (session('alert'))
+                    <div class="alert alert-success">
+                        {{ session('alert') }}
+                    </div>
+                @endif
 
                 @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date',DB::raw('CURDATE()'))->get(); @endphp
                 {{--@php dd($foodOrder) @endphp--}}
@@ -52,7 +57,13 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $bill }}</td>
-                                    <td><button class="btn btn-success" onclick="PrintElem(['name'=> '{{$cust[0]->name}}' ])">Receive Bill</button> </td>
+                                    <script>
+                                        var dataObject = {};
+                                        dataObject['name'] = '<?php echo $cust[0]->name; ?>';
+                                    </script>
+
+                                    <td><button class="btn btn-info" @php if( $order->bill_paid ) echo 'disabled'; @endphp onclick="PrintElem(dataObject)">Print Bill</button> </td>
+                                    <td><button class="btn btn-success" @php if( $order->bill_paid ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
 
                                 </tr>
                                 @php $i++; @endphp
@@ -194,14 +205,14 @@
 
     function PrintElem(DataArray)
     {
-        alert(DataArray);
+//        alert(DataArray);
 
         var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
         mywindow.document.write('<html><head><title>' + document.title  + '</title>');
         mywindow.document.write('</head><body >');
         mywindow.document.write('<h3>' + document.title  + '</h3>');
-        mywindow.document.write('Name: <h5>' + document.title + '</h5>');
+        mywindow.document.write('<h5>Name: ' + DataArray['name'] + '</h5>');
 //        mywindow.document.write(document.getElementById(elem).innerHTML);
         mywindow.document.write('</body></html>');
 

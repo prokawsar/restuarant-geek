@@ -111,7 +111,7 @@
 //                    <li>
 //                    <a href="#" >Profile </a>
 //                    </li>
-                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a></li><hr>';
+                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a></li><br>';
 
                 })
                 $('#notify').html(rows);

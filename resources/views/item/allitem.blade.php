@@ -19,7 +19,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
                     @if (session('danger'))
                         <div class="alert alert-danger">
                             {{ session('danger') }}

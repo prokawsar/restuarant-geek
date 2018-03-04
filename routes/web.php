@@ -45,6 +45,7 @@ Route::get('/deleteitem{id}', 'ItemController@deleteItem')->name('deleteitem');
 Route::get('/addcategory', 'ItemController@setCategory')->name('addcate');
 
 Route::post('/addcategory', 'ItemController@addCategory');
+Route::get('/delcategory{id}', 'ItemController@delCategory');
 
 Route::get('/customer', 'HomeController@viewCustomer')->name('mycustomer');
 
@@ -60,6 +61,8 @@ Route::get('/kitchen', 'HomeController@viewKitchen')->name('kitchen');
 
 Route::get('/sms', 'HomeController@smsCampaign')->name('smscamp');
 Route::get('/emailcamp', 'HomeController@emailCampaign')->name('emailcamp');
+
+Route::get('/billpaid{id}', 'HomeController@billPaid');
 
 Route::post('/placeorder', 'WaiterController@placeOrder');
 Route::get('/orderdone{id}', 'KitchenController@OrderDone')->name('orderdone');

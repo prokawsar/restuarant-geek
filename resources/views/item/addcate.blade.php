@@ -3,10 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            {{--<div class="panel panel-default">--}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                {{--<div class="panel panel-default">--}}
                 {{--<div class="panel-heading">Item Add</div>--}}
 
                 <div class="panel-body">
@@ -15,64 +15,83 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <div class="modal-dialog" role="document">
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
+                    @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                    @endif
+                    <div class="modal-dialog" role="document">
 
-                            <div class="modal-content">
+                        <div class="modal-content">
 
-                                <div class="modal-header">
+                            <div class="modal-header">
 
-                                    <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
+                                <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
 
-                                    <!-- <h4 class="modal-title">Add Category</h4> -->
+                                <!-- <h4 class="modal-title">Add Category</h4> -->
 
-                                </div>
+                            </div>
 
-                                <div class="modal-body">
+                            <div class="modal-body">
 
 
+                                <form data-toggle="validator" action="{{ url('/addcategory') }}" method="POST">
 
-                                    <form data-toggle="validator" action="{{ url('/addcategory') }}" method="POST">
-                                    
                                     {{ csrf_field() }}
-                                        @php $category = App\Category::where('rest_id', Auth::id())->get(); @endphp
+                                    @php $category = App\Category::where('rest_id', Auth::id())->get(); @endphp
 
-                                        <ul class="nav nav-pills nav-stacked">
-                                            <li class="active text-center"><a href="#">Current Categories</a></li>
-                                            @foreach ($category as $name)
-                                            <li><a class="" href="#">{{ $name->cat_name}}  </a>  <span class="pull-right"> <i class="fa fa-times"></i> </span></li>
-                                           
-                                            @endforeach
-                                        
-                                        </ul>
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li class="active text-center"><a href="#">Current Categories</a></li>
+                                        @foreach ($category as $name)
+                                            <li><a class="" href="#">{{ $name->cat_name}} <span class="pull-right"> <i
+                                                                class="fa fa-times" title="Delete Category"
+                                                                onclick="location.href='/delcategory{{  $name->id }}'"></i>
+                                                </a>  </span></li>
 
-                                        <div class="form-group">
+                                        @endforeach
 
-                                            <label class="control-label" for="title">Name:</label>
+                                    </ul>
 
-                                            <input type="text" id="title" name="title" class="form-control" data-error="Please enter title." required />
-                                            <input type="hidden"  name="rest_id" class="form-control" value="{{ Auth::id() }}" />
+                                    <div class="form-group">
 
-                                            <div class="help-block with-errors"></div>
+                                        <label class="control-label" for="title">Name:</label>
 
-                                        </div>
+                                        <input type="text" id="title" name="title" class="form-control"
+                                               data-error="Please enter title." required/>
+                                        <input type="hidden" name="rest_id" class="form-control"
+                                               value="{{ Auth::id() }}"/>
 
-                                        
-                                        <div class="form-group">
+                                        <div class="help-block with-errors"></div>
 
-                                            <button type="submit" class="btn crud-submit btn-success">Add Category</button>
+                                    </div>
 
-                                        </div>
 
-                                    </form>
+                                    <div class="form-group">
 
-                                </div>
+                                        <button type="submit" class="btn crud-submit btn-success">Add Category</button>
+
+                                    </div>
+
+                                </form>
 
                             </div>
 
                         </div>
+
+                    </div>
                 </div>
-            {{--</div>--}}
-        {{--</div>--}}
-    </div>
-</div>
-@endsection
+                {{--</div>--}}
+                {{--</div>--}}
+            </div>
+        </div>
+        @endsection
+        <script>
+            function deleteCat() {
+                alert('Hello');
+            }
+        </script>

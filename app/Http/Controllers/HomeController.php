@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\FoodOrder;
 use App\Waiter;
 use App\Kitchen;
 use Illuminate\Http\Request;
@@ -78,6 +79,16 @@ class HomeController extends Controller
 
         return redirect('/ucode')->with('alert', 'Unique Code Updated !');
     }
+
+    public function billPaid($id)
+    {
+        $foodOrder = FoodOrder::find($id);
+        $foodOrder->bill_paid = true ;
+        $foodOrder->save();
+
+        return redirect('/allorder')->with('alert', 'Bill Paid for a Order!');
+    }
+
 
     public function setKitchenCode(Request $request)
     {

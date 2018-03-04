@@ -6,6 +6,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+
+            @php  $rest_data = App\User::where('id', Auth::id())->get();
+            if( ! $rest_data[0]->address || ! $rest_data[0]->image || ! $rest_data[0]->phone ){
+            @endphp
+
+            <div class="alert alert-dismissible alert-info">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Hurry !</strong> Please <a href="{{ route('profile') }}" class="alert-link">complete your profile</a>.
+                Your profile will get you more customer.
+            </div>
+            @php }
+            @endphp
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
