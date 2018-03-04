@@ -17,105 +17,122 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar @php if(Auth::check()){ echo 'navbar-inverse'; } else echo 'navbar-default'; @endphp navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<div id="app">
+    <nav class="navbar @php if(Auth::check()){ echo 'navbar-inverse'; } else {echo 'navbar-default';} @endphp navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+            </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
                     @guest
                     @else
                         <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    My Restaurant <span class="caret"></span>
-                                </a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false" aria-haspopup="true">
+                                My Restaurant <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu">
-                                    
-                                    <li><a href="{{ route('allitem') }}">My Items</a></li>
-                                    <li><a href="{{ route('allTable') }}">My Tables</a></li>
-                                    <li><a href="{{ route('mycustomer') }}">My Customers</a></li>
-                                    <li><a href="{{ route('allreview') }}">My Reviews</a></li>
-                                </ul>
-                            </li>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="{{ route('allitem') }}">My Items</a></li>
+                                <li><a href="{{ route('allTable') }}">My Tables</a></li>
+                                <li><a href="{{ route('mycustomer') }}">My Customers</a></li>
+                                <li><a href="{{ route('allreview') }}">My Reviews</a></li>
+                            </ul>
+                        </li>
 
                         <li><a href="{{ route('kitchen') }}">Kitchen View</a></li>
                         <li><a href="{{ route('allorder')  }}">All Orders</a></li>
-                        <li><a href="{{ route('smscamp') }}">SMS Campaign</a></li>
-                    @endguest
-                    </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->rest_name }} <span class="caret"></span>
-                                </a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false" aria-haspopup="true">
+                                Campaign <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('profile') }}" >
-                                            Profile
-                                        </a>
-                                        <a href="{{ route('setting') }}" >
-                                            Setting
-                                        </a>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                            <ul class="dropdown-menu">
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li><a href="{{ route('emailcamp') }}">Email Campaign</a></li>
+                                <li><a href="{{ route('smscamp') }}">SMS Campaign</a></li>
+                            </ul>
+                        </li>
+
                         @endguest
-                    </ul>
-                </div>
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @guest
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false" aria-haspopup="true">
+                                {{ Auth::user()->rest_name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('profile') }}">
+                                        Profile
+                                    </a>
+                                    <a href="{{ route('setting') }}">
+                                        Setting
+                                    </a>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        @endguest
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        @yield('content')
-    </div>
+    @yield('content')
+</div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({
-                maxDate: new Date,
-            });
-            $( "#datepicker2" ).datepicker({
-                maxDate: new Date,
-            });
-
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            maxDate: new Date,
         });
-    </script>
+        $("#datepicker2").datepicker({
+            maxDate: new Date,
+        });
+
+    });
+</script>
 </body>
 </html>

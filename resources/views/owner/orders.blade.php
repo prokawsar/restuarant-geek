@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->get(); @endphp
+                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date',DB::raw('CURDATE()'))->get(); @endphp
                 {{--@php dd($foodOrder) @endphp--}}
 
 

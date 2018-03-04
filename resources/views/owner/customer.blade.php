@@ -18,6 +18,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Total Spent</th>
                         </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         <th scope="row">{{ $i }}</th>
                         <td>{{ $person->name }}</td>
                         <td>{{ $person->phone }} </td>
+                        <td>{{ $person->email }} </td>
                         <td>100 </td>
                         </tr>
                     @php $i++; @endphp

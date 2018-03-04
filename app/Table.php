@@ -16,4 +16,9 @@ class Table extends Model
     ];
 
     public $timestamps = false;
+
+    public function foodorder()
+    {
+        return $this->hasOne('App\FoodOrder');
+    }
 }

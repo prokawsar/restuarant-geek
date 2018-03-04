@@ -62,6 +62,11 @@ class HomeController extends Controller
         return view('owner.sms');
     }
 
+    public function emailCampaign()
+    {
+        return view('owner.emailcamp');
+    }
+
     public function setUCode(Request $request)
     {
         // $waiter = new Waiter();

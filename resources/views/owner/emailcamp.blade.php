@@ -1,0 +1,52 @@
+@section('title', 'SMS Campaign')
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <div class="form-group" >
+                    <label class="control-label" for="subject">Subject:<span class="required">*</span></label>
+
+                    <input  class="form-control" type="text" name="subject"/>
+
+                    <label class="control-label" for="title">Message:<span class="required">*</span></label>
+
+                    <textarea  class="form-control" type="text"></textarea>
+                    <br/>
+                    <button class="btn btn-success pull-right" >Send Email</button>
+
+                </div>
+                <br/>  <br/>
+                <div class="panel panel-default">
+
+                    @php $i = 1; $customer = App\Customer::where('rest_id', Auth::id())->get(); @endphp
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Total Spent</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($customer as $person)
+                            <tr>
+                                <th scope="row">1 <input type="checkbox" name="select"/> </th>
+                                <td>{{ $person->name }}</td>
+                                <td>{{ $person->email }} </td>
+                                <td>100 </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

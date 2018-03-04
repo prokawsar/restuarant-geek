@@ -17,5 +17,14 @@ class FoodOrder extends Model
 
     public $timestamps = false;
 
+    public function item()
+    {
+        return $this->belongsToMany('App\Item','food_order_items','order_id','item_id');
+    }
+
+    public function table()
+    {
+        return $this->belongsTo('App\Table');
+    }
 
 }

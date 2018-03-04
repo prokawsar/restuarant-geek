@@ -59,9 +59,10 @@ Route::get('/allreview', 'HomeController@viewReview')->name('allreview');
 Route::get('/kitchen', 'HomeController@viewKitchen')->name('kitchen');
 
 Route::get('/sms', 'HomeController@smsCampaign')->name('smscamp');
+Route::get('/emailcamp', 'HomeController@emailCampaign')->name('emailcamp');
 
 Route::post('/placeorder', 'WaiterController@placeOrder');
-Route::get('/orderdone{id}', 'WaiterController@OrderDone')->name('orderdone');
+Route::get('/orderdone{id}', 'KitchenController@OrderDone')->name('orderdone');
 
 Route::get('/profile', function(){
     return view('owner.profile');

@@ -195,8 +195,12 @@
 
             // Cart checkout event
             $(this.cart_element).on("click", '.sc-cart-checkout', function (e) {
-                if($('#cust_name').val()== '' || $('#cust_phone').val()== '' ){
-                    alert('Please fill up required fields');
+                if($('#cust_phone').val()== '' && $('#cust_email').val()== '' ){
+                    alert('Please provide Customer phone or email !');
+                    return;
+                }
+                if($('#cust_name').val()== '' ){
+                    alert('Please provide Customer name !');
                     return;
                 }
                 if ($(this).hasClass('disabled')) {

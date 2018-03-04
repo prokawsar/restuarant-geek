@@ -57,13 +57,16 @@
                                             <tbody>
                                             @foreach ($items as $item)
                                                 <tr class="sc-product-item">
-                                                    <input type="hidden" data-name="item_name" value="{{ $item->item_name}}"/>
-                                                    <input type="hidden" data-name="item_price" value="{{ $item->price}}"/>
+                                                    <input type="hidden" data-name="item_name"
+                                                           value="{{ $item->item_name}}"/>
+                                                    <input type="hidden" data-name="item_price"
+                                                           value="{{ $item->price}}"/>
                                                     <input type="hidden" data-name="item_id" value="{{ $item->id }}"/>
 
                                                     <th scope="row">{{ $item->item_name}}</th>
                                                     <td>{{ $item->price }}</td>
-                                                    <td><a href="#" class="sc-add-to-cart btn btn-info">Place Order</a></td>
+                                                    <td><a href="#" class="sc-add-to-cart btn btn-info">Place Order</a>
+                                                    </td>
 
                                                 </tr>
                                             @endforeach
@@ -85,51 +88,63 @@
 
                         <div class="panel-body">
 
-                        <form data-toggle="validator" action="{{ url('/placeorder')  }}" method="POST">
-                                    
-                            {{ csrf_field() }}
-                            <input type="hidden" id="rest_id" name="rest_id" value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
+                            <form data-toggle="validator" action="{{ url('/placeorder')  }}" method="POST">
 
-                            <div class="form-group">
+                                {{ csrf_field() }}
+                                <input type="hidden" id="rest_id" name="rest_id"
+                                       value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
 
-                                <label class="control-label" for="title">Select Table:<span class="required">*</span></label>
-                                @php $table = App\Table::where('rest_id', Auth::guard('waiter')->user()->rest_id)->get(); @endphp
+                                <div class="form-group">
 
-                                <select class="form-control" name="table_id" required>
-                                    <option>Select Table</option>
+                                    <label class="control-label" for="title">Select Table:<span
+                                                class="required">*</span></label>
+                                    @php $table = App\Table::where('rest_id', Auth::guard('waiter')->user()->rest_id)->get(); @endphp
 
-                                    @foreach ($table as $name)
-                                        <option value="{{ $name->id}}">{{ $name->name_or_no}}</option>
-                                    @endforeach
+                                    <select class="form-control" name="table_id" required>
+                                        <option>Select Table</option>
 
-                                </select>
-                                <div class="help-block with-errors"></div>
+                                        @foreach ($table as $name)
+                                            <option value="{{ $name->id}}">{{ $name->name_or_no}}</option>
+                                        @endforeach
 
-                            </div>
-                            <div class="form-group">
+                                    </select>
+                                    <div class="help-block with-errors"></div>
 
-                                <label class="control-label" for="title">Customer Phone:<span class="required">*</span></label>
+                                </div>
+                                <div class="form-group jumbotron" id="contact">
 
-                                <input type="number" id="cust_phone" name="cust_phone" class="form-control"
-                                       data-error="Please enter phone." required/>
+                                    <label class="control-label" for="title">Customer Phone:</label>
 
-                                <div class="help-block with-errors"></div>
+                                    <input type="number" id="cust_phone" name="cust_phone" class="form-control contact"
+                                           />
 
-                            </div>
-                            <div class="form-group">
+                                    <div class="help-block with-errors"></div>
+                                    <p>OR</p>
 
-                                <label class="control-label" for="title">Customer Name:<span class="required">*</span></label>
+                                    <label class="control-label" for="title">Customer Email:</label>
 
-                                <input type="text" id="cust_name" name="cust_name" class="form-control"
-                                       data-error="Please enter name." required/>
+                                    <input type="text" id="cust_email" name="cust_email" class="form-control contact"
+                                           />
 
-                                <div class="help-block with-errors"></div>
+                                    <div class="help-block with-errors"></div>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Customer Name:<span
+                                                class="required">*</span></label>
+
+                                    <input type="text" id="cust_name" name="cust_name" class="form-control"
+                                           data-error="Please enter name." required/>
+
+                                    <div class="help-block with-errors"></div>
 
                             </div>
 
                             <div id="smartcart"></div>
 
-                            <!-- <button class="btn btn-success pull-right">Send to Kitchen</button> -->
+                                <!-- <button class="btn btn-success pull-right">Send to Kitchen</button> -->
                         </div>
                     </div>
                 </div>
@@ -139,12 +154,12 @@
 @endsection
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 <script>
-    $( document ).ready(function() {
+    $(document).ready(function () {
         $('#collapse-all').on('click', function () {
             $('.coll-all').collapse('toggle');
-            if($("#collapse-all").text() == "Expand All") {
+            if ($("#collapse-all").text() == "Expand All") {
                 $("#collapse-all").text('Collapse All');
-            }else {
+            } else {
                 $("#collapse-all").text('Expand All');
             }
 
@@ -152,8 +167,8 @@
         });
     });
 
-    $(document).ready(function(){
-          // Initialize Smart Cart
-          $('#smartcart').smartCart();
-      });
+    $(document).ready(function () {
+        // Initialize Smart Cart
+        $('#smartcart').smartCart();
+    });
 </script>

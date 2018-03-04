@@ -40,7 +40,13 @@ class WaiterController extends Controller
         //dd($request);
         $customer = new Customer();
         $customer->name = $request['cust_name'];
-        $customer->phone = $request['cust_phone'];
+        if(isset($request['cust_phone'])){
+            $customer->phone = $request['cust_phone'];
+        }
+        if(isset($request['cust_email'])){
+            $customer->email = $request['cust_email'];
+        }
+        $customer->rest_id= $request['rest_id'];
         $customer->save();
 
         $cust_id = Customer::select('id')->orderBy('created_at', 'desc')->first();
@@ -66,8 +72,4 @@ class WaiterController extends Controller
         return redirect('/waiter/makeorder')->with('status', 'Order Place Successfully!');
     }
 
-    public function OrderDone($id){
-        FoodOrder::where('id', $id)->update(array('status' => 1));
-        return redirect('/kitchen/home')->with('status', 'Order no '.$id.' Done !');
-    }
 }

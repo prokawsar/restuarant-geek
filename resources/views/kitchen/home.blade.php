@@ -37,28 +37,28 @@
                         <tbody id="datas">
 
                         {{--@foreach ($foodOrder as $order)--}}
-                            {{--@php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp--}}
-                            {{--@php dd($table) @endphp--}}
-                            {{--@php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp--}}
+                        {{--@php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp--}}
+                        {{--@php dd($table) @endphp--}}
+                        {{--@php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp--}}
 
-                            {{--<tr>--}}
-                                {{--<th scope="row">{{ $i }}</th>--}}
-                                {{--<td>{{ $table[0]->name_or_no }}</td>--}}
-                                {{--<td>--}}
-                                    {{--@foreach($items as $item_id)--}}
-                                        {{--@php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp--}}
+                        {{--<tr>--}}
+                        {{--<th scope="row">{{ $i }}</th>--}}
+                        {{--<td>{{ $table[0]->name_or_no }}</td>--}}
+                        {{--<td>--}}
+                        {{--@foreach($items as $item_id)--}}
+                        {{--@php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp--}}
 
-                                        {{--{{ $item[0]->item_name }} <br>--}}
-                                    {{--@endforeach--}}
-                                {{--</td>--}}
-                                {{--<td>{{ $order->status  }}</td>--}}
-                                {{--<td>--}}
-                                    {{--<button type="button" onclick="window.location='{{ route("orderdone", ["id" => $order->id ] )  }}'"--}}
-                                       {{--class="btn btn-info" @php if($order->status) echo 'disabled' @endphp >Done</button>--}}
-                                {{--</td>--}}
+                        {{--{{ $item[0]->item_name }} <br>--}}
+                        {{--@endforeach--}}
+                        {{--</td>--}}
+                        {{--<td>{{ $order->status  }}</td>--}}
+                        {{--<td>--}}
+                        {{--<button type="button" onclick="window.location='{{ route("orderdone", ["id" => $order->id ] )  }}'"--}}
+                        {{--class="btn btn-info" @php if($order->status) echo 'disabled' @endphp >Done</button>--}}
+                        {{--</td>--}}
 
-                            {{--</tr>--}}
-                            {{--@php $i++; @endphp--}}
+                        {{--</tr>--}}
+                        {{--@php $i++; @endphp--}}
                         {{--@endforeach--}}
 
                         </tbody>
@@ -71,53 +71,58 @@
 
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 
-    {{--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>--}}
-    <script>
+<script>
 
-        var token='{{csrf_token()}}';
-        function loadOrderData() {
-            $.ajax({
-                type:'get',
-                url:'{{route('allorders')}}',
-                success:function (data) {
-                    console.log(data);
-                    var rows='',x=1;
-                    data.map(function (index) {
-//                        console.log("hello");
-                        rows+='<tr><td>'+x+++'</td>' +
-                            '<td>'+index.table_id+'</td>' +
-                            '<td></td>' +
-                            '<td>'+index.status+'</td>' +
-                            '<td><button type="button" class="btn btn-info" >Done </button></td>' +
+    var token = '{{csrf_token()}}';
+    function loadOrderData() {
+        $.ajax({
+            type: 'get',
+            url: '{{route('allorders')}}',
+            success: function (data) {
+                console.log(data);
+                var rows = '', x = 1;
+                data.map(function (index) {
+//                        console.log(index.item[0].item_name);
+                    rows += '<tr><td>' + x++ + '</td>' +
+                        '<td>' + index.table.name_or_no + '</td><td>';
+
+                    for (var y = 0; y < index.item.length; y++) {
+                        rows += index.item[y].item_name + '<br>';
+                    }
+                    var status = '';
+                    if (index.status) {
+                        status = 'Completed';
+                    } else {
+                        status = 'Pending';
+                    }
+                    rows += '</td><td>' + status + '</td>' +
+                        '<td><button type="button" class="btn btn-info geturlbutton" data-id="' + index.id + '">Done </button></td>' +
                         '</tr>';
-                    })
-                    $('#datas').html(rows);
-//                    for(var x=0;x<data.length;x++)
-//                    {
-//                        $('#datas').append('<tr><td>'+x+'</td>' +
-//                            '<td>'+data[x].table_id+'</td>' +
-//                            '<td></td>' +
-//                            '<td>'+data[x].status+'</td>' +
-////                            '<td><button type="button" class="btn btn-info" >Done </button></td>' +
-//                        '</tr>');
-
-//                }
-        }
+                })
+                $('#datas').html(rows);
+            }
         })
-        }
-        function timeOut(){
-            setTimeout(function(){
-                loadOrderData();
-                timeOut();
-            },5000);
-        }
+    }
+    function timeOut() {
+        setTimeout(function () {
+            loadOrderData();
+            timeOut();
+        }, 5000);
+    }
 
-$(document).ready(function () {
+    $(document).ready(function () {
 //            alert("ok");
-    timeOut();
+//    timeOut();
 
-    loadOrderData();
+        loadOrderData();
 
-})
+    });
+
+$(document).on('click', '.geturlbutton', function () {
+//            alert($('.geturlbutton').data('id'));
+        var id = $('.geturlbutton').data('id');
+            url = '/orderdone' + id;
+        window.location.href = url;
+    })
 </script>
 
