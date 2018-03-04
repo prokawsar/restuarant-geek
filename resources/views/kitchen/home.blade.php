@@ -83,7 +83,11 @@
                 var rows = '', x = 1;
                 data.map(function (index) {
 //                        console.log(index.item[0].item_name);
-                    rows += '<tr><td>' + x++ + '</td>' +
+                    var statusClass='';
+                    if(index.status){ statusClass="success"; }
+                    else{ statusClass= "danger"; }
+
+                    rows += '<tr class="'+ statusClass +'"><td>' + x++ + '</td>' +
                         '<td>' + index.table.name_or_no + '</td><td>';
 
                     for (var y = 0; y < index.item.length; y++) {
@@ -111,9 +115,7 @@
     }
 
     $(document).ready(function () {
-//            alert("ok");
-//    timeOut();
-
+        timeOut();
         loadOrderData();
 
     });

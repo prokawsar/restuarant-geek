@@ -78,11 +78,12 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::get('/login', 'WaiterAuth\LoginController@showLoginForm')->name('wlogin');
   Route::post('/login', 'WaiterAuth\LoginController@login');
   Route::post('/logout', 'WaiterAuth\LoginController@logout')->name('wlogout');
-  Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
-    Route::get('/placedorder', 'WaiterController@placedOrder')->name('placedorder');
 
+  Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
+  Route::get('/placedorder', 'WaiterController@placedOrder')->name('placedorder');
   Route::get('/takereview', 'WaiterController@takeReview')->name('review');
 
+  Route::get('/getnotify', 'WaiterController@getNotification')->name('getnotify');
 });
 
 Route::group(['prefix' => 'admin'], function () {

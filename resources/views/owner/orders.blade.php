@@ -52,6 +52,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $bill }}</td>
+                                    <td><button class="btn btn-success" onclick="PrintElem(['name'=> '{{$cust[0]->name}}' ])">Receive Bill</button> </td>
 
                                 </tr>
                                 @php $i++; @endphp
@@ -189,6 +190,29 @@
     </div>
 @endsection
 
+<script>
 
+    function PrintElem(DataArray)
+    {
+        alert(DataArray);
+
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h3>' + document.title  + '</h3>');
+        mywindow.document.write('Name: <h5>' + document.title + '</h5>');
+//        mywindow.document.write(document.getElementById(elem).innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+</script>
 
 

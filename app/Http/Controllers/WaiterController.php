@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Customer;
 use App\FoodOrder;
 use App\FoodOrderItem;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class WaiterController extends Controller
 {
     /**
@@ -52,7 +55,7 @@ class WaiterController extends Controller
         $cust_id = Customer::select('id')->orderBy('created_at', 'desc')->first();
 
         $foodOrder = new FoodOrder();
-        $foodOrder->total_bill = 10;
+        $foodOrder->total_bill = 0;
         $foodOrder->status = 0;
         $foodOrder->cust_id = $cust_id['id'];
         $foodOrder->table_id = $request['table_id'];
@@ -61,15 +64,30 @@ class WaiterController extends Controller
 
         $order_id = FoodOrder::select('id')->orderBy('order_date', 'desc')->first();
 //        $orderItem = new FoodOrderItem();
+        $bill = 0;
 
         foreach ($items as $item){
             $orderItem = new FoodOrderItem();
             $orderItem->order_id = $order_id['id'];
             $orderItem->item_id = $item->item_id;
+            $bill += $item->item_price;
             $orderItem->save();
         }
+        $foodOrder = FoodOrder::find($order_id['id']);
+        $foodOrder->total_bill = $bill;
+        $foodOrder->save();
 
         return redirect('/waiter/makeorder')->with('status', 'Order Place Successfully!');
+    }
+
+    public function getNotification(Request $request)
+    {
+        if($request->ajax()) {
+//            $foodOrder = FoodOrder::where('rest_id', Auth::guard('kitchen')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->orderBy('status')->get();
+            $completeOrder = FoodOrder::with('table')->where('rest_id', Auth::guard('waiter')->user()->rest_id)->where('status', 1)->whereDate('order_date',DB::raw('CURDATE()'))->get();
+          
+            return $completeOrder;
+        }
     }
 
 }

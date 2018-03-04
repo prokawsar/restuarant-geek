@@ -155,6 +155,7 @@
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 <script>
     $(document).ready(function () {
+
         $('#collapse-all').on('click', function () {
             $('.coll-all').collapse('toggle');
             if ($("#collapse-all").text() == "Expand All") {
@@ -167,8 +168,4 @@
         });
     });
 
-    $(document).ready(function () {
-        // Initialize Smart Cart
-        $('#smartcart').smartCart();
-    });
 </script>

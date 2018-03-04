@@ -51,16 +51,14 @@
                         @php if(Auth::guard('waiter')->user()) { @endphp
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                Notificatoin <span class="caret"></span>
+                                Notificatoin <span id="notifCount" class="label label-success"> </span> <span class="caret"></span>
                             </a>
 
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" id="notify">
                                 <li>
                                    <a href="#" >Profile </a>
                                 </li>
-                                <li>
-                                    <a href="#" >Profile </a>
-                                </li>
+
                             </ul>
                         </li>
 
@@ -95,5 +93,48 @@
 
     <script src="{{ asset('js/star-rating.js') }}"></script>
 
+  <script>
+
+    var token = '{{csrf_token()}}';
+
+    function loadOrderData() {
+        $.ajax({
+            type: 'get',
+            url: '{{ route('getnotify') }}',
+            success: function (data) {
+                console.log(data);
+                $('#notifCount').text(data.length);
+
+                var rows = '';
+                data.map(function (index) {
+
+//                    <li>
+//                    <a href="#" >Profile </a>
+//                    </li>
+                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a></li><hr>';
+
+                })
+                $('#notify').html(rows);
+            }
+        })
+    }
+
+
+    function timeOut() {
+        setTimeout(function () {
+            loadOrderData();
+            timeOut();
+        }, 5000);
+    }
+
+    $(document).ready(function () {
+        timeOut();
+        loadOrderData();
+        // Initialize Smart Cart
+        $('#smartcart').smartCart();
+
+
+    });
+</script>
 </body>
 </html>
