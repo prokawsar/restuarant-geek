@@ -83,26 +83,38 @@
                 var rows = '', x = 1;
                 data.map(function (index) {
 //                        console.log(index.item[0].item_name);
+                    var status = '';
                     var statusClass='';
                     if(index.status){ statusClass="success"; }
                     else{ statusClass= "danger"; }
 
                     rows += '<tr class="'+ statusClass +'"><td>' + x++ + '</td>' +
-                        '<td>' + index.table.name_or_no + '</td><td>';
+                        '<td class="col-md-2">' + index.table.name_or_no + '</td><td><table class="table table-hover">';
 
                     for (var y = 0; y < index.item.length; y++) {
-                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<br>';
+                        if(index.item[y].pivot.order_status){
+                            status = 'disabled'
+//                            document.getElementById("itemTD").setAttribute('disabled', 'true');
+
+                            statusClass="success";
+                        }
+                        else{
+                            status = ''
+                            statusClass= "danger";
+                        }
+                        rows +='<tr class="'+statusClass +'"><td class="custom-row ">' + index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')' +
+                            ' <button type="button" class="btn btn-info pull-right itemDoneButton"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';
                     }
-                    var status = '';
-                    var statusClass = '';
+                    status = '';
+                    statusClass = '';
                     if (index.status) {
                         status = 'Completed';
                         statusClass = 'disabled'
                     } else {
                         status = 'Pending';
                     }
-                    rows += '</td><td>' + status + '</td>' +
-                        '<td><button type="button" class="btn btn-info geturlbutton"'+ statusClass +' data-id="' + index.id + '">Done </button></td>' +
+                    rows += '</table></td><td>' + status + '</td>' +
+                        '<td><button type="button" class="btn btn-info geturlbutton"'+ statusClass +' data-id="' + index.id + '">Order Done </button></td>' +
                         '</tr>';
                 })
                 $('#datas').html(rows);
@@ -117,7 +129,7 @@
     }
 
     $(document).ready(function () {
-        timeOut();
+//        timeOut();
         loadOrderData();
 
     });
@@ -125,7 +137,13 @@
 $(document).on('click', '.geturlbutton', function () {
 //            alert($('.geturlbutton').data('id'));
         var id = $('.geturlbutton').data('id');
-            url = '/orderdone' + id;
+            url = '/kitchen/orderdone' + id;
+        window.location.href = url;
+    });
+    $(document).on('click', '.itemDoneButton', function () {
+//            alert($('.geturlbutton').data('id'));
+        var id = $('.itemDoneButton').data('id');
+        url = '/kitchen/itemdone' + id;
         window.location.href = url;
     })
 </script>

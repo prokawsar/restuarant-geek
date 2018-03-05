@@ -34,7 +34,7 @@
                             @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
 
                              {{--@php dd($table) @endphp--}}
-                            @php $price = 0; $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
+                            @php $price = 0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get(); @endphp
 
                             <tr>
 
@@ -48,14 +48,14 @@
                                         $price += $item[0]->price;
                                         @endphp
 
-                                        {{ $item[0]->item_name }} <br>
+                                        {{ $item[0]->item_name }} ( {{ $item_id->item_quantity }}  )<br>
                                     @endforeach
                                 </td>
 
 
                                 <th scope="row">  {{ $price }} </th>
                                 <td>
-                                    <button class="btn btn-info"  data-toggle="collapse" data-target="#demo{{ $order->id  }}">Take Review</button>
+                                    <button class="btn btn-info" @php if(!$order->status) echo 'disabled'; @endphp  data-toggle="collapse" data-target="#demo{{ $order->id  }}">Take Review</button>
                                 </td>
                             <td>
                                 <form action="{{url('/waiter/takereview')}}" method="post">

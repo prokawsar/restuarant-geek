@@ -115,16 +115,17 @@
 
                                     <label class="control-label" for="title">Customer Phone:</label>
 
-                                    <input type="number" id="cust_phone" name="cust_phone" class="form-control contact"
-                                           />
+                                    <input type="number" id="phone" onblur="duplicateEmail(this)" name="phone"
+                                           class="form-control contact"
+                                    />
 
                                     <div class="help-block with-errors"></div>
                                     <p>OR</p>
 
                                     <label class="control-label" for="title">Customer Email:</label>
 
-                                    <input type="text" id="cust_email" name="cust_email" class="form-control contact"
-                                           />
+                                    <input type="text" id="email" name="email" class="form-control contact"
+                                    />
 
                                     <div class="help-block with-errors"></div>
 
@@ -140,9 +141,9 @@
 
                                     <div class="help-block with-errors"></div>
 
-                            </div>
+                                </div>
 
-                            <div id="smartcart"></div>
+                                <div id="smartcart"></div>
 
                                 <!-- <button class="btn btn-success pull-right">Send to Kitchen</button> -->
                         </div>
@@ -154,6 +155,8 @@
 @endsection
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 <script>
+    var token = '{{csrf_token()}}';
+
     $(document).ready(function () {
 
         $('#collapse-all').on('click', function () {
@@ -166,6 +169,26 @@
 
 
         });
+
+        function duplicateEmail(element) {
+            var phone = $(element).val();
+            $.ajax({
+                type: "POST",
+                url: '{{url('/checkemail')}}',
+                data: {phone: phone, token: token},
+                dataType: "json",
+                success: function (res) {
+                    if (res.exists) {
+                        alert('Phone Found');
+                    } else {
+                        alert('Phone Not Found');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                }
+            });
+        }
     });
 
 </script>

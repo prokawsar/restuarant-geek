@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('waiter')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->orderBy('status')->get(); @endphp
+                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('waiter')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->orderBy('status')->paginate(10); @endphp
                 {{--@php dd($foodOrder) @endphp--}}
                 <div class="panel panel-default">
 
@@ -79,6 +79,7 @@
                         @endforeach
 
                         </tbody>
+                        {{ $foodOrder->links() }}
                     </table>
                 </div>
             </div>

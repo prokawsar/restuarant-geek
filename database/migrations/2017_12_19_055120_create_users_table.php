@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('address')->nullable();
             $table->string('closing_day')->nullable();
-            $table->string('image')->default('no_image.jpg');
+            $table->string('image')->default('no-image.jpg');
             $table->boolean('verified')->default(0);
 
             $table->rememberToken();

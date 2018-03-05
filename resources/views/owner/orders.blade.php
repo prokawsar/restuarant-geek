@@ -69,11 +69,11 @@
                                     <td>{{ $order->total_bill }}</td>
                                     <td>{{ $status }}</td>
                                     <script>
-                                        var dataObject = {};
-                                        dataObject['name'] = '<?php echo $cust[0]->name; ?>';
+                                        var dataObject<?php echo $order->id; ?> = {};
+                                        dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
                                     </script>
 
-                                    <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject)">Print Bill</button> </td>
+                                    <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">Print Bill</button> </td>
                                     <td><button class="btn btn-success" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
 
                                 </tr>

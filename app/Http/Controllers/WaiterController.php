@@ -102,6 +102,22 @@ class WaiterController extends Controller
         return redirect('/waiter/makeorder')->with('status', 'Order Place Successfully!');
     }
 
+    public function checkEmail(Request $request){
+        if( isset($request['email']) ){
+            $email = $request->input('email');
+            $isExists = Customer::where('email',$email)->first();
+        }else{
+            $phone = $request->input('phone');
+            $isExists = Customer::where('phone',$phone)->first();
+        }
+
+        if($isExists){
+            return response()->json(array("exists" => true));
+        }else{
+            return response()->json(array("exists" => false));
+        }
+    }
+
     public function getNotification(Request $request)
     {
         if($request->ajax()) {

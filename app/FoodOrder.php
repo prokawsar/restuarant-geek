@@ -19,7 +19,7 @@ class FoodOrder extends Model
 
     public function item()
     {
-        return $this->belongsToMany('App\Item','food_order_items','order_id','item_id')->withPivot('item_quantity');
+        return $this->belongsToMany('App\Item','food_order_items','order_id','item_id')->withPivot('id', 'item_quantity', 'order_status');
     }
 
     public function table()

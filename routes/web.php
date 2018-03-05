@@ -65,12 +65,10 @@ Route::get('/emailcamp', 'HomeController@emailCampaign')->name('emailcamp');
 Route::get('/billpaid{id}', 'HomeController@billPaid');
 
 Route::post('/placeorder', 'WaiterController@placeOrder');
-Route::get('/orderdone{id}', 'KitchenController@OrderDone')->name('orderdone');
 
-Route::get('/profile', function(){
-    return view('owner.profile');
-})->name('profile');
+Route::get('/profile', 'HomeController@profile')->name('profile');
 
+Route::post('/profile/edit', 'HomeController@editForm')->name('editprofile');
 Route::get('/setting', function(){
     return view('owner.setting');
 })->name('setting');
@@ -85,6 +83,7 @@ Route::group(['prefix' => 'waiter'], function () {
   Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
   Route::get('/placedorder', 'WaiterController@placedOrder')->name('placedorder');
 
+  Route::post('/checkemail',['uses'=>'WaiterController@checkEmail']);
   Route::get('/moreitem{id}', 'WaiterController@addMoreItem')->name('moreitem');
 
   Route::get('/takereview', 'WaiterController@takeReview')->name('review');
@@ -112,4 +111,8 @@ Route::group(['prefix' => 'kitchen'], function () {
   Route::post('/logout', 'KitchenAuth\LoginController@logout')->name('klogout');
   Route::get('/home', 'KitchenController@index')->name('khome');
   Route::get('/allorders', 'KitchenController@orderData')->name('allorders');
+
+  Route::get('/orderdone{id}', 'KitchenController@OrderDone')->name('orderdone');
+  Route::get('/itemdone{id}', 'KitchenController@ItemDone')->name('itemdone');
+
 });

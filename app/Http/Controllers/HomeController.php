@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\FoodOrder;
+use App\User;
 use App\Waiter;
 use App\Kitchen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -58,6 +60,18 @@ class HomeController extends Controller
         return view('owner.customer');
     }
 
+    public function profile()
+    {
+        $ProfileData = User::where('id', Auth::id())->get();
+//        dd($ProfileData);
+        return view('owner.profile')->with('data', $ProfileData);
+    }
+
+    public function editForm(Request $request){
+        $data = User::find($request['id']);
+        //dd($data);
+        return view('owner.profileEdit')->with('data', $data);
+    }
     public function smsCampaign()
     {
         return view('owner.sms');

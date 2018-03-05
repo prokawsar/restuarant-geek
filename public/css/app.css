@@ -11407,4 +11407,7 @@ button.close {
   color:red;
   font-size: 25px;
 }
+.custom-row{
+  height: 10px; !important;
+}
 

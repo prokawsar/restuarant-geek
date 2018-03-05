@@ -43,4 +43,9 @@ class KitchenController extends Controller
         FoodOrder::where('id', $id)->update(array('status' => 1));
         return redirect('/kitchen/home')->with('status', 'Order no '.$id.' Done !');
     }
+
+    public function ItemDone($id){
+        FoodOrderItem::where('id', $id)->update(array('order_status' => 1));
+        return redirect('/kitchen/home')->with('status', 'Item Done !' .$id);
+    }
 }
