@@ -71,7 +71,7 @@
 
                                 <td>
                                     <button type="button"
-                                       class="btn btn-info" @php if( $order->bill_paid ) echo 'disabled'; @endphp >Add More Item</button>
+                                       class="btn btn-info" onclick="window.location='{{ route('moreitem', ['id' => $order->id ]) }}'" @php if( $order->bill_paid ) echo 'disabled'; @endphp >Add More Item</button>
                                 </td>
 
                             </tr>

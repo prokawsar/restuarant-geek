@@ -84,7 +84,12 @@ Route::group(['prefix' => 'waiter'], function () {
 
   Route::get('/makeorder', 'WaiterController@index')->name('makeorder');
   Route::get('/placedorder', 'WaiterController@placedOrder')->name('placedorder');
+
+  Route::get('/moreitem{id}', 'WaiterController@addMoreItem')->name('moreitem');
+
   Route::get('/takereview', 'WaiterController@takeReview')->name('review');
+
+  Route::post('/takereview', 'WaiterController@saveReview');
 
   Route::get('/getnotify', 'WaiterController@getNotification')->name('getnotify');
 });

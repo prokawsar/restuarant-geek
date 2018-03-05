@@ -39,6 +39,26 @@ class WaiterController extends Controller
     public function placeOrder(Request $request){
         $items = json_decode($request['order_list']);
 
+        if(isset($request['order_id'])){
+            $foodOrder = FoodOrder::find($request['order_id']);
+            $bill = 0;
+
+            foreach ($items as $item){
+                $orderItem = new FoodOrderItem();
+                $orderItem->order_id = $request['order_id'];
+                $orderItem->item_id = $item->item_id;
+                $orderItem->item_quantity = $item->item_quantity;
+
+                $bill += $item->item_price * $item->item_quantity;
+                $orderItem->save();
+            }
+            $currentBill = $foodOrder->total_bill;
+            $foodOrder->total_bill = $currentBill + $bill;
+            $foodOrder->status = 0;
+            $foodOrder->save();
+
+            return redirect('/waiter/placedorder')->with('status', 'Item Added Successfully!');
+        }
 //        dd($request['order_list']);
         //dd($request);
         $customer = new Customer();
@@ -72,7 +92,7 @@ class WaiterController extends Controller
             $orderItem->item_id = $item->item_id;
             $orderItem->item_quantity = $item->item_quantity;
 
-            $bill += $item->item_price;
+            $bill += $item->item_price * $item->item_quantity;
             $orderItem->save();
         }
         $foodOrder = FoodOrder::find($order_id['id']);
@@ -90,6 +110,18 @@ class WaiterController extends Controller
           
             return $completeOrder;
         }
+    }
+
+    public function addMoreItem($id)
+    {
+
+        return view('waiter.moreitem')->with('id', $id);
+    }
+
+    public function saveReview(Request $request)
+    {
+
+        return redirect('/waiter/takereview')->with('status', 'Review Taken Successfully!');
     }
 
 }

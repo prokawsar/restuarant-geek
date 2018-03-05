@@ -6,6 +6,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="panel panel-success">
                 @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('waiter')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->get(); @endphp
                
@@ -52,25 +58,29 @@
                                     <button class="btn btn-info"  data-toggle="collapse" data-target="#demo{{ $order->id  }}">Take Review</button>
                                 </td>
                             <td>
-                                <div class="form-group collapse" id="demo{{ $order->id  }}">
-                                    <label class="control-label" for="title">Customer Review:<span class="required">*</span></label>
+                                <form action="{{url('/waiter/takereview')}}" method="post">
 
-                                    <textarea  class="form-control" type="text"></textarea>
+                                    {{ csrf_field() }}
+                                <div class="form-group collapse" id="demo{{ $order->id  }}">
+                                    <label class="control-label" for="review">Customer Review:<span class="required">*</span></label>
+
+                                    <textarea  class="form-control" name="review" type="text"></textarea>
 
                                     <label class="control-label" for="phone">Customer Email/Phone:<span class="required">*</span></label>
 
-                                    <input  class="form-control" name="phone" type="text" />
+                                    <input  class="form-control" name="email-phone" type="text" />
 
                                     <input id="rating-system" type="number" name="rating" class="rating" min="1" max="5" step="1">
 
                                     <br>
 
-                                    <label class="control-label" for="discount">After giving review your bill will be:</label>
+                                    <label class="control-label" for="discount">After giving review you will get discount:</label>
 
                                     <button class="btn btn-success pull-right" >Submit</button>
 
 
                                 </div>
+                                </form>
                             </td>
                             </tr>
 
@@ -138,13 +148,14 @@
                                     <button class="btn btn-info"  data-toggle="collapse" data-target="#demo{{ $order->id  }}">Take Review</button>
                                 </td>
                             <td>
+                                <form action="{{ url('/takereview') }}" method="post">
                                 <div class="form-group collapse" id="demo{{ $order->id  }}">
-                                    <label class="control-label" for="title">Customer Review:<span class="required">*</span></label>
+                                    <label class="control-label" for="review">Customer Review:<span class="required">*</span></label>
 
-                                    <textarea  class="form-control" type="text"></textarea>
+                                    <textarea  class="form-control" type="text" name="review"></textarea>
 
-                                    <label class="control-label" for="title">Customer Phone:<span class="required">*</span></label>
-                                    <input  class="form-control" type="text" />
+                                    <label class="control-label" for="title">Customer Email/Phone:<span class="required">*</span></label>
+                                    <input  class="form-control" type="text" name="phone-email"/>
 
                                     <input id="rating-system" type="number" name="rating" class="rating" min="1" max="5" step="1">
                                     <br>
@@ -152,6 +163,7 @@
                                     <button class="btn btn-success pull-right" >Submit</button>
 
                                 </div>
+                                </form>
                             </td>
                             </tr>
 
