@@ -33,7 +33,13 @@
 
                             @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                             {{--@php dd($table) @endphp--}}
-                            @php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
+                            @php  $status='';  $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+                             if($order->status){
+                                    $status = 'Completed';
+                                }else{
+                                    $status = 'Pending';
+                                }
+                            @endphp
 
                             <tr>
                                 <th scope="row">{{ $i }}</th>
@@ -43,10 +49,11 @@
                                     @foreach($items as $item_id)
                                         @php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp
 
-                                        {{ $item[0]->item_name }} <br>
+                                        {{ $item[0]->item_name }}
+                                        ( {{ $item_id->item_quantity }} )<br>
                                     @endforeach
                                 </td>
-                                <td>{{ $order->status  }}</td>
+                                <td>{{ $status  }}</td>
                                 <td>
                                     <button class="btn btn-info" @php if(Auth() ) echo "disabled"; @endphp >Done</button>
                                 </td>

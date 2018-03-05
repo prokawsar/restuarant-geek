@@ -17,6 +17,7 @@ class CreateFoodOrderItemsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->integer('item_id')->unsigned();
+            $table->integer('item_quantity');
 
             $table->foreign('order_id')->references('id')->on('food_orders');
             $table->foreign('item_id')->references('id')->on('items');

@@ -59,7 +59,14 @@ class ItemController extends Controller
 
     public function deleteItem($id){
 
-        $item = Item::where('id', $id)->delete();
+        $item = FoodOrderItem::where('item_id', $id)->get();
+//         dd($item);
+
+        if(!$item->isEmpty()) {
+            return redirect('/allitem')->with('warning', 'You can not delete this item, its already in use !');
+
+        }
+        Item::where('id', $id)->delete();
         
         return redirect('/allitem')->with('danger', 'Item Deleted !');
     }
@@ -79,12 +86,12 @@ class ItemController extends Controller
 
     public function updateItem(Request $request){
 
-//        $item = FoodOrderItem::where('item_id', $request['id']);
-////        dd($item);
-//
-//        if( !$item->isEmpty()){
-//            return redirect('/allitem')->with('warning', 'Item can not be Updated, already in use !');
-//        }
+        $item = FoodOrderItem::where('item_id', $request['id'])->get();
+//        dd($item);
+
+        if( !$item->isEmpty()){
+            return redirect('/allitem')->with('warning', 'This item can not be Updated, its already in use !');
+        }
 
         $item = Item::find($request['id']);
         $item->item_name = $request['name'];

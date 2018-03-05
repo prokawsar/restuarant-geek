@@ -91,16 +91,18 @@
                         '<td>' + index.table.name_or_no + '</td><td>';
 
                     for (var y = 0; y < index.item.length; y++) {
-                        rows += index.item[y].item_name + '<br>';
+                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<br>';
                     }
                     var status = '';
+                    var statusClass = '';
                     if (index.status) {
                         status = 'Completed';
+                        statusClass = 'disabled'
                     } else {
                         status = 'Pending';
                     }
                     rows += '</td><td>' + status + '</td>' +
-                        '<td><button type="button" class="btn btn-info geturlbutton" data-id="' + index.id + '">Done </button></td>' +
+                        '<td><button type="button" class="btn btn-info geturlbutton"'+ statusClass +' data-id="' + index.id + '">Done </button></td>' +
                         '</tr>';
                 })
                 $('#datas').html(rows);

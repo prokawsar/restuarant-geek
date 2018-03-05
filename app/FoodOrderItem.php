@@ -12,8 +12,9 @@ class FoodOrderItem extends Model
      * @var array
      */
     protected $fillable = [
-        'order_id', 'item_id',
+        'order_id', 'item_id','item_quantity'
     ];
 
     public $timestamps = false;
+
 }

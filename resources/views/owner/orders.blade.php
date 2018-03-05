@@ -30,6 +30,7 @@
                                 <th scope="col">Table Name/No</th>
                                 <th scope="col">Items</th>
                                 <th scope="col">Bill</th>
+                                <th scope="col">Order Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -39,7 +40,15 @@
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
-                                @php $bill=0; $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
+                                @php $status=''; $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+
+
+                                if($order->status){
+                                    $status = 'Completed';
+                                }else{
+                                    $status = 'Pending';
+                                }
+                                @endphp
 
                                 <tr>
                                     <th scope="row">{{ $i }}</th>
@@ -48,22 +57,23 @@
                                     <td>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
-                                        $bill += $item[0]->price;
 
                                             @endphp
 
-                                            {{ $item[0]->item_name }} <br>
+                                            {{ $item[0]->item_name }}
+                                            ( {{ $item_id->item_quantity }} )<br>
 
                                         @endforeach
                                     </td>
-                                    <td>{{ $bill }}</td>
+                                    <td>{{ $order->total_bill }}</td>
+                                    <td>{{ $status }}</td>
                                     <script>
                                         var dataObject = {};
                                         dataObject['name'] = '<?php echo $cust[0]->name; ?>';
                                     </script>
 
-                                    <td><button class="btn btn-info" @php if( $order->bill_paid ) echo 'disabled'; @endphp onclick="PrintElem(dataObject)">Print Bill</button> </td>
-                                    <td><button class="btn btn-success" @php if( $order->bill_paid ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
+                                    <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject)">Print Bill</button> </td>
+                                    <td><button class="btn btn-success" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
 
                                 </tr>
                                 @php $i++; @endphp
@@ -105,7 +115,7 @@
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
-                                @php $bill=0; $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
+                                @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get(); @endphp
 
                                 <tr>
                                     <th scope="row">{{ $i }}</th>
@@ -118,7 +128,8 @@
 
                                             @endphp
 
-                                            {{ $item[0]->item_name }} <br>
+                                            {{ $item[0]->item_name }}
+                                           ( {{ $item_id->item_quantity }} ) <br>
 
                                         @endforeach
                                     </td>
