@@ -40,7 +40,8 @@
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
-                                @php $status=''; $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+                                @php $status=''; $bill=0;
+                                $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
 
 
                                 if($order->status){
@@ -88,7 +89,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->get(); @endphp
+                @php $i = 1;
+                $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+                $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', $yesterday )->get();
+                @endphp
                 {{--@php dd($foodOrder) @endphp--}}
 
 

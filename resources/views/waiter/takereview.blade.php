@@ -88,7 +88,14 @@
             <div class="panel panel-primary">
                 @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('waiter')->user()->rest_id)->get(); @endphp
 
-                <div class="panel-heading text-center" data-toggle="collapse"  data-target="#demo">Previous Order</div>
+                <div class="panel-heading text-center"   data-target="#demo">
+                    Previous Order
+                    <p>View Orders</p>
+                    Select Date:
+                    <input id="datepicker" type="text" name="start"/>
+
+                    <button class="btn btn-success">OK</button>
+                </div>
 
                 <div class="panel-body collapse" id="demo">
                 <table class="table table-hover">

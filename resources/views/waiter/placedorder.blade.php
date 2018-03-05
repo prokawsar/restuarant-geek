@@ -30,7 +30,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Table Name/No</th>
                             <th scope="col">Items</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Order Status</th>
+                            <th scope="col">Billing Status</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -39,7 +40,20 @@
                         @foreach ($foodOrder as $order)
                             @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
 
-                            @php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
+                            @php $status=''; $billStatus='';
+                            $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+
+                              if($order->status){
+                                    $status = 'Completed';
+                                }else{
+                                    $status = 'Pending';
+                                }
+                            if($order->bill_paid){
+                                    $billStatus = 'Paid';
+                                }else{
+                                    $billStatus = 'Not Paid';
+                                }
+                            @endphp
 
                             <tr>
                                 <th scope="row">{{ $i }}</th>
@@ -48,10 +62,13 @@
                                     @foreach($items as $item_id)
                                         @php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp
 
-                                        {{ $item[0]->item_name }} <br>
+                                        {{ $item[0]->item_name }}
+                                        ( {{ $item_id->item_quantity }} )<br>
                                     @endforeach
                                 </td>
-                                <td>{{ $order->status  }}</td>
+                                <td>{{ $status  }}</td>
+                                <td>{{ $billStatus }}</td>
+
                                 <td>
                                     <button type="button"
                                        class="btn btn-info" @php if( $order->bill_paid ) echo 'disabled'; @endphp >Add More Item</button>

@@ -89,9 +89,14 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
-    <script src="{{ asset('js/jquery.smartCart.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="{{ asset('js/star-rating.js') }}"></script>
+
+    <script src="{{ asset('js/jquery.smartCart.js') }}"></script>
+
+
 
   <script>
 
@@ -111,7 +116,8 @@
 //                    <li>
 //                    <a href="#" >Profile </a>
 //                    </li>
-                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a></li><br>';
+                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a>' +
+                        '<button class="btn btn-success" id="processOK">OK</button> </li><br>';
 
                 })
                 $('#notify').html(rows);
@@ -133,6 +139,9 @@
         // Initialize Smart Cart
         $('#smartcart').smartCart();
 
+        $("#datepicker").datepicker({
+            maxDate: new Date,
+        });
 
     });
 </script>
