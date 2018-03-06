@@ -55,6 +55,7 @@ class HomeController extends Controller
     public function viewReview()
     {
         $review = Review::with('customer')->where('rest_id',Auth::user()->id)->get();
+//dd($review);
 
         return view('owner.allreview')->with('reviews', $review);
     }

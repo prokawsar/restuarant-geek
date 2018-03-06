@@ -19,7 +19,9 @@ Route::get('/', function () {
         //        dd($data);
         return view('owner.home', compact('data', 'data2'));
     }
-    return view('welcome');
+    $users = \App\User::all();
+
+    return view('welcome')->with('users', $users);
 });
 
 Auth::routes();
