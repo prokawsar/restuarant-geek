@@ -118,10 +118,7 @@
 
     @yield('content')
 </div>
-@guest
-@extends('layouts.footer')
 
-@endguest
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -130,12 +127,15 @@
     $(function () {
         $("#datepicker").datepicker({
             maxDate: new Date,
+            dateFormat: "yy-mm-dd",
         });
         $("#datepicker2").datepicker({
             maxDate: new Date,
+            dateFormat: "yy-mm-dd",
         });
 
     });
+    
 </script>
 </body>
 </html>

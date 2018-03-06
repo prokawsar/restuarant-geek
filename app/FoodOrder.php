@@ -27,4 +27,9 @@ class FoodOrder extends Model
         return $this->belongsTo('App\Table');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer', 'cust_id');
+    }
+
 }

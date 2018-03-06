@@ -9,6 +9,7 @@ use App\Waiter;
 use App\Kitchen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -146,5 +147,20 @@ class HomeController extends Controller
         $kitchen->save();
 
         return redirect('/kitchen/ucode')->with('alert', 'Unique Code Updated !');
+    }
+
+    public  function orderDataDate(Request $request)
+    {
+        $start = FoodOrder::select('order_date')->where( DB::raw('DATE(order_date)'), $request['start'])->get()->first();
+        $end = FoodOrder::select('order_date')->where( DB::raw('DATE(order_date)'), $request['end'])->get()->first();
+
+        if($request->ajax())
+        {
+            //   $foodOrder = FoodOrder::where( DB::raw('DATE(order_date)'), $request['start'])->where('rest_id', Auth::user()->id)->get();
+            $foodOrder = FoodOrder::with('item', 'customer')->whereBetween('order_date', array($start->order_date, $end->order_date))->where('rest_id', Auth::user()->id)->get();
+
+            return $foodOrder;
+        }
+
     }
 }

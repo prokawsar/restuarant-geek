@@ -20,4 +20,10 @@ class Customer extends Model
         return $this->hasMany('App\Review');
 
     }
+
+    public function foodOrder(){
+
+        return $this->hasMany('App\FoodOrder');
+
+    }
 }

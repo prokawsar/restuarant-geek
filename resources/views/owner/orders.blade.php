@@ -1,4 +1,4 @@
-@section('title', 'Kitchen View')
+@section('title', 'All Order Data')
 
 @extends('layouts.app')
 
@@ -153,63 +153,34 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->get(); @endphp
-                {{--@php dd($foodOrder) @endphp--}}
-
 
                 <div class="panel panel-info">
                     <div class="panel-heading  text-bold text-center"  data-target="#month">
                         <p>View Orders</p>
                         Start Date:
-                        <input id="datepicker" type="text" name="start"/>
+                        <input id="datepicker" type="text"  name="start"/>
                         End Date:
                         <input id="datepicker2" type="text" name="end" />
-                        <button class="btn btn-success">OK</button>
+                        <button class="btn btn-success ok" >OK</button>
                     </div>
 
-                    <div class="panel-body collapse" id="month">
+                    <div class="panel-body" id="month">
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Customer Name</th>
-                                <th scope="col">Table Name/No</th>
+                                <th scope="col">Order Date</th>
                                 <th scope="col">Items</th>
                                 <th scope="col">Bill</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="orders">
 
-                            @foreach ($foodOrder as $order)
-                                @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
-
-                                @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
-                                {{--@php dd($table) @endphp--}}
-                                @php $bill=0; $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp
-
-                                <tr>
-                                    <th scope="row">{{ $i }}</th>
-                                    <th scope="row">{{ $cust[0]->name }}</th>
-                                    <td>{{ $table[0]->name_or_no }}</td>
-                                    <td>
-                                        @foreach($items as $item_id)
-                                            @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
-                                        $bill += $item[0]->price;
-
-                                            @endphp
-
-                                            {{ $item[0]->item_name }} <br>
-
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $bill }}</td>
-
-                                </tr>
-                                @php $i++; @endphp
-                            @endforeach
+                             
 
                             </tbody>
                         </table>
@@ -220,7 +191,50 @@
     </div>
 @endsection
 
+<script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
+
 <script>
+
+    var _token = '{{csrf_token()}}';
+
+    $(document).on('click', '.ok', function () {
+        var start = $('#datepicker').val();
+        var end = $('#datepicker2').val();
+//        alert(start);
+//        alert(end);
+//        return;
+
+        $.ajax({
+            type: 'post',
+            url: '{{ route('orderdata') }}',
+            data: {
+                _token: _token,
+                start:start,
+                end:end
+            },
+            success: function (response) {
+                console.log(response);
+                var rows = '', x = 1;
+                response.map(function (index) {
+
+                    rows += '<tr class=""><td>' + x++ + '</td>' +
+                        '<td>' + index.customer.name + '</td>' +
+                        '<td>' + index.order_date + '</td><td>';
+
+                    for (var y = 0; y < index.item.length; y++) {
+                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<br>';
+                    }
+
+                    rows += '</td><td>'+ index.total_bill + '</td></tr>';
+                });
+                $('#orders').html(rows);
+            },
+            error: function(er){
+                console.log(er);
+            }
+        })
+    });
+
 
     function PrintElem(DataArray)
     {

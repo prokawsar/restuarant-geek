@@ -34,6 +34,8 @@ Route::post('/kitchen/ucode', 'HomeController@setKitchenCode');
 
 Route::get('/allorder', 'HomeController@showOrder')->name('allorder');
 
+Route::post('/orderdata', 'HomeController@orderDataDate')->name('orderdata');
+
 Route::get('/allitem', 'ItemController@show')->name('allitem');
 
 Route::get('/additem', 'ItemController@addFormShow')->name('additem');

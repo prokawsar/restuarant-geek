@@ -37,6 +37,7 @@ class KitchenController extends Controller
             $foodOrder = FoodOrder::with('item','table')->where('rest_id', Auth::guard('kitchen')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->orderBy('status')->get();
             return $foodOrder;
         }
+        return false;
     }
 
 
