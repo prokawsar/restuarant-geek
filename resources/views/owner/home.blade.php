@@ -8,7 +8,7 @@
         <div class="col-md-12">
 
             @php  $rest_data = App\User::where('id', Auth::id())->get();
-            if( ! $rest_data[0]->address || ! $rest_data[0]->image || ! $rest_data[0]->phone ){
+            if( ! $rest_data[0]->address || $rest_data[0]->image== 'no-image.jpg' || ! $rest_data[0]->phone || !$rest_data[0]->closing_day ){
             @endphp
 
             <div class="alert alert-dismissible alert-info">

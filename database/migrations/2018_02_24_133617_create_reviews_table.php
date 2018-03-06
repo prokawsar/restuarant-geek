@@ -14,15 +14,15 @@ class CreateReviewsTable extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
-//            $table->increments('id');
-            $table->integer('order_id')->unsigned();
+            $table->increments('id');
             $table->text('review');
-            $table->date('review_date');
-            $table->float('discount_amount');
+            $table->timestamp('review_date');
+            $table->float('discount_amount')->default(0);
+            $table->integer('rating')->default(0);
+
+            $table->integer('order_id')->unsigned();
             $table->integer('cust_id')->unsigned();
             $table->integer('rest_id')->unsigned();
-
-            $table->primary('order_id');
 
             $table->foreign('order_id')->references('id')->on('food_orders');
             $table->foreign('cust_id')->references('id')->on('customers');

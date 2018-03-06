@@ -6,6 +6,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <form action="{{ route('editprofile') }}" method="post">
@@ -21,7 +27,7 @@
 
                 <div class="panel-body">
                     <p class="lead">Owner Name: <span class="text-bold text-center"> {{ $data[0]->owner_name }}</span></p>
-                    <p class="lead">Image:</p> <img height="300px" width="350px" class="img-bordered" src="{{asset('/images/'.$data[0]->image)}}">
+                    <p class="lead">Image:</p> <img height="300px" width="350px" class="img-bordered" src="{{asset('/restaurant/'.$data[0]->image)}}">
 
                     <p class="lead">Address: <span class=" text-center"> {{ $data[0]->address }}</span></p>
                     <p class="lead">Contact: <span class=" text-center"> {{ $data[0]->phone }}</span></p>

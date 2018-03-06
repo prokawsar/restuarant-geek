@@ -41,7 +41,7 @@
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
                                 @php $status=''; $bill=0;
-                                $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+                                $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->where('order_status', 1)->get();
 
 
                                 if($order->status){
@@ -58,6 +58,7 @@
                                     <td>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
+                                                $bill += $item[0]->price * $item_id->item_quantity;
 
                                             @endphp
 
@@ -66,14 +67,17 @@
 
                                         @endforeach
                                     </td>
-                                    <td>{{ $order->total_bill }}</td>
-                                    <td>{{ $status }}</td>
-                                    <script>
-                                        var dataObject<?php echo $order->id; ?> = {};
-                                        dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
-                                    </script>
+                                    @php
+                                        App\FoodOrder::where('id', $order->id)->update(array('total_bill' => $bill));
+                                    @endphp
+                               <td>{{ $bill }}</td>
+                               <td>{{ $status }}</td>
+                               <script>
+                                   var dataObject<?php echo $order->id; ?> = {};
+                                   dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
+                               </script>
 
-                                    <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">Print Bill</button> </td>
+                               <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">Print Bill</button> </td>
                                     <td><button class="btn btn-success" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
 
                                 </tr>

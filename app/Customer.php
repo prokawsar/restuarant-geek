@@ -14,4 +14,10 @@ class Customer extends Model
     protected $fillable = [
         'name', 'phone',
     ];
+
+    public function review(){
+
+        return $this->hasMany('App\Review');
+
+    }
 }

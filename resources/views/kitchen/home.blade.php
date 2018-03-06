@@ -113,7 +113,8 @@
                     } else {
                         status = 'Pending';
                     }
-                    rows += '</table></td><td>' + status + '</td>' +
+
+                        rows += '</table></td><td>' + status + '</td>' +
                         '<td><button type="button" class="btn btn-info geturlbutton"'+ statusClass +' data-id="' + index.id + '">Order Done </button></td>' +
                         '</tr>';
                 })

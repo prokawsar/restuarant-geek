@@ -20,6 +20,8 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-offset-3">
 
+                                <form enctype="multipart/form-data" action="{{ url('/profile') }}" method="post">
+                                    {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="control-label" for="title">Owner Name:<span
                                                 class="required">*</span></label>
@@ -27,8 +29,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="title">Restaurant Image:</label>
-                                    <img height="300px" width="350px" class="img-bordered" src="{{asset('/images/'.$data->image)}}">
-                                    <input value="{{ $data->image }}" type="file" id="image" name="image" class="form-control" required/>
+                                    <img height="300px" width="350px" class="img-bordered" src="{{asset('/restaurant/'.$data->image)}}">
+                                    <input value="{{ $data->image }}" type="file" id="image" name="image" class="form-control" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="title">Address:<span
@@ -41,13 +43,12 @@
                                     <input value="{{ $data->phone }}" type="text" id="phone" name="phone" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="title">Closing Day:<span
-                                                class="required">*</span></label>
-                                    <input type="text" value="{{ $data->closing_day }}" id="closing_day" name="closing_day" class="form-control" required/>
+                                    <label class="control-label" for="title">Closing Day:</label>
+                                    <input type="text" value="{{ $data->closing_day }}" id="closing_day" placeholder="eg: Saturday, Monday" name="closing_day" class="form-control"/>
                                 </div>
 
-                                <a href="#" type="submit" class="btn btn-success pull-right">Update</a>
-
+                                <button type="submit" class="btn btn-success pull-right">Update</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Customer;
 use App\FoodOrder;
+use App\Review;
 use App\User;
 use App\Waiter;
 use App\Kitchen;
@@ -52,7 +54,9 @@ class HomeController extends Controller
 
     public function viewReview()
     {
-        return view('owner.allreview');
+        $review = Review::with('customer')->where('rest_id',Auth::user()->id)->get();
+
+        return view('owner.allreview')->with('reviews', $review);
     }
 
     public function viewCustomer()
@@ -65,6 +69,33 @@ class HomeController extends Controller
         $ProfileData = User::where('id', Auth::id())->get();
 //        dd($ProfileData);
         return view('owner.profile')->with('data', $ProfileData);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $profileData = User::find(Auth::id());
+//        dd($ProfileData);
+        $profileData->owner_name = $request['name'];
+        if($request['image']) {
+
+            $photoName = time().'.'.$request['image']->getClientOriginalExtension();
+
+            /*
+            talk the select file and move it public directory and make avatars
+            folder if doesn't exsit then give it that unique name.
+            */
+            $request['image']->move(public_path('restaurant'), $photoName);
+
+            $profileData->image = $photoName;
+        }
+
+        $profileData->address = $request['address'];
+        $profileData->phone = $request['phone'];
+        $profileData->closing_day = $request['closing_day'];
+
+        $profileData->save();
+
+        return redirect('/profile')->with('status', 'Profile Updated Successfully.');
     }
 
     public function editForm(Request $request){

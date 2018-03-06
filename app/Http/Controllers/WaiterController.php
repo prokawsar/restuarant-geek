@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Review;
 use Illuminate\Http\Request;
 use App\Customer;
 use App\FoodOrder;
@@ -136,6 +137,18 @@ class WaiterController extends Controller
 
     public function saveReview(Request $request)
     {
+        $review = new Review();
+
+        $cust_id = Customer::select('id')->where('email', $request['email'])->get();
+
+
+        $review->review = $request['review'];
+        $review->discount_amount = $request['discount'];
+        $review->order_id = $request['order_id'];
+        $review->cust_id= $cust_id[0]->id;
+        $review->rest_id = $request['rest_id'];
+        $review->rating = $request['rating'];
+        $review->save();
 
         return redirect('/waiter/takereview')->with('status', 'Review Taken Successfully!');
     }

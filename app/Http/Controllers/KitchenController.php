@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\FoodOrder;
 use App\FoodOrderItem;
+use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,7 @@ class KitchenController extends Controller
     }
 
     public function ItemDone($id){
+
         FoodOrderItem::where('id', $id)->update(array('order_status' => 1));
         return redirect('/kitchen/home')->with('status', 'Item Done !' .$id);
     }

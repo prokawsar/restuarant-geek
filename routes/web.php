@@ -69,6 +69,9 @@ Route::post('/placeorder', 'WaiterController@placeOrder');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 
 Route::post('/profile/edit', 'HomeController@editForm')->name('editprofile');
+
+Route::post('/profile', 'HomeController@updateProfile');
+
 Route::get('/setting', function(){
     return view('owner.setting');
 })->name('setting');
