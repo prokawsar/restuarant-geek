@@ -36,11 +36,12 @@
                         <tbody>
                         @foreach ($customer as $person)
                             <tr>
-                                <th scope="row">1 <input type="checkbox" name="select"/> </th>
+                                <th scope="row">{{ $i }} <input type="checkbox" name="select"/> </th>
                                 <td>{{ $person->name }}</td>
                                 <td>{{ $person->email }} </td>
                                 <td>100 </td>
                             </tr>
+                            @php $i++ @endphp
                         @endforeach
 
                         </tbody>

@@ -94,8 +94,9 @@
             <div class="col-md-10 col-md-offset-1">
 
                 @php $i = 1;
-                $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+                $yesterday = date("Y-m-d", strtotime( '-0 days' ) );
                 $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', $yesterday )->get();
+
                 @endphp
                 {{--@php dd($foodOrder) @endphp--}}
 
@@ -200,6 +201,11 @@
     $(document).on('click', '.ok', function () {
         var start = $('#datepicker').val();
         var end = $('#datepicker2').val();
+
+        if(end < start){
+            alert("Start Date must be earlier !");
+            return;
+        }
 //        alert(start);
 //        alert(end);
 //        return;

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Customer;
 use App\FoodOrder;
 use App\Review;
@@ -55,7 +56,7 @@ class HomeController extends Controller
 
     public function viewReview()
     {
-        $review = Review::with('customer')->where('rest_id',Auth::user()->id)->get();
+        $review = Review::with('customer')->where('rest_id', Auth::user()->id)->get();
 //dd($review);
 
         return view('owner.allreview')->with('reviews', $review);
@@ -78,9 +79,9 @@ class HomeController extends Controller
         $profileData = User::find(Auth::id());
 //        dd($ProfileData);
         $profileData->owner_name = $request['name'];
-        if($request['image']) {
+        if ($request['image']) {
 
-            $photoName = time().'.'.$request['image']->getClientOriginalExtension();
+            $photoName = time() . '.' . $request['image']->getClientOriginalExtension();
 
             /*
             talk the select file and move it public directory and make avatars
@@ -100,11 +101,13 @@ class HomeController extends Controller
         return redirect('/profile')->with('status', 'Profile Updated Successfully.');
     }
 
-    public function editForm(Request $request){
+    public function editForm(Request $request)
+    {
         $data = User::find($request['id']);
         //dd($data);
         return view('owner.profileEdit')->with('data', $data);
     }
+
     public function smsCampaign()
     {
         return view('owner.sms');
@@ -130,7 +133,7 @@ class HomeController extends Controller
     public function billPaid($id)
     {
         $foodOrder = FoodOrder::find($id);
-        $foodOrder->bill_paid = true ;
+        $foodOrder->bill_paid = true;
         $foodOrder->save();
 
         return redirect('/allorder')->with('alert', 'Bill Paid for a Order!');
@@ -149,18 +152,25 @@ class HomeController extends Controller
         return redirect('/kitchen/ucode')->with('alert', 'Unique Code Updated !');
     }
 
-    public  function orderDataDate(Request $request)
+    public function orderDataDate(Request $request)
     {
-        $start = FoodOrder::select('order_date')->where( DB::raw('DATE(order_date)'), $request['start'])->get()->first();
-        $end = FoodOrder::select('order_date')->where( DB::raw('DATE(order_date)'), $request['end'])->get()->first();
+        if ($request['start'] == $request['end']) {
+            $foodOrder = FoodOrder::with('item', 'customer')->where(DB::raw('DATE(order_date)'),
+                $request['start'])->where('rest_id', Auth::user()->id)->get();
 
-        if($request->ajax())
-        {
-            //   $foodOrder = FoodOrder::where( DB::raw('DATE(order_date)'), $request['start'])->where('rest_id', Auth::user()->id)->get();
-            $foodOrder = FoodOrder::with('item', 'customer')->whereBetween('order_date', array($start->order_date, $end->order_date))->where('rest_id', Auth::user()->id)->get();
+        } else {
+            $start = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'),
+                $request['start'])->get()->first();
+            $end = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'), $request['end'])->get()->first();
 
-            return $foodOrder;
+            if ($request->ajax()) {
+                //   $foodOrder = FoodOrder::where( DB::raw('DATE(order_date)'), $request['start'])->where('rest_id', Auth::user()->id)->get();
+                $foodOrder = FoodOrder::with('item', 'customer')->whereBetween('order_date',
+                    array($start->order_date, $end->order_date))->where('rest_id', Auth::user()->id)->get();
+
+            }
         }
+        return $foodOrder;
 
     }
 }
