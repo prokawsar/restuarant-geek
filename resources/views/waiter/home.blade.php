@@ -94,6 +94,9 @@
                                 <input type="hidden" id="rest_id" name="rest_id"
                                        value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
 
+                                <input type="hidden" id="cust_id" name="cust_id"
+                                       value=""/>
+
                                 <div class="form-group">
 
                                     <label class="control-label" for="title">Select Table:<span
@@ -115,7 +118,7 @@
 
                                     <label class="control-label" for="title">Customer Phone:</label>
 
-                                    <input type="number" id="phone" onblur="duplicateEmail(this)" name="phone"
+                                    <input type="number" id="phone" name="phone"
                                            class="form-control contact"
                                     />
 
@@ -124,7 +127,7 @@
 
                                     <label class="control-label" for="title">Customer Email:</label>
 
-                                    <input type="text" id="email" name="email" class="form-control contact"
+                                    <input type="text" id="email" name="email" onblur="duplicateEmail(this)" class="form-control contact"
                                     />
 
                                     <div class="help-block with-errors"></div>
@@ -155,7 +158,32 @@
 @endsection
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 <script>
-    var token = '{{csrf_token()}}';
+    var _token = '{{csrf_token()}}';
+
+    function duplicateEmail(element) {
+        var email = $(element).val();
+        $.ajax({
+            type: "POST",
+            url: '{{url('/waiter/checkemail')}}',
+            data: {email: email, _token: _token},
+//            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.exists) {
+                    alert('Email is correct !');
+
+                    $('#cust_id').val(res.customer.id);
+                    $('#cust_name').hide();
+
+                } else {
+                    alert('Email not found !');
+                }
+            },
+            error: function (exception) {
+                console.log(exception);
+            }
+        });
+    }
 
     $(document).ready(function () {
 
@@ -170,25 +198,6 @@
 
         });
 
-        function duplicateEmail(element) {
-            var phone = $(element).val();
-            $.ajax({
-                type: "POST",
-                url: '{{url('/checkemail')}}',
-                data: {phone: phone, token: token},
-                dataType: "json",
-                success: function (res) {
-                    if (res.exists) {
-                        alert('Phone Found');
-                    } else {
-                        alert('Phone Not Found');
-                    }
-                },
-                error: function (jqXHR, exception) {
-
-                }
-            });
-        }
     });
 
 </script>

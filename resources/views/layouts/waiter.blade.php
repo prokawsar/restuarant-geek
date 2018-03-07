@@ -143,26 +143,9 @@
 //        $("#datepicker").datepicker({
 //            maxDate: new Date,
 //        });
-        function duplicateEmail(element){
-            var phone = $(element).val();
-            $.ajax({
-                type: "POST",
-                url: '{{url('/checkemail')}}',
-                data: {phone:phone, _token:_token},
-                dataType: "json",
-                success: function(res) {
-                    if(res.exists){
-                        alert('Phone Found');
-                    }else{
-                        alert('Phone Not Found');
-                    }
-                },
-                error: function (jqXHR, exception) {
 
-                }
-            });
-        }
     });
+
 </script>
 </body>
 </html>

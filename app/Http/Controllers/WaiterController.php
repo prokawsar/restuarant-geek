@@ -40,6 +40,7 @@ class WaiterController extends Controller
     public function placeOrder(Request $request){
         $items = json_decode($request['order_list']);
 
+        // For adding more item on existing order
         if(isset($request['order_id'])){
             $foodOrder = FoodOrder::find($request['order_id']);
             $bill = 0;
@@ -60,20 +61,25 @@ class WaiterController extends Controller
 
             return redirect('/waiter/placedorder')->with('status', 'Item Added Successfully!');
         }
-//        dd($request['order_list']);
-        //dd($request);
-        $customer = new Customer();
-        $customer->name = $request['cust_name'];
-        if(isset($request['cust_phone'])){
-            $customer->phone = $request['cust_phone'];
-        }
-        if(isset($request['cust_email'])){
-            $customer->email = $request['cust_email'];
-        }
-        $customer->rest_id= $request['rest_id'];
-        $customer->save();
 
-        $cust_id = Customer::select('id')->orderBy('created_at', 'desc')->first();
+        // Checking a Customer if exist on request basis
+        if( !isset($request['cust_id']) ) {
+            $customer = new Customer();
+            $customer->name = $request['cust_name'];
+            if (isset($request['cust_phone'])) {
+                $customer->phone = $request['cust_phone'];
+            }
+            if (isset($request['cust_email'])) {
+                $customer->email = $request['cust_email'];
+            }
+            $customer->rest_id = $request['rest_id'];
+            $customer->save();
+
+            $cust_id = Customer::select('id')->orderBy('created_at', 'desc')->first();
+        }else{
+
+            $cust_id['id'] = $request['cust_id'];
+        }
 
         $foodOrder = new FoodOrder();
         $foodOrder->total_bill = 0;
@@ -113,7 +119,7 @@ class WaiterController extends Controller
         }
 
         if($isExists){
-            return response()->json(array("exists" => true));
+            return response()->json(array("exists" => true, "customer" => $isExists));
         }else{
             return response()->json(array("exists" => false));
         }
