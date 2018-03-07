@@ -17,7 +17,7 @@
 
 
                 <div class="panel panel-success">
-                    <div class="panel-heading  text-bold text-center" data-toggle="collapse" data-target="#today">
+                    <div class="panel-heading  text-bold" data-toggle="collapse" data-target="#today">
                         Today's orders <span class="badge">@php echo count($foodOrder); @endphp  </span><span class="badge label-danger pull-right"> MUST RELOAD THIS PAGE BEFORE PRINT BILL</span>
                     </div>
 
@@ -65,6 +65,11 @@
                                             {{ $item[0]->item_name }}
                                             ( {{ $item_id->item_quantity }} )<br>
 
+                                            <script>
+                                                var items<?php echo $order->id; ?> = [];
+                                                items<?php echo $order->id; ?>.push(<?php echo $item[0]->item_name; ?>);
+                                            </script>
+
                                         @endforeach
                                     </td>
                                     @php
@@ -75,6 +80,10 @@
                                <script>
                                    var dataObject<?php echo $order->id; ?> = {};
                                    dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
+                                   dataObject<?php echo $order->id; ?>['bill'] = '<?php echo $order->total_bill; ?>';
+                                   dataObject<?php echo $order->id; ?>['items'] = items<?php echo $order->id; ?>;
+                                   
+                               
                                </script>
 
                                <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">Print Bill</button> </td>
@@ -98,7 +107,6 @@
                 $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', $yesterday )->get();
 
                 @endphp
-                {{--@php dd($foodOrder) @endphp--}}
 
 
                 <div class="panel panel-default">
@@ -123,7 +131,7 @@
                                 @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
-                                {{--@php dd($table) @endphp--}}
+                              
                                 @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->where('order_status', 1)->get(); @endphp
 
                                 <tr>
@@ -258,7 +266,17 @@
         mywindow.document.write('<html><head><title>' + document.title  + '</title>');
         mywindow.document.write('</head><body >');
         mywindow.document.write('<h3>' + document.title  + '</h3>');
-        mywindow.document.write('<h5>Name: ' + DataArray['name'] + '</h5>');
+        mywindow.document.write('<h4>Name: ' + DataArray['name'] + '</h4>');
+        mywindow.document.write('<h4>Bill: ' + DataArray['bill'] + '</h4>');
+        mywindow.document.write('<h4>Items: ' +       + '</h4>');
+        
+        console.log(DataArray['items']);
+        
+        for(var i =0; i<DataArray['items'].length; i++ ){
+            // mywindow.document.write('<span>' + DataArray['items'][i] + '</span><br>');
+        
+        }
+        
 //        mywindow.document.write(document.getElementById(elem).innerHTML);
         mywindow.document.write('</body></html>');
 
