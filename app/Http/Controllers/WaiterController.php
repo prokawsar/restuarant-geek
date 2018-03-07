@@ -65,8 +65,8 @@ class WaiterController extends Controller
         }
 
         // Checking a Customer if exist on request basis
-        if( !isset($request['cust_id']) ) {
-            dd($request['cust_id']);
+        if( is_null($request['cust_id']) ) {
+//            dd($request['cust_id']);
             $customer = new Customer();
             $customer->name = $request['cust_name'];
             if (isset($request['phone'])) {
