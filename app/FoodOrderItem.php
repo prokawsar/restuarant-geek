@@ -15,6 +15,6 @@ class FoodOrderItem extends Model
         'order_id', 'item_id','item_quantity'
     ];
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
 }

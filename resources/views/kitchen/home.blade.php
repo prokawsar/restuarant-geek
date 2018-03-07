@@ -93,7 +93,7 @@
                     }
 
                         rows += '</table></td><td>' + status + '</td>' +
-                        '<td><button type="button" class="btn btn-info geturlbutton"'+ statusClass +' data-id="' + index.id + '">Order Done </button></td>' +
+                        '<td><button type="button" class="btn btn-info "'+ statusClass +' onclick="orderDone(' + index.id + ')">Order Done </button></td>' +
                         '</tr>';
                 })
                 $('#datas').html(rows);
@@ -108,7 +108,7 @@
     }
 
     $(document).ready(function () {
-//        timeOut();
+        timeOut();
         loadOrderData();
 
     });
@@ -119,18 +119,19 @@ $(document).on('click', '.geturlbutton', function () {
             url = '/kitchen/orderdone' + id;
         window.location.href = url;
     });
-    $(document).on('click', '.itemDoneButton', function () {
-//            alert($('.geturlbutton').data('id'));
-        var id = $('.itemDoneButton').data('id');
-        url = '/kitchen/itemdone' + id;
-        window.location.href = url;
-    })
 
     function itemDone(id) {
 //            alert($('.geturlbutton').data('id'));
         // var id = $('.itemDoneButton').data('id');
         url = '/kitchen/itemdone' + id;
         window.location.href = url;
-    };
+    }
+
+    function orderDone(id) {
+//            alert($('.geturlbutton').data('id'));
+        // var id = $('.itemDoneButton').data('id');
+        url = '/kitchen/orderdone' + id;
+        window.location.href = url;
+    }
 </script>
 

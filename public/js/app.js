@@ -1011,7 +1011,7 @@ try {
 
   __webpack_require__(15);
 } catch (e) {}
-
+// require('bootswatch');
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -43005,7 +43005,7 @@ if (false) {
 /* 42 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\n        @include box-shadow(inset 0 -1px 0 $navbar-inverse-link-color);\r\n                ^\r\n      No mixin named box-shadow\n\nBacktrace:\n\tstdin:59\r\n      in F:\\Web\\restuarant-geek\\resources\\assets\\sass\\app.scss (line 59, column 18)\n    at runLoaders (F:\\Web\\restuarant-geek\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at F:\\Web\\restuarant-geek\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at F:\\Web\\restuarant-geek\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (F:\\Web\\restuarant-geek\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (F:\\Web\\restuarant-geek\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.<anonymous> (F:\\Web\\restuarant-geek\\node_modules\\async\\dist\\async.js:2257:31)\n    at Object.callback (F:\\Web\\restuarant-geek\\node_modules\\async\\dist\\async.js:958:16)\n    at options.error (F:\\Web\\restuarant-geek\\node_modules\\node-sass\\lib\\index.js:294:32)");
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

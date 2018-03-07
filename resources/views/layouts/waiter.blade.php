@@ -135,7 +135,7 @@
     }
 
     $(document).ready(function () {
-//        timeOut();
+        timeOut();
         loadOrderData();
         // Initialize Smart Cart
         $('#smartcart').smartCart();

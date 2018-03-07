@@ -199,10 +199,7 @@
                     alert('Please provide Customer phone or email !');
                     return;
                 }
-                if($('#cust_name').val()== '' ){
-                    alert('Please provide Customer name !');
-                    return;
-                }
+
                 if ($(this).hasClass('disabled')) {
                     return false;
                 }

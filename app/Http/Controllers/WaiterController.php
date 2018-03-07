@@ -101,6 +101,7 @@ class WaiterController extends Controller
             $orderItem->order_id = $order_id['id'];
             $orderItem->item_id = $item->item_id;
             $orderItem->item_quantity = $item->item_quantity;
+            $orderItem->item_price = $item->item_price;
 
 //            $bill += $item->item_price * $item->item_quantity;
             $orderItem->save();

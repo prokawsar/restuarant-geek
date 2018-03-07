@@ -170,13 +170,13 @@
             success: function (res) {
                 console.log(res);
                 if (res.exists) {
-                    alert('Email is correct !');
+                    alert('This is valuable customer !');
 
                     $('#cust_id').val(res.customer.id);
                     $('#cust_name').hide();
 
                 } else {
-                    alert('Email not found !');
+                    alert('Welcome ! This is new customer !');
                     $('#cust_name').show();
                 }
             },
