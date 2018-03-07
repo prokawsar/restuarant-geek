@@ -81,7 +81,7 @@
                             status = 'disabled';
                         }
                         rows +='<tr class="'+statusClass +'"><td class="custom-row ">' + index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')' +
-                            ' <button type="button" class="btn btn-info pull-right itemDoneButton"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';
+                            ' <button type="button" class="btn btn-info pull-right" onclick="itemDone('+index.item[y].pivot.id +')"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';
                     }
                     status = '';
                     statusClass = '';
@@ -125,5 +125,12 @@ $(document).on('click', '.geturlbutton', function () {
         url = '/kitchen/itemdone' + id;
         window.location.href = url;
     })
+
+    function itemDone(id) {
+//            alert($('.geturlbutton').data('id'));
+        // var id = $('.itemDoneButton').data('id');
+        url = '/kitchen/itemdone' + id;
+        window.location.href = url;
+    };
 </script>
 
