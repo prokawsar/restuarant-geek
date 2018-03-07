@@ -45,13 +45,18 @@
                             </thead>
                             <tbody>
                             @foreach ($customer as $person)
+
+                            @php $numberOfOrder = App\FoodOrder::where('cust_id', $person->id)->groupBy('cust_id')->count();
+                            
+                             @endphp
+
                                 <tr>
                                     <th scope="row">{{ $i }} <input type="checkbox" name="select[]"/></th>
                                     <td>{{ $person->name }} <input type="hidden" name="name[]"
                                                                    value="{{ $person->name }} "></td>
                                     <td>{{ $person->email }} <input type="hidden" name="email[]"
                                                                     value="{{ $person->email }}"></td>
-                                    <td>100</td>
+                                    <td>{{ $numberOfOrder }}</td>
                                 </tr>
                                 @php $i++ @endphp
                             @endforeach

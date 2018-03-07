@@ -24,12 +24,16 @@
                     </thead>
                     <tbody>
                     @foreach ($customer as $person)
+                   
+                    @php $totalSpent = App\FoodOrder::where('cust_id', $person->id)->where('bill_paid', 1)->sum('total_bill');
+                        
+                    @endphp
                         <tr>
                         <th scope="row">{{ $i }}</th>
                         <td>{{ $person->name }}</td>
                         <td>{{ $person->phone }} </td>
                         <td>{{ $person->email }} </td>
-                        <td>100 </td>
+                        <td>{{ $totalSpent }} </td>
                         </tr>
                     @php $i++; @endphp
                     @endforeach

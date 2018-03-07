@@ -18,7 +18,7 @@
 
                 <div class="panel panel-success">
                     <div class="panel-heading  text-bold text-center" data-toggle="collapse" data-target="#today">
-                        Today's orders <span class="badge">@php echo count($foodOrder); @endphp </span>
+                        Today's orders <span class="badge">@php echo count($foodOrder); @endphp  </span><span class="badge label-danger pull-right"> MUST RELOAD THIS PAGE BEFORE PRINT BILL</span>
                     </div>
 
                     <div class="panel-body collapse" id="today">
