@@ -65,7 +65,7 @@
 
                                                     <th scope="row">{{ $item->item_name}}</th>
                                                     <td>{{ $item->price }}</td>
-                                                    <td><a href="#" class="sc-add-to-cart btn btn-info">Place Order</a>
+                                                    <td><a href="#" class="sc-add-to-cart btn btn-info">Add to order</a>
                                                     </td>
 
                                                 </tr>

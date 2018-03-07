@@ -93,14 +93,15 @@
 
                     for (var y = 0; y < index.item.length; y++) {
                         if(index.item[y].pivot.order_status){
-                            status = 'disabled'
-//                            document.getElementById("itemTD").setAttribute('disabled', 'true');
-
+                            status = 'disabled';
                             statusClass="success";
                         }
                         else{
-                            status = ''
+                            status = '';
                             statusClass= "danger";
+                        }
+                        if(index.status){
+                            status = 'disabled';
                         }
                         rows +='<tr class="'+statusClass +'"><td class="custom-row ">' + index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')' +
                             ' <button type="button" class="btn btn-info pull-right itemDoneButton"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';

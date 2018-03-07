@@ -33,7 +33,7 @@
 
                             @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                             {{--@php dd($table) @endphp--}}
-                            @php  $status='';  $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get();
+                            @php  $status='';  $items = App\FoodOrderItem::select('item_id', 'item_quantity', 'order_status')->where('order_id', $order->id)->get();
                              if($order->status){
                                     $status = 'Completed';
                                 }else{
@@ -50,7 +50,14 @@
                                         @php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp
 
                                         {{ $item[0]->item_name }}
-                                        ( {{ $item_id->item_quantity }} )<br>
+                                        ( {{ $item_id->item_quantity }} )
+                                        @php if($item_id->order_status ){
+                                            echo '<span class="glyphicon glyphicon-ok"></span>';
+                                        }else{
+                                            echo '<span class="glyphicon glyphicon-remove"></span>';
+
+                                        } @endphp
+                                        <br>
                                     @endforeach
                                 </td>
                                 <td>{{ $status  }}</td>

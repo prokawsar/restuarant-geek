@@ -94,7 +94,7 @@
             <div class="col-md-10 col-md-offset-1">
 
                 @php $i = 1;
-                $yesterday = date("Y-m-d", strtotime( '-0 days' ) );
+                $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
                 $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', $yesterday )->get();
 
                 @endphp
@@ -124,7 +124,7 @@
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
-                                @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->get(); @endphp
+                                @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->where('order_status', 1)->get(); @endphp
 
                                 <tr>
                                     <th scope="row">{{ $i }}</th>
