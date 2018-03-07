@@ -36,30 +36,7 @@
                         </thead>
                         <tbody id="datas">
 
-                        {{--@foreach ($foodOrder as $order)--}}
-                        {{--@php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp--}}
-                        {{--@php dd($table) @endphp--}}
-                        {{--@php $items = App\FoodOrderItem::select('item_id')->where('order_id', $order->id)->get(); @endphp--}}
 
-                        {{--<tr>--}}
-                        {{--<th scope="row">{{ $i }}</th>--}}
-                        {{--<td>{{ $table[0]->name_or_no }}</td>--}}
-                        {{--<td>--}}
-                        {{--@foreach($items as $item_id)--}}
-                        {{--@php $item = App\Item::select('item_name')->where('id', $item_id->item_id)->get(); @endphp--}}
-
-                        {{--{{ $item[0]->item_name }} <br>--}}
-                        {{--@endforeach--}}
-                        {{--</td>--}}
-                        {{--<td>{{ $order->status  }}</td>--}}
-                        {{--<td>--}}
-                        {{--<button type="button" onclick="window.location='{{ route("orderdone", ["id" => $order->id ] )  }}'"--}}
-                        {{--class="btn btn-info" @php if($order->status) echo 'disabled' @endphp >Done</button>--}}
-                        {{--</td>--}}
-
-                        {{--</tr>--}}
-                        {{--@php $i++; @endphp--}}
-                        {{--@endforeach--}}
 
                         </tbody>
                     </table>

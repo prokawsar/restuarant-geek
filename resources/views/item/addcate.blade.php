@@ -10,25 +10,25 @@
                 {{--<div class="panel-heading">Item Add</div>--}}
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('danger'))
-                        <div class="alert alert-danger">
-                            {{ session('danger') }}
-                        </div>
-                    @endif
+
                     <div class="modal-dialog" role="document">
 
                         <div class="modal-content">
-
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            @if (session('warning'))
+                                <div class="alert alert-warning">
+                                    {{ session('warning') }}
+                                </div>
+                            @endif
+                            @if (session('danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('danger') }}
+                                </div>
+                            @endif
                             <div class="modal-header">
 
                                 <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
@@ -48,10 +48,17 @@
                                     <ul class="nav nav-pills nav-stacked">
                                         <li class="active text-center"><a href="#">Current Categories</a></li>
                                         @foreach ($category as $name)
-                                            <li><a class="" href="#">{{ $name->cat_name}} <span class="pull-right"> <i
-                                                                class="fa fa-times" title="Delete Category"
+                                            <li>
+                                                <a class="" href="#">{{ $name->cat_name}}
+                                                    <span class="pull-right">
+                                                        <i
+                                                                class="glyphicon glyphicon-remove"
+                                                                title="Delete Category"
                                                                 onclick="location.href='/delcategory{{  $name->id }}'"></i>
-                                                </a>  </span></li>
+                                                </span>
+                                                </a>
+
+                                            </li>
 
                                         @endforeach
 

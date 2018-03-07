@@ -86,12 +86,12 @@ class ItemController extends Controller
 
     public function updateItem(Request $request){
 
-        $item = FoodOrderItem::where('item_id', $request['id'])->get();
-//        dd($item);
-
-        if( !$item->isEmpty()){
-            return redirect('/allitem')->with('warning', 'This item can not be Updated, its already in use !');
-        }
+//        $item = FoodOrderItem::where('item_id', $request['id'])->get();
+////        dd($item);
+//
+//        if( !$item->isEmpty()){
+//            return redirect('/allitem')->with('warning', 'This item can not be Updated, its already in use !');
+//        }
 
         $item = Item::find($request['id']);
         $item->item_name = $request['name'];

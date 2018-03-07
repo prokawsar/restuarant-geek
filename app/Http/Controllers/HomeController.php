@@ -11,6 +11,7 @@ use App\Kitchen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -172,5 +173,26 @@ class HomeController extends Controller
         }
         return $foodOrder;
 
+    }
+
+    public function emailCamp(Request $request)
+    {
+
+        $data = array(
+            'name' => $request['name'][4],
+            'email' => $request['email'][4]
+        );
+
+       Mail::send('mailer', $data, function ($message) use ($data){
+            $message->to($data['email'])
+                    ->subject('Hello system');
+       });
+//        return redirect('/emailcamp')->with('status', 'Email Sent Successfully !');
+    }
+
+    public function smsCamp(Request $request)
+    {
+        $total = count($request['phone']);
+        return redirect('/sms')->with('status', 'SMS Sent to '. $total .' user successfully!');
     }
 }

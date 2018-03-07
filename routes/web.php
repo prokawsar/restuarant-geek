@@ -76,6 +76,11 @@ Route::post('/profile/edit', 'HomeController@editForm')->name('editprofile');
 
 Route::post('/profile', 'HomeController@updateProfile');
 
+Route::post('/emailcamp', 'HomeController@emailCamp');
+
+Route::post('/smscamp', 'HomeController@smsCamp');
+
+
 Route::get('/setting', function(){
     return view('owner.setting');
 })->name('setting');

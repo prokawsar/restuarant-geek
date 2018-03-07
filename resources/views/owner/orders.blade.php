@@ -70,7 +70,7 @@
                                     @php
                                         App\FoodOrder::where('id', $order->id)->update(array('total_bill' => $bill));
                                     @endphp
-                               <td>{{ $bill }}</td>
+                               <td>{{ $order->total_bill }}</td>
                                <td>{{ $status }}</td>
                                <script>
                                    var dataObject<?php echo $order->id; ?> = {};
@@ -142,7 +142,7 @@
 
                                         @endforeach
                                     </td>
-                                    <td>{{ $bill }}</td>
+                                    <td>{{ $order->total_bill }}</td>
 
                                 </tr>
                                 @php $i++; @endphp
@@ -226,9 +226,16 @@
                     rows += '<tr class=""><td>' + x++ + '</td>' +
                         '<td>' + index.customer.name + '</td>' +
                         '<td>' + index.order_date + '</td><td>';
+                    var icon;
 
                     for (var y = 0; y < index.item.length; y++) {
-                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<br>';
+
+                        if(index.item[y].pivot.order_status){
+                           icon = 'glyphicon-ok';
+                        }else{
+                            icon = 'glyphicon-remove';
+                        }
+                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<span class="glyphicon '+ icon +'"></span><br>';
                     }
 
                     rows += '</td><td>'+ index.total_bill + '</td></tr>';

@@ -143,27 +143,25 @@ class WaiterController extends Controller
 
     public function saveReview(Request $request)
     {
-        if(! isset($request['email'])){
-            return redirect('/waiter/takereview')->with('warning', 'Please give customer email!');
-
-        }
 
         $review = new Review();
 
-        $cust_id = Customer::select('id')->where('email', $request['email'])->get();
-
-        if( !isset($cust_id[0]->id) ){
-            return redirect('/waiter/takereview')->with('warning', 'Customer email not found!');
-
-        }
+//        $cust_id = Customer::select('id')->where('email', $request['email'])->get();
+//
+//        if( !isset($cust_id[0]->id) ){
+//            return redirect('/waiter/takereview')->with('warning', 'Customer email not found!');
+//
+//        }
 
         $review->review = $request['review'];
         $review->discount_amount = $request['discount'];
         $review->order_id = $request['order_id'];
-        $review->cust_id= $cust_id[0]->id;
+        $review->cust_id= $request['cust_id'];
         $review->rest_id = $request['rest_id'];
         $review->rating = $request['rating'];
         $review->save();
+
+        // have to send a email with review verification link
 
         return redirect('/waiter/takereview')->with('status', 'Review Taken Successfully!');
     }

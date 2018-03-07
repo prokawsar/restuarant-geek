@@ -36,8 +36,9 @@
                             <tbody>
 
                             @foreach ($foodOrder as $order)
-                                @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get();
-                            $review = App\Review::select('id')->where('order_id', $order->id )->get();
+                                @php $cust = App\Customer::select('id', 'name', 'email', 'phone')->where('id', $order->cust_id )->get();
+
+                                $review = App\Review::select('id')->where('order_id', $order->id )->get();
 
                                 @endphp
 
@@ -88,10 +89,10 @@
 
                                                 <textarea class="form-control" name="review" type="text" required></textarea>
 
-                                                <label class="control-label" for="email">Customer Email/Phone:<span
-                                                            class="required">*</span></label>
+                                                <input value="{{ $cust[0]->email }}" name="email" type="hidden" />
 
-                                                <input class="form-control" name="email" type="text" required/>
+                                                <input name="cust_id" type="hidden" value="{{ $cust[0]->id }}"/>
+
                                                 <input name="order_id" type="hidden" value="{{ $order->id }}"/>
                                                 <input name="rest_id" type="hidden"
                                                        value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
