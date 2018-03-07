@@ -177,6 +177,7 @@
 
                 } else {
                     alert('Email not found !');
+                    $('#cust_name').show();
                 }
             },
             error: function (exception) {

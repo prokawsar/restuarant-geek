@@ -40,6 +40,8 @@ class WaiterController extends Controller
     public function placeOrder(Request $request){
         $items = json_decode($request['order_list']);
 
+//        dd($request['cust_id']);
+
         // For adding more item on existing order
         if(isset($request['order_id'])){
             $foodOrder = FoodOrder::find($request['order_id']);
@@ -64,13 +66,14 @@ class WaiterController extends Controller
 
         // Checking a Customer if exist on request basis
         if( !isset($request['cust_id']) ) {
+            dd($request['cust_id']);
             $customer = new Customer();
             $customer->name = $request['cust_name'];
-            if (isset($request['cust_phone'])) {
-                $customer->phone = $request['cust_phone'];
+            if (isset($request['phone'])) {
+                $customer->phone = $request['phone'];
             }
-            if (isset($request['cust_email'])) {
-                $customer->email = $request['cust_email'];
+            if (isset($request['email'])) {
+                $customer->email = $request['email'];
             }
             $customer->rest_id = $request['rest_id'];
             $customer->save();
@@ -99,12 +102,12 @@ class WaiterController extends Controller
             $orderItem->item_id = $item->item_id;
             $orderItem->item_quantity = $item->item_quantity;
 
-            $bill += $item->item_price * $item->item_quantity;
+//            $bill += $item->item_price * $item->item_quantity;
             $orderItem->save();
         }
-        $foodOrder = FoodOrder::find($order_id['id']);
-        $foodOrder->total_bill = $bill;
-        $foodOrder->save();
+//        $foodOrder = FoodOrder::find($order_id['id']);
+//        $foodOrder->total_bill = $bill;
+//        $foodOrder->save();
 
         return redirect('/waiter/makeorder')->with('status', 'Order Place Successfully!');
     }
