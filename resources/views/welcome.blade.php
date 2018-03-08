@@ -23,47 +23,24 @@
     <hr>
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
+                <div class="lead text-center"><h3>Whom are Intelligent Restaurant </h3></div>
 
                 @foreach($users as $user)
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img src="{{ asset('restaurant/'.$user->image) }}" alt="No Image">
+                        <img style="width: 300px; height: 200px;"  src="{{ asset('restaurant/'.$user->image) }}" alt="No Image">
                             <div class="caption">
                                 <h3>{{ $user->rest_name }}</h3>
-                                <p>{{ $user->address }}</p>
+                                <p><i class="glyphicon glyphicon-home"></i> {{ $user->address }}</p>
+                                <p><i class="glyphicon glyphicon-earphone"></i> {{ $user->phone }}</p>
 
-                                <a href="#" class="btn btn-primary" role="button">View More</a></p>
+                                {{--<a href="#" class="btn btn-primary" role="button">View More</a></p>--}}
                             </div>
                     </div>
                 </div>
 
                 @endforeach
-                {{--<div class="col-sm-6 col-md-4">--}}
-                    {{--<div class="thumbnail">--}}
-                        {{--<img src="{{ asset('images/no-image.jpg') }}" alt="No Image">--}}
-                            {{--<div class="caption">--}}
-                                {{--<h3>Thumbnail label</h3>--}}
-                                {{--<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.--}}
-                                {{--Nullam id dolor id nibh ultricies vehicula ut id elit.</p>--}}
-                                {{--<p>--}}
-                                {{--<a href="#" class="btn btn-primary" role="button">View More</a></p>--}}
-                            {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="col-sm-6 col-md-4">--}}
-                    {{--<div class="thumbnail">--}}
-                        {{--<img src="{{ asset('images/no-image.jpg') }}" alt="No Image">--}}
-                            {{--<div class="caption">--}}
-                                {{--<h3>Thumbnail label</h3>--}}
-                                {{--<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.--}}
-                                {{--Nullam id dolor id nibh ultricies vehicula ut id elit.</p>--}}
-                                {{--<p>--}}
-                                {{--<a href="#" class="btn btn-primary" role="button">View More</a></p>--}}
-                            {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{----}}
+                {{ $users->links()  }}
 
             </div>
         </div>

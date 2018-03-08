@@ -117,10 +117,10 @@
 //                    <li>
 //                    <a href="#" >Profile </a>
 //                    </li>
-                    rows += '<li><a>Order Process Completed for ' + index.table.name_or_no + ' Table. </a>' +
+                    rows += '<li><a>Order Process Completed for Table ' + index.table.name_or_no + '. </a>' +
                         '<button class="btn btn-success" id="processOK">OK</button> </li><br>';
 
-                })
+                });
                 $('#notify').html(rows);
             }
         })

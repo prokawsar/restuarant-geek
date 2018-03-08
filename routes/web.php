@@ -19,7 +19,7 @@ Route::get('/', function () {
         //        dd($data);
         return view('owner.home', compact('data', 'data2'));
     }
-    $users = \App\User::all();
+    $users = \App\User::paginate(9);
 
     return view('welcome')->with('users', $users);
 });

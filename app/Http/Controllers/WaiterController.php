@@ -65,6 +65,7 @@ class WaiterController extends Controller
         }
 
         // Checking a Customer if exist on request basis
+        // If not, Creating a new Customer
         if( is_null($request['cust_id']) ) {
 //            dd($request['cust_id']);
             $customer = new Customer();
@@ -93,7 +94,6 @@ class WaiterController extends Controller
         $foodOrder->save();
 
         $order_id = FoodOrder::select('id')->orderBy('order_date', 'desc')->first();
-//        $orderItem = new FoodOrderItem();
         $bill = 0;
 
         foreach ($items as $item){
@@ -149,13 +149,6 @@ class WaiterController extends Controller
     {
 
         $review = new Review();
-
-//        $cust_id = Customer::select('id')->where('email', $request['email'])->get();
-//
-//        if( !isset($cust_id[0]->id) ){
-//            return redirect('/waiter/takereview')->with('warning', 'Customer email not found!');
-//
-//        }
 
         $review->review = $request['review'];
         $review->discount_amount = $request['discount'];

@@ -18,7 +18,8 @@
 
                 <div class="panel panel-success">
                     <div class="panel-heading  text-bold" data-toggle="collapse" data-target="#today">
-                        Today's orders <span class="badge">@php echo count($foodOrder); @endphp  </span><span class="badge label-danger pull-right"> MUST RELOAD THIS PAGE BEFORE PRINT BILL</span>
+                        Today's orders <span class="badge">@php echo count($foodOrder); @endphp  </span><span
+                                class="badge label-danger pull-right"> MUST RELOAD THIS PAGE BEFORE PRINT BILL</span>
                     </div>
 
                     <div class="panel-body collapse" id="today">
@@ -41,7 +42,7 @@
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
                                 @php $status=''; $bill=0;
-                                $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->where('order_status', 1)->get();
+                                $items = App\FoodOrderItem::select('item_id', 'item_quantity', 'item_price')->where('order_id', $order->id)->where('order_status', 1)->get();
 
 
                                 if($order->status){
@@ -58,7 +59,7 @@
                                     <td>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
-                                                $bill += $item[0]->price * $item_id->item_quantity;
+                                                $bill += $item_id->item_price * $item_id->item_quantity;
 
                                             @endphp
 
@@ -75,19 +76,29 @@
                                     @php
                                         App\FoodOrder::where('id', $order->id)->update(array('total_bill' => $bill));
                                     @endphp
-                               <td>{{ $order->total_bill }}</td>
-                               <td>{{ $status }}</td>
-                               <script>
-                                   var dataObject<?php echo $order->id; ?> = {};
-                                   dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
-                                   dataObject<?php echo $order->id; ?>['bill'] = '<?php echo $order->total_bill; ?>';
-                                   dataObject<?php echo $order->id; ?>['items'] = items<?php echo $order->id; ?>;
-                                   
-                               
-                               </script>
+                                    <td>{{ $bill }}</td>
+                                    <td>{{ $status }}</td>
+                                    <script>
+                                        var dataObject<?php echo $order->id; ?> = {};
+                                        dataObject<?php echo $order->id; ?>['name'] = '<?php echo $cust[0]->name; ?>';
+                                        dataObject<?php echo $order->id; ?>['bill'] = '<?php echo $order->total_bill; ?>';
+                                        dataObject<?php echo $order->id; ?>['items'] = items<?php echo $order->id; ?>;
 
-                               <td><button class="btn btn-info" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">Print Bill</button> </td>
-                                    <td><button class="btn btn-success" @php if( $order->bill_paid || !$order->status ) echo 'disabled'; @endphp onclick="location.href='/billpaid{{  $order->id }}'" >Bill Paid</button> </td>
+
+                                    </script>
+
+                                    <td>
+                                        <button class="btn btn-info"
+                                                @php if( $order->bill_paid || !$order->status ) {echo 'disabled';} @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">
+                                            Print Bill
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success"
+                                                @php if( $order->bill_paid || !$order->status ) {echo 'disabled';} @endphp onclick="location.href='/billpaid{{  $order->id }}'">
+                                            Bill Paid
+                                        </button>
+                                    </td>
 
                                 </tr>
                                 @php $i++; @endphp
@@ -131,8 +142,8 @@
                                 @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
-                              
-                                @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity')->where('order_id', $order->id)->where('order_status', 1)->get(); @endphp
+
+                                @php $bill=0; $items = App\FoodOrderItem::select('item_id', 'item_quantity', 'item_price')->where('order_id', $order->id)->where('order_status', 1)->get(); @endphp
 
                                 <tr>
                                     <th scope="row">{{ $i }}</th>
@@ -141,12 +152,12 @@
                                     <td>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
-                                        $bill += $item[0]->price;
+                                            $bill += $item_id->item_price;
 
                                             @endphp
 
                                             {{ $item[0]->item_name }}
-                                           ( {{ $item_id->item_quantity }} ) <br>
+                                            ( {{ $item_id->item_quantity }} ) <br>
 
                                         @endforeach
                                     </td>
@@ -163,17 +174,19 @@
             </div>
         </div>
 
+        {{--View by Date--}}
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
                 <div class="panel panel-info">
-                    <div class="panel-heading  text-bold text-center"  data-target="#month">
+                    <div class="panel-heading  text-bold text-center" data-target="#month">
                         <p>View Orders</p>
                         Start Date:
-                        <input id="datepicker" type="text"  name="start"/>
+                        <input id="datepicker" type="text" name="start"/>
                         End Date:
-                        <input id="datepicker2" type="text" name="end" />
-                        <button class="btn btn-success ok" >OK</button>
+                        <input id="datepicker2" type="text" name="end"/>
+                        <button class="btn btn-success ok">OK</button>
                     </div>
 
                     <div class="panel-body" id="month">
@@ -189,7 +202,6 @@
                             </thead>
                             <tbody id="orders">
 
-                             
 
                             </tbody>
                         </table>
@@ -210,7 +222,7 @@
         var start = $('#datepicker').val();
         var end = $('#datepicker2').val();
 
-        if(end < start){
+        if (end < start) {
             alert("Start Date must be earlier !");
             return;
         }
@@ -223,8 +235,8 @@
             url: '{{ route('orderdata') }}',
             data: {
                 _token: _token,
-                start:start,
-                end:end
+                start: start,
+                end: end
             },
             success: function (response) {
                 console.log(response);
@@ -238,45 +250,44 @@
 
                     for (var y = 0; y < index.item.length; y++) {
 
-                        if(index.item[y].pivot.order_status){
-                           icon = 'glyphicon-ok';
-                        }else{
+                        if (index.item[y].pivot.order_status) {
+                            icon = 'glyphicon-ok';
+                        } else {
                             icon = 'glyphicon-remove';
                         }
-                        rows += index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')<span class="glyphicon '+ icon +'"></span><br>';
+                        rows += index.item[y].item_name + ' (' + index.item[y].pivot.item_quantity + ')<span class="glyphicon ' + icon + '"></span><br>';
                     }
 
-                    rows += '</td><td>'+ index.total_bill + '</td></tr>';
+                    rows += '</td><td>' + index.total_bill + '</td></tr>';
                 });
                 $('#orders').html(rows);
             },
-            error: function(er){
+            error: function (er) {
                 console.log(er);
             }
         })
     });
 
 
-    function PrintElem(DataArray)
-    {
+    function PrintElem(DataArray) {
 //        alert(DataArray);
 
         var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
-        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
         mywindow.document.write('</head><body >');
-        mywindow.document.write('<h3>' + document.title  + '</h3>');
+        mywindow.document.write('<h3>' + document.title + '</h3>');
         mywindow.document.write('<h4>Name: ' + DataArray['name'] + '</h4>');
         mywindow.document.write('<h4>Bill: ' + DataArray['bill'] + '</h4>');
-        mywindow.document.write('<h4>Items: ' +       + '</h4>');
-        
+        mywindow.document.write('<h4>Items: ' + +'</h4>');
+
         console.log(DataArray['items']);
-        
-        for(var i =0; i<DataArray['items'].length; i++ ){
+
+        for (var i = 0; i < DataArray['items'].length; i++) {
             // mywindow.document.write('<span>' + DataArray['items'][i] + '</span><br>');
-        
+
         }
-        
+
 //        mywindow.document.write(document.getElementById(elem).innerHTML);
         mywindow.document.write('</body></html>');
 
