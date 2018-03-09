@@ -32,12 +32,14 @@
                                 <th scope="col">Items</th>
                                 <th scope="col">Bill</th>
                                 <th scope="col">Order Status</th>
+                                <th scope="col">Discount Amount</th>
+
                             </tr>
                             </thead>
                             <tbody>
 
                             @foreach ($foodOrder as $order)
-                                @php $cust = App\Customer::select('name')->where('id', $order->cust_id )->get(); @endphp
+                                @php $cust = App\Customer::select('name', 'id')->where('id', $order->cust_id )->get(); @endphp
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
@@ -86,7 +88,13 @@
 
 
                                     </script>
+                                    @php
+                                        $discount = App\Review::where('cust_id', $cust[0]->id)->groupBy('cust_id')->sum('discount_amount');
 
+                                    @endphp
+                                    <td>
+                                        {{ $discount }}
+                                    </td>
                                     <td>
                                         <button class="btn btn-info"
                                                 @php if( $order->bill_paid || !$order->status ) {echo 'disabled';} @endphp onclick="PrintElem(dataObject<?php echo $order->id; ?>)">
