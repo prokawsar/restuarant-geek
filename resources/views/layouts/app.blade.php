@@ -45,7 +45,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false" aria-haspopup="true">
-                                My Restaurant <span class="caret"></span>
+                                <span class="glyphicon glyphicon-home"></span> My Restaurant <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">
@@ -57,19 +57,19 @@
                             </ul>
                         </li>
 
-                        <li><a href="{{ route('kitchen') }}">Kitchen View</a></li>
-                        <li><a href="{{ route('allorder')  }}">All Orders</a></li>
+                        <li><a href="{{ route('kitchen') }}"><span class="glyphicon glyphicon-barcode"></span> Kitchen View</a></li>
+                        <li><a href="{{ route('allorder')  }}"><span class="glyphicon glyphicon-dashboard"></span> All Orders</a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false" aria-haspopup="true">
-                                Campaign <span class="caret"></span>
+                                <span class="glyphicon glyphicon-bell"></span> Campaign <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">
 
-                                <li><a href="{{ route('emailcamp') }}">Email Campaign</a></li>
-                                <li><a href="{{ route('smscamp') }}">SMS Campaign</a></li>
+                                <li><a href="{{ route('emailcamp') }}">Email Campaign <span class="badge label-warning">Premium</span></a></li>
+                                <li><a href="{{ route('smscamp') }}">SMS Campaign <span class="badge label-primary">Premium</span></a></li>
                             </ul>
                         </li>
 
@@ -86,21 +86,21 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false" aria-haspopup="true">
-                                {{ Auth::user()->rest_name }} <span class="caret"></span>
+                                <span class="glyphicon glyphicon-user"> </span> {{ Auth::user()->rest_name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="{{ route('profile') }}">
-                                        Profile
+                                        <span class="glyphicon glyphicon-user"></span> Profile
                                     </a>
                                     <a href="{{ route('setting') }}">
-                                        Setting
+                                        <span class="glyphicon glyphicon-asterisk"></span>Setting
                                     </a>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        <span class="glyphicon glyphicon-off"></span> Logout
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"

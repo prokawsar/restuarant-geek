@@ -4,11 +4,43 @@
 
 @section('content')
     <div class="container">
+        @php
+            $id = Auth::id();
+             $currentMonth = date('m');
+     //        dd($currentMonth);
+
+             $currentMonthSale = App\FoodOrder::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$currentMonth])->sum('total_bill');
+             $currentMonthOrder = App\FoodOrder::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$currentMonth])->count();
+             $currentMonthCustomer = App\Customer::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$currentMonth])->count();
+             $currentMonthReview = App\Review::where('rest_id', $id)->whereRaw('MONTH(review_date) = ?',[$currentMonth])->count();
+
+             $currentMonth = [
+               'sales' => $currentMonthSale,
+               'order' => $currentMonthOrder,
+               'customer' => $currentMonthCustomer,
+               'review' => $currentMonthReview,
+             ];
+
+             $lastMonth = Carbon\Carbon::now()->subMonth()->format('m');
+
+             $lastMonthSale = App\FoodOrder::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$lastMonth])->sum('total_bill');
+             $lastMonthOrder = App\FoodOrder::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$lastMonth])->count();
+             $lastMonthCustomer = App\Customer::where('rest_id', $id)->whereRaw('MONTH(created_at) = ?',[$lastMonth])->count();
+             $lastMonthReview = App\Review::where('rest_id', $id)->whereRaw('MONTH(review_date) = ?',[$lastMonth])->count();
+
+             $lastMonth = [
+                 'sales' => $lastMonthSale,
+                 'order' => $lastMonthOrder,
+                 'customer' => $lastMonthCustomer,
+                 'review' => $lastMonthReview,
+             ];
+        @endphp
+        
         <div class="row">
             <div class="col-md-12">
 
                 @php  $rest_data = App\User::where('id', Auth::id())->get();
-            if( ! $rest_data[0]->address || $rest_data[0]->image== 'no-image.jpg' || ! $rest_data[0]->phone || !$rest_data[0]->closing_day ){
+                if( ! $rest_data[0]->address || $rest_data[0]->image== 'no-image.jpg' || ! $rest_data[0]->phone || !$rest_data[0]->closing_day ){
                 @endphp
 
                 <div class="alert alert-dismissible alert-info">
@@ -67,7 +99,7 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $currentMonth['sales'] }}</p>
 
                                     <p>Total Sale</p>
                                 </div>
@@ -84,7 +116,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $currentMonth['order'] }}</p>
 
                                     <p>Total Number of Order</p>
                                 </div>
@@ -101,7 +133,7 @@
                             <!-- small box -->
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $currentMonth['customer'] }}</p>
 
                                     <p>New Customer</p>
                                 </div>
@@ -118,7 +150,7 @@
                             <!-- small box -->
                             <div class="small-box bg-red">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $currentMonth['review'] }}</p>
 
                                     <p>Total Reviews</p>
                                 </div>
@@ -145,7 +177,7 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $lastMonth['sales'] }}</p>
 
                                     <p>Total Sale</p>
                                 </div>
@@ -162,7 +194,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $lastMonth['order'] }}</p>
 
                                     <p>Total Number of Order</p>
                                 </div>
@@ -179,7 +211,7 @@
                             <!-- small box -->
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $lastMonth['customer'] }}</p>
 
                                     <p>New Customer</p>
                                 </div>
@@ -196,7 +228,7 @@
                             <!-- small box -->
                             <div class="small-box bg-red">
                                 <div class="inner">
-                                    <p style="font-size: 35px">53</p>
+                                    <p style="font-size: 35px">{{ $lastMonth['review'] }}</p>
 
                                     <p>Total Reviews</p>
                                 </div>

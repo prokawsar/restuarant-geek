@@ -12,7 +12,7 @@
                     </div>
                 @endif
 
-                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date',DB::raw('CURDATE()'))->get(); @endphp
+                @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', DB::raw('CURDATE()'))->get(); @endphp
                 {{--@php dd($foodOrder) @endphp--}}
 
 
@@ -116,8 +116,9 @@
             <div class="col-md-10 col-md-offset-1">
 
                 @php $i = 1;
-                $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
-                $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereDate('order_date', $yesterday )->get();
+                $yesterday = Carbon\Carbon::now()->subDays(1);;
+
+                $foodOrder = App\FoodOrder::where('rest_id', Auth::id())->whereRaw('DATE(created_at) =?',[$yesterday])->get();
 
                 @endphp
 
