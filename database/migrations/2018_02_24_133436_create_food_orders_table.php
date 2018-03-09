@@ -26,7 +26,7 @@ class CreateFoodOrdersTable extends Migration
             $table->foreign('cust_id')->references('id')->on('customers');
             $table->foreign('table_id')->references('id')->on('tables');
             $table->foreign('rest_id')->references('id')->on('users');
-
+            $table->timestamps();
 
         });
     }

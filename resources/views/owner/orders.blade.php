@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 @if (session('alert'))
                     <div class="alert alert-success">
                         {{ session('alert') }}
@@ -39,7 +39,7 @@
                             <tbody>
 
                             @foreach ($foodOrder as $order)
-                                @php $cust = App\Customer::select('name', 'id')->where('id', $order->cust_id )->get(); @endphp
+                                @php $cust = App\Customer::select('name', 'id', 'discount_amount')->where('id', $order->cust_id )->get(); @endphp
 
                                 @php $table = App\Table::select('name_or_no')->where('id', $order->table_id )->get(); @endphp
                                 {{--@php dd($table) @endphp--}}
@@ -61,7 +61,6 @@
                                     <td>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
-                                                $bill += $item_id->item_price * $item_id->item_quantity;
 
                                             @endphp
 
@@ -75,10 +74,8 @@
 
                                         @endforeach
                                     </td>
-                                    @php
-                                        App\FoodOrder::where('id', $order->id)->update(array('total_bill' => $bill));
-                                    @endphp
-                                    <td>{{ $bill }}</td>
+
+                                    <td>{{ $order->total_bill }}</td>
                                     <td>{{ $status }}</td>
                                     <script>
                                         var dataObject<?php echo $order->id; ?> = {};
@@ -88,12 +85,9 @@
 
 
                                     </script>
-                                    @php
-                                        $discount = App\Review::where('cust_id', $cust[0]->id)->groupBy('cust_id')->sum('discount_amount');
 
-                                    @endphp
                                     <td>
-                                        {{ $discount }}
+                                        {{ $cust[0]->discount_amount }}
                                     </td>
                                     <td>
                                         <button class="btn btn-info"

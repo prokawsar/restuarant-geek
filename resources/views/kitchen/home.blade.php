@@ -32,6 +32,7 @@
                             <th scope="col">Items</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
+                            <th scope="col">Order On</th>
                         </tr>
                         </thead>
                         <tbody id="datas">
@@ -47,6 +48,7 @@
 @endsection
 
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 
 <script>
 
@@ -81,20 +83,22 @@
                             status = 'disabled';
                         }
                         rows +='<tr class="'+statusClass +'"><td class="custom-row ">' + index.item[y].item_name + ' ('+ index.item[y].pivot.item_quantity +')' +
-                            ' <button type="button" class="btn btn-info pull-right" onclick="itemDone('+index.item[y].pivot.id +')"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';
+                            ' <button type="button" class="btn btn-info pull-right" onclick="itemDone('+index.item[y].pivot.id +','+ index.id +')"'+ status +' data-id="' + index.item[y].pivot.id + '">Done </button></td></tr>';
                     }
                     status = '';
                     statusClass = '';
+                    var compTime = ''; // in future will add complete time
                     if (index.status) {
                         status = 'Completed';
-                        statusClass = 'disabled'
+                        statusClass = 'disabled';
                     } else {
                         status = 'Pending';
+
                     }
 
                         rows += '</table></td><td>' + status + '</td>' +
                         '<td><button type="button" class="btn btn-info "'+ statusClass +' onclick="orderDone(' + index.id + ')">Order Done </button></td>' +
-                        '<td>'+ index.order_date +'</td></tr>';
+                        '<td>'+ moment(index.created_at).fromNow() +'</td></tr>';
                 })
                 $('#datas').html(rows);
             }
@@ -108,7 +112,7 @@
     }
 
     $(document).ready(function () {
-        timeOut();
+//        timeOut();
         loadOrderData();
 
     });
@@ -120,10 +124,10 @@ $(document).on('click', '.geturlbutton', function () {
         window.location.href = url;
     });
 
-    function itemDone(id) {
+    function itemDone(id, orderID) {
 //            alert($('.geturlbutton').data('id'));
         // var id = $('.itemDoneButton').data('id');
-        url = '/kitchen/itemdone' + id;
+        url = '/kitchen/itemdone' + id +'/'+ orderID;
         window.location.href = url;
     }
 

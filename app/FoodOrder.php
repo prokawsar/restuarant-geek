@@ -15,7 +15,6 @@ class FoodOrder extends Model
         'total_bill', 'order_date', 'status', 'cust_id', 'rest_id', 'table_id'
     ];
 
-    public $timestamps = false;
     protected $dates = ['order_date'];
 
     public function item()

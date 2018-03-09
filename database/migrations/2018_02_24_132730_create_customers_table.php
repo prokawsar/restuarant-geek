@@ -18,6 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('phone')->unique()->nullable();
             $table->string('email')->nullable();
+            $table->float('discount_amount')->default(0);
             $table->integer('rest_id')->unsigned();
             $table->foreign('rest_id')->references('id')->on('users');
             $table->timestamps();

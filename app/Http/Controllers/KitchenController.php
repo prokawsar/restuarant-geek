@@ -46,7 +46,12 @@ class KitchenController extends Controller
         return redirect('/kitchen/home')->with('status', 'Order no '.$id.' Done !');
     }
 
-    public function ItemDone($id){
+    public function ItemDone($id, $orderID){
+        $foodOrder = FoodOrderItem::find($id);
+
+        $order = FoodOrder::find($orderID);
+        $order->total_bill += $foodOrder->item_price * $foodOrder->item_quantity;
+        $order->save();
 
         FoodOrderItem::where('id', $id)->update(array('order_status' => 1));
         return redirect('/kitchen/home')->with('status', 'Item Done !' .$id);

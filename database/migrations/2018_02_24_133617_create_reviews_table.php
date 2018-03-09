@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->text('review');
             $table->timestamp('review_date');
-            $table->float('discount_amount')->default(0);
+
             $table->integer('rating')->default(0);
 
             $table->integer('order_id')->unsigned();

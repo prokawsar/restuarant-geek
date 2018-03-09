@@ -141,6 +141,6 @@ Route::group(['prefix' => 'kitchen'], function () {
   Route::get('/allorders', 'KitchenController@orderData')->name('allorders');
 
   Route::get('/orderdone{id}', 'KitchenController@OrderDone')->name('orderdone');
-  Route::get('/itemdone{id}', 'KitchenController@ItemDone')->name('itemdone');
+  Route::get('/itemdone{id}/{orderID}', 'KitchenController@ItemDone')->name('itemdone');
 
 });

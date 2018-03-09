@@ -37,6 +37,7 @@ class WaiterController extends Controller
         return view('waiter.placedorder');
     }
 
+
     public function placeOrder(Request $request){
         $items = json_decode($request['order_list']);
 
@@ -76,6 +77,7 @@ class WaiterController extends Controller
             if (isset($request['email'])) {
                 $customer->email = $request['email'];
             }
+            $customer->discount_amount = 0;
             $customer->rest_id = $request['rest_id'];
             $customer->save();
 
@@ -151,8 +153,15 @@ class WaiterController extends Controller
         $review = new Review();
 
         $review->review = $request['review'];
-        $review->discount_amount = $request['discount'];
         $review->order_id = $request['order_id'];
+
+        $customer = Customer::find($request['cust_id']);
+        $currentDiscount = $customer->discount_amount;
+        $customer->discount_amount = $currentDiscount + $request['discount'];
+        $customer->save();
+
+//        Customer::where('id', $request['cust_id'])->update(['discount_amount' => $currentDiscount + $request['discount_amount'] ]);
+
         $review->cust_id= $request['cust_id'];
         $review->rest_id = $request['rest_id'];
         $review->rating = $request['rating'];
