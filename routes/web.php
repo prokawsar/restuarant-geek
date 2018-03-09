@@ -29,6 +29,10 @@ Auth::routes();
 Route::get('/ucode', 'HomeController@getUCode')->name('ucode');
 Route::post('/ucode', 'HomeController@setUCode');
 
+Route::post('/checkWcode', 'HomeController@checkWcode');
+
+Route::post('/checkKcode', 'HomeController@checkKcode');
+
 Route::get('/kitchen/ucode', 'HomeController@setCode')->name('kcode');
 Route::post('/kitchen/ucode', 'HomeController@setKitchenCode');
 
@@ -80,6 +84,7 @@ Route::post('/emailcamp', 'HomeController@emailCamp');
 
 Route::post('/smscamp', 'HomeController@smsCamp');
 
+Route::post('/verify', 'Auth\RegisterController@verify');
 
 Route::get('/setting', function(){
     return view('owner.setting');

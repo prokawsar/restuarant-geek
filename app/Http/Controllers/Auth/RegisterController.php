@@ -70,6 +70,17 @@ class RegisterController extends Controller
             'rest_name' => $data['rest-name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'email_token' => base64_encode($data['email'])
         ]);
     }
+
+    public function verify($token)
+    {
+        $user = User::where('email_token', $token)->first();
+        $user->verified = 1;
+        if ($user->save()) {
+            return view('emailconfirm', ['user' => $user]);
+        }
+    }
+
 }

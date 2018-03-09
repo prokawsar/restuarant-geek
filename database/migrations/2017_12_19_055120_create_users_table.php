@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('closing_day')->nullable();
             $table->string('image')->default('no-image.jpg');
             $table->boolean('verified')->default(0);
+            $table->string('email_token')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

@@ -153,6 +153,41 @@ class HomeController extends Controller
         return redirect('/kitchen/ucode')->with('alert', 'Unique Code Updated !');
     }
 
+
+    public function checkWcode(Request $request)
+    {
+        $waiter = Waiter::where('wCode', $request->wCode)->get();
+        // return $kitchen;
+
+        if($request->ajax())
+        {
+            if(isset($waiter[0])){
+                return response()->json(array("exists" => true));
+            }else{
+                return response()->json(array("exists" => false));
+            }
+        }
+
+    }
+
+
+    public function checkKcode(Request $request)
+    {
+        $kitchen = Kitchen::where('kCode', $request->kCode)->get();
+       // return $kitchen;
+
+        if($request->ajax())
+        {
+            if(isset($kitchen[0])){
+                return response()->json(array("exists" => true));
+            }else{
+                return response()->json(array("exists" => false));
+            }
+        }
+
+    }
+
+
     public function orderDataDate(Request $request)
     {
         if ($request['start'] == $request['end']) {
@@ -177,22 +212,23 @@ class HomeController extends Controller
 
     public function emailCamp(Request $request)
     {
-
+        $total = count($request['name']);
         $data = array(
-            'name' => $request['name'][4],
-            'email' => $request['email'][4]
+            'name' => array( $request['name'] ),
+            'email' => array($request['email'] )
         );
 
-       Mail::send('mailer', $data, function ($message) use ($data){
-            $message->to($data['email'])
-                    ->subject('Hello system');
-       });
-//        return redirect('/emailcamp')->with('status', 'Email Sent Successfully !');
+    //    Mail::send('campemail', $data, function ($message) use ($data){
+    //         $message->to($data['email'])
+    //                 ->subject('Hello system');
+    //    });
+
+       return redirect('/emailcamp')->with('status', 'Email Sent Successfully to '.$total. ' User.');
     }
 
     public function smsCamp(Request $request)
     {
         $total = count($request['phone']);
-        return redirect('/sms')->with('status', 'SMS Sent to '. $total .' user successfully!');
+        return redirect('/sms')->with('status', 'SMS Sent to '. $total .' User Successfully!');
     }
 }

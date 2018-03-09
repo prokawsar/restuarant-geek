@@ -25,7 +25,7 @@
                                 <label for="wCode" class="col-md-4 control-label">New wCode:</label>
 
                                 <div class="col-md-6">
-                                    <input id="wCode" type="text" class="form-control" name="wCode" required autofocus>
+                                    <input id="wCode"  onblur="checkWcode(this)" type="text" class="form-control" name="wCode" required autofocus>
 
                                     <input id="" type="hidden" name="rest_id" value="{{ Auth::id() }}" >
 
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4 pull-right">
                                    
-                                    <button type="submit" class="btn btn-primary">
+                                    <button id="submit" type="submit" class="btn btn-primary">
                                         Submit
                                     </button>
 
@@ -62,3 +62,31 @@
     </div>
 </div>
 @endsection
+
+<script>
+
+    var _token = '{{csrf_token()}}';
+
+    function checkWcode(element) {
+        var wCode = $(element).val();
+        $.ajax({
+            type: "POST",
+            url: '{{url('/checkWcode')}}',
+            data: {wCode: wCode, _token: _token},
+//            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.exists) {
+                   alert('You can not use this wCode, already used !');
+                    $('#submit').hide();
+
+                } else {
+                    $('#submit').show();
+                }
+            },
+            error: function (exception) {
+                console.log(exception);
+            }
+        });
+    }
+</script>
