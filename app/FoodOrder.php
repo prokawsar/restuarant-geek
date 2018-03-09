@@ -16,6 +16,7 @@ class FoodOrder extends Model
     ];
 
     public $timestamps = false;
+    protected $dates = ['order_date'];
 
     public function item()
     {

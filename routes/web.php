@@ -86,6 +86,17 @@ Route::post('/smscamp', 'HomeController@smsCamp');
 
 Route::get('/verify{token}', 'Auth\RegisterController@verify');
 
+Route::get('/view{id}', function($id){
+    $reviews = App\Review::with('customer')->where('rest_id', $id)->paginate(10);
+
+    if(isset($reviews[0]->rest_id)){
+        return view('restaurant')->with('reviews', $reviews);
+    }else{
+        return view('noreview')->with('id', $id);
+    }
+
+})->name('view');
+
 Route::get('/setting', function(){
     return view('owner.setting');
 })->name('setting');

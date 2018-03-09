@@ -34,7 +34,7 @@
                                 <p><i class="glyphicon glyphicon-home"></i> {{ $user->address }}</p>
                                 <p><i class="glyphicon glyphicon-earphone"></i> {{ $user->phone }}</p>
 
-                                {{--<a href="#" class="btn btn-primary" role="button">View More</a></p>--}}
+                                <a href="{{ route('view', ['id' => $user->id]) }}" class="btn btn-primary" target="_blank" role="button">View Reviews</a></p>
                             </div>
                     </div>
                 </div>

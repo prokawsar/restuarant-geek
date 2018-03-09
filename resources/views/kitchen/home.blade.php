@@ -21,7 +21,7 @@
             <div class="col-md-10 col-md-offset-1">
 
                 @php $i = 1; $foodOrder = App\FoodOrder::where('rest_id', Auth::guard('kitchen')->user()->rest_id)->whereDate('order_date',DB::raw('CURDATE()'))->orderBy('status')->get(); @endphp
-                {{--@php dd($foodOrder) @endphp--}}
+
                 <div class="panel panel-default">
 
                     <table class="table table-hover">
@@ -94,7 +94,7 @@
 
                         rows += '</table></td><td>' + status + '</td>' +
                         '<td><button type="button" class="btn btn-info "'+ statusClass +' onclick="orderDone(' + index.id + ')">Order Done </button></td>' +
-                        '</tr>';
+                        '<td>'+ index.order_date +'</td></tr>';
                 })
                 $('#datas').html(rows);
             }

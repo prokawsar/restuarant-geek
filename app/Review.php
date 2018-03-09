@@ -16,6 +16,7 @@ class Review extends Model
     ];
 
     public $timestamps = false;
+    protected $dates = ['review_date'];
 
     public function customer(){
 
