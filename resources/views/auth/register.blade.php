@@ -68,8 +68,14 @@
                                 @endif
                             </div>
                         </div>
+      
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-                        {!! NoCaptcha::display() !!}
+                                {!! NoCaptcha::display() !!}
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
