@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Mail\Verify;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -65,22 +68,48 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'owner_name' => $data['owner-name'],
             'rest_name' => $data['rest-name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email'])
         ]);
+
+        Mail::to($user->email)->send(new Verify($user));
+
+        return $user;
+
+    }
+
+    /**
+     * Override default register method from RegistersUsers trait
+     *
+     * @param array $request
+     * @return redirect to $redirectTo
+     */
+    public function register(Request $request)
+    {
+
+        $this->validator($request->all())->validate();
+        $this->create($request->all());
+        return redirect('/register')->with('status', 'We have sent an activation link on your email id. Please verify your account.');
+
     }
 
     public function verify($token)
     {
         $user = User::where('email_token', $token)->first();
-        $user->verified = 1;
-        if ($user->save()) {
-            return view('emailconfirm', ['user' => $user]);
+        if(!$user->verified) {
+            $user->verified = 1;
+            $user->save();
+            $status = "Your e-mail is verified. You can now login.";
+        }else{
+            $status = "Your e-mail is already verified. You can now login.";
         }
+
+        return redirect('/login')->with('status', $status);
+
     }
 
 }

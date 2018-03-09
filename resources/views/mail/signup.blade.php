@@ -33,14 +33,14 @@
             "brdBottomPadd-two" id="templateContainer" width="100%">
               <tr>
                 <td class="bodyContent" valign="top" mc:edit="welcomeEdit-02">
-                  <p>Hi ..</p>
+                  <p>Hi {{ $user['owner_name'] }}</p>
 
                   <h1><strong>Congratulations on signing up<br>
                       for Restaurant Ordering System!</strong></h1>
 
                   <h3>Thanks for joining our community.
                     We're excited to have you as your customer, hope it will help you to automation, and growing your business.</h3>
-                  <a class="blue-btn" href="#"><strong>Click here to verify</strong></a>
+                  <a class="blue-btn" href="http://127.0.0.1:8000/verify{{ $user->email_token }}"><strong>Click here to verify</strong></a>
                   <br>
                   <br>
                   <br>

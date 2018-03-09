@@ -41,7 +41,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // Checking login by override
+//    public function authenticated(Request $request, $user)
+//    {
+//        if (!$user->verified) {
+//            auth()->logout();
+//            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+//        }
+//        return redirect()->intended($this->redirectPath());
+//    }
+
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -88,14 +96,6 @@ class LoginController extends Controller
                 ]);
         }
 
-        if ( ! User::where('email', $request->email)->where('password', bcrypt($request->password))->where('verified', 1)->first() ) {
-            return redirect()->back()
-                ->withInput($request->only($request->email, 'remember'))
-                ->withErrors([
-                    'email' => Lang::get('auth.failed_status'),
-                ]);
-        }
-
         if ( ! User::where('email', $request->email)->where('password', bcrypt($request->password))->first() ) {
             return redirect()->back()
                 ->withInput($request->only($request->email, 'remember'))
@@ -104,6 +104,13 @@ class LoginController extends Controller
                 ]);
         }
 
+        if ( ! User::where('email', $request->email)->where('password', bcrypt($request->password))->where('verified', 1)->first() ) {
+            return redirect()->back()
+                ->withInput($request->only($request->email, 'remember'))
+                ->withErrors([
+                    'email' => Lang::get('auth.failed_status'),
+                ]);
+        }
 
 
     }

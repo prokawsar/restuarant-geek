@@ -84,7 +84,7 @@ Route::post('/emailcamp', 'HomeController@emailCamp');
 
 Route::post('/smscamp', 'HomeController@smsCamp');
 
-Route::post('/verify', 'Auth\RegisterController@verify');
+Route::get('/verify{token}', 'Auth\RegisterController@verify');
 
 Route::get('/setting', function(){
     return view('owner.setting');

@@ -96,7 +96,7 @@
                                                 <input name="order_id" type="hidden" value="{{ $order->id }}"/>
                                                 <input name="rest_id" type="hidden"
                                                        value="{{ Auth::guard('waiter')->user()->rest_id }}"/>
-                                                <input name="discount" type="hidden" value="10"/>
+                                                <input name="discount" type="hidden" value="{{ $order->total_bill * .03 }}"/>
 
                                                 <input id="rating-system" type="number" name="rating" class="rating"
                                                        min="1" max="5" step="1" required />
@@ -104,7 +104,7 @@
                                                 <br>
 
                                                 <label class="control-label" for="discount">After giving review you will
-                                                    get discount:</label>
+                                                    get bonus: {{ $order->total_bill * .03 }} </label>
 
                                                 <button type="submit" class="btn btn-success pull-right">Submit</button>
 
