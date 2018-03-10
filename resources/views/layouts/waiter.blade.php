@@ -40,8 +40,8 @@
                     <ul class="nav navbar-nav">
                     @php if(Auth::guard('waiter')->check()) { @endphp
 
-                        <li><a href="{{ route('review') }}">Take Review</a></li>
-                        <li><a href="{{ route('placedorder') }}">Placed Order</a></li>
+                        <li><a href="{{ route('review') }}"><span class="glyphicon glyphicon-pencil"></span> Take Review</a></li>
+                        <li><a href="{{ route('placedorder') }}"><span class="glyphicon glyphicon-download"></span> Placed Order</a></li>
                     @php } @endphp
                     </ul>
 
@@ -51,7 +51,7 @@
                         @php if(Auth::guard('waiter')->user()) { @endphp
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                Notificatoin <span id="notifCount" class="label label-success"> </span> <span class="caret"></span>
+                                <span class="glyphicon glyphicon-bell"></span> Notificatoin <span id="notifCount" class="label label-success"> </span> <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" id="notify">
@@ -69,7 +69,7 @@
                                     <a href="{{ route('wlogout') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
+                                        <span class="glyphicon glyphicon-off"></span> Logout
                                     </a>
 
                                     <form id="logout-form" action="{{ route('wlogout') }}" method="POST" style="display: none;">

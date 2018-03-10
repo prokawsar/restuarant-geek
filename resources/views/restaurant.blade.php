@@ -8,10 +8,10 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     @php
-                        $name = App\User::select('rest_name')->where('id', $reviews[0]->rest_id)->get();
+                        $restaurant = App\User::where('id', $reviews[0]->rest_id)->get();
 
                     @endphp
-                    <div class="panel-heading lead">{{ $name[0]->rest_name }}</div>
+                    <div class="panel-heading lead">{{ $restaurant[0]->rest_name }}</div>
 
                     <div class="panel-body">
                         @if (session('status'))

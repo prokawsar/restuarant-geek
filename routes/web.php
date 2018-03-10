@@ -87,7 +87,8 @@ Route::post('/smscamp', 'HomeController@smsCamp');
 Route::get('/verify{token}', 'Auth\RegisterController@verify');
 
 Route::get('/view{id}', function($id){
-    $reviews = App\Review::with('customer')->where('rest_id', $id)->paginate(10);
+    $reviews = App\Review::with('customer')->where('rest_id', $id)->orderBy('review_date', 'DESC')->paginate(10);
+//    dd($reviews);
 
     if(isset($reviews[0]->rest_id)){
         return view('restaurant')->with('reviews', $reviews);

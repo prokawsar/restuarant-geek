@@ -23,6 +23,8 @@ class CreateFoodOrderItemsTable extends Migration
 
             $table->foreign('order_id')->references('id')->on('food_orders');
             $table->foreign('item_id')->references('id')->on('items');
+
+            $table->timestamps();
         });
     }
 

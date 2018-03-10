@@ -57,8 +57,10 @@
                             </ul>
                         </li>
 
-                        <li><a href="{{ route('kitchen') }}"><span class="glyphicon glyphicon-barcode"></span> Kitchen View</a></li>
-                        <li><a href="{{ route('allorder')  }}"><span class="glyphicon glyphicon-dashboard"></span> All Orders</a></li>
+                        <li><a href="{{ route('kitchen') }}"><span class="glyphicon glyphicon-barcode"></span> Kitchen
+                                View</a></li>
+                        <li><a href="{{ route('allorder')  }}"><span class="glyphicon glyphicon-dashboard"></span> All
+                                Orders</a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -68,8 +70,10 @@
 
                             <ul class="dropdown-menu">
 
-                                <li><a href="{{ route('emailcamp') }}">Email Campaign <span class="badge label-warning">Premium</span></a></li>
-                                <li><a href="{{ route('smscamp') }}">SMS Campaign <span class="badge label-primary">Premium</span></a></li>
+                                <li><a href="{{ route('emailcamp') }}">Email Campaign <span class="badge label-warning">Premium</span></a>
+                                </li>
+                                <li><a href="{{ route('smscamp') }}">SMS Campaign <span class="badge label-primary">Premium</span></a>
+                                </li>
                             </ul>
                         </li>
 
@@ -80,13 +84,25 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @guest
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false" aria-haspopup="true">
+                            <span class="badge label-info">ARE YOU A RESTAURANT OWNER <span class="glyphicon glyphicon-question-sign"></span></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-in"> </span>
+                                    Login</a></li>
+                            <li><a href="{{ route('register') }}"><span class="glyphicon glyphicon-plus-sign"> </span>
+                                    Register</a></li>
+                        </ul>
+                    </li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false" aria-haspopup="true">
-                                <span class="glyphicon glyphicon-user"> </span> {{ Auth::user()->rest_name }} <span class="caret"></span>
+                                <span class="glyphicon glyphicon-user"> </span> {{ Auth::user()->rest_name }} <span
+                                        class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">
@@ -138,7 +154,7 @@
         });
 
     });
-    
+
 </script>
 </body>
 </html>

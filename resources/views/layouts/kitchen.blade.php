@@ -50,7 +50,7 @@
                                     <a href="{{ route('klogout') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
+                                        <span class="glyphicon glyphicon-off"></span> Logout
                                     </a>
 
                                     <form id="logout-form" action="{{ route('klogout') }}" method="POST" style="display: none;">
