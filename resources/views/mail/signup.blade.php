@@ -40,7 +40,7 @@
 
                   <h3>Thanks for joining our community.
                     We're excited to have you as your customer, hope it will help you to automation, and growing your business.</h3>
-                  <a class="blue-btn" href="{{ URL::route('index') }}/verify{{ $user->email_token }}"><strong>Click here to verify</strong></a>
+                  <a class="blue-btn" href="{{ url('/') }}/verify{{ $user->email_token }}"><strong>Click here to verify</strong></a>
                   <br>
                   <br>
                   <br>
