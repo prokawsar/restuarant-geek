@@ -31,7 +31,7 @@
                             @endif
                             <div class="modal-header">
 
-                                <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
+                                <a class="btn btn-info" href="{{ url('/allitem') }}">Back</a>
 
                                 <!-- <h4 class="modal-title">Add Category</h4> -->
 

@@ -6,7 +6,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-4">
-            <a href="{{ route('additem') }}" class="btn btn-success">Add New Item</a>
+        @php
+            $restCat = App\Category::where('rest_id', Auth::id())->first();
+        //   dd($restCat);
+        @endphp
+            @if( $restCat)
+                <a href="{{ route('additem') }}" class="btn btn-success">Add New Item</a>
+            @else
+                <a href="#" class="btn btn-success" disabled title="Add Category First" >Add New Item</a>
+            @endif
             <a href="{{ route('addcate') }}" class="btn btn-success">Add New Category</a>
         </div>
     </div>

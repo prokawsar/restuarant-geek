@@ -31,8 +31,9 @@
                         <img style="width: 300px; height: 200px;"  src="{{ asset('restaurant/'.$user->image) }}" alt="No Image">
                             <div class="caption">
                                 <h3>{{ $user->rest_name }}</h3>
-                                <p><i class="glyphicon glyphicon-home"></i> {{ $user->address }}</p>
-                                <p><i class="glyphicon glyphicon-earphone"></i> {{ $user->phone }}</p>
+                                <p class="text-yellow" ><i class="glyphicon glyphicon-home"></i> {{ $user->address }}</p>
+                                <p class="text-blue" ><i class="glyphicon glyphicon-earphone"></i> {{ $user->phone }}</p>
+                                <p class="text-maroon" title="Closing Day" ><i class="glyphicon glyphicon-off"></i> {{ $user->closing_day }} </p>
 
                                 <a href="{{ route('view', ['id' => $user->id]) }}" class="btn btn-primary" target="_blank" role="button">View Reviews</a></p>
                             </div>

@@ -21,7 +21,7 @@
 
                                 <div class="modal-header">
 
-                                    <a class="btn btn-info" href="{{ URL::previous() }}">Back</a>
+                                    <a class="btn btn-info" href="{{ url('/alltable') }}">Back</a>
 
                                 </div>
 
