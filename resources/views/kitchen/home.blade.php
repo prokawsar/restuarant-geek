@@ -49,6 +49,8 @@
 
 <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.16/moment-timezone-with-data.js"></script>
+
 
 <script>
 
@@ -98,7 +100,7 @@
 
                         rows += '</table></td><td>' + status + '</td>' +
                         '<td><button type="button" class="btn btn-info "'+ statusClass +' onclick="orderDone(' + index.id + ')">Order Done </button></td>' +
-                        '<td>'+ moment(index.created_at).fromNow() +'</td></tr>';
+                        '<td>'+ moment(index.created_at).add('6', 'hours').fromNow() +'</td></tr>';
                 })
                 $('#datas').html(rows);
             }
@@ -112,7 +114,7 @@
     }
 
     $(document).ready(function () {
-//        timeOut();
+        timeOut();
         loadOrderData();
 
     });
