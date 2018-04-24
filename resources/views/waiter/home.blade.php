@@ -175,6 +175,9 @@
                     $('#cust_id').val(res.customer.id);
                     $('#cust_name').hide();
 
+                } else if(!email){
+                    alert('Enter customer email ');
+
                 } else {
                     alert('Welcome ! This is new customer !');
                     $('#cust_name').show();

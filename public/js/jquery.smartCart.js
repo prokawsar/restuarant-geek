@@ -195,10 +195,15 @@
 
             // Cart checkout event
             $(this.cart_element).on("click", '.sc-cart-checkout', function (e) {
-                if($('#cust_phone').val()== '' && $('#cust_email').val()== '' ){
+                if($('#phone').val()== '' && $('#email').val()== '' ){
                     alert('Please provide Customer phone or email !');
                     return;
+                }else if($('#cust_name').val()== ''){
+                    alert('Please provide Customer name !');
+                    return;
                 }
+
+
 
                 if ($(this).hasClass('disabled')) {
                     return false;
