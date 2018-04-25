@@ -198,7 +198,7 @@
                 if($('#phone').val()== '' && $('#email').val()== '' ){
                     alert('Please provide Customer phone or email !');
                     return;
-                }else if($('#cust_name').val()== ''){
+                }else if( $('#cust_name').is(":visible")  && $('#cust_name').val()== ''){
                     alert('Please provide Customer name !');
                     return;
                 }

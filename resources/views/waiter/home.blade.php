@@ -177,6 +177,7 @@
 
                 } else if(!email){
                     alert('Enter customer email ');
+                    $('#cust_name').show();
 
                 } else {
                     alert('Welcome ! This is new customer !');
