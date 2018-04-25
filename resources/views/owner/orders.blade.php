@@ -59,6 +59,9 @@
                                     <th scope="row">{{ $cust[0]->name }}</th>
                                     <td>{{ $table[0]->name_or_no }}</td>
                                     <td>
+                                    <script>
+                                        var items<?php echo $order->id; ?> = [];    
+                                    </script>
                                         @foreach($items as $item_id)
                                             @php $item = App\Item::select('item_name', 'price')->where('id', $item_id->item_id)->get();
 
@@ -68,8 +71,8 @@
                                             ( {{ $item_id->item_quantity }} )<br>
 
                                             <script>
-                                                var items<?php echo $order->id; ?> = [];
-                                                items<?php echo $order->id; ?>.push(<?php echo $item[0]->item_name; ?>);
+                                        
+                                                items<?php echo $order->id; ?>.push('<?php echo $item[0]->item_name; ?>');
                                             </script>
 
                                         @endforeach
@@ -242,8 +245,9 @@
                 end: end
             },
             success: function (response) {
-                console.log(response);
+                console.log(response.length);
                 var rows = '', x = 1;
+
                 response.map(function (index) {
 
                     rows += '<tr class=""><td>' + x++ + '</td>' +
@@ -264,9 +268,14 @@
                     rows += '</td><td>' + index.total_bill + '</td></tr>';
                 });
                 $('#orders').html(rows);
+
+                if(response.length == 0 ){
+                    $('#orders').html('<tr><td class="danger text-center"  colspan="5"><i class="glyphicon glyphicon-ban-circle"></i> No order between these dates ! </td></tr>');
+             
+                }
             },
             error: function (er) {
-                $('#orders').html('<tr><td class="danger text-center"  colspan="5"> No order data</td></tr>');
+                $('#orders').html('<tr><td class="danger text-center"  colspan="5"> Something wrong </td></tr>');
                 console.log(er);
             }
         })
@@ -275,25 +284,26 @@
 
     function PrintElem(DataArray) {
 //        alert(DataArray);
+        var today = new Date();
 
         var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
         mywindow.document.write('<html><head><title>' + document.title + '</title>');
         mywindow.document.write('</head><body >');
-        mywindow.document.write('<h3>' + document.title + '</h3>');
+        mywindow.document.write('<h3>' + document.title + '&emsp;&emsp;&emsp;&emsp;&emsp;'+ today.toDateString() + '</h3>');
         mywindow.document.write('<h4>Name: ' + DataArray['name'] + '</h4>');
         mywindow.document.write('<h4>Bill: ' + DataArray['bill'] + '</h4>');
-        mywindow.document.write('<h4>Items: ' + +'</h4>');
+        mywindow.document.write('<h4>Items: ');
 
-        console.log(DataArray['items']);
+     //   console.log(DataArray['items']);
 
         for (var i = 0; i < DataArray['items'].length; i++) {
-            // mywindow.document.write('<span>' + DataArray['items'][i] + '</span><br>');
+            mywindow.document.write('<span>' + DataArray['items'][i] + '</span><br>');
 
         }
 
 //        mywindow.document.write(document.getElementById(elem).innerHTML);
-        mywindow.document.write('</body></html>');
+        mywindow.document.write('</h4></body></html>');
 
         mywindow.document.close(); // necessary for IE >= 10
         mywindow.focus(); // necessary for IE >= 10*/

@@ -195,14 +195,14 @@ class HomeController extends Controller
                 $request['start'])->where('rest_id', Auth::user()->id)->get();
 
         } else {
-            $start = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'),
-                $request['start'])->first();
-            $end = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'), $request['end'])->first();
+            // $start = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'),
+            //     $request['start'])->first();
+            // $end = FoodOrder::select('order_date')->where(DB::raw('DATE(order_date)'), $request['end'])->first();
 
             if ($request->ajax()) {
                 //   $foodOrder = FoodOrder::where( DB::raw('DATE(order_date)'), $request['start'])->where('rest_id', Auth::user()->id)->get();
                 $foodOrder = FoodOrder::with('item', 'customer')->whereBetween('order_date',
-                    array($start->order_date, $end->order_date))->where('rest_id', Auth::user()->id)->get();
+                    array($request['start'], $request['end']))->where('rest_id', Auth::user()->id)->get();
 
             }
         }
