@@ -266,6 +266,7 @@
                 $('#orders').html(rows);
             },
             error: function (er) {
+                $('#orders').html('<tr><td class="danger text-center"  colspan="5"> No order data</td></tr>');
                 console.log(er);
             }
         })
